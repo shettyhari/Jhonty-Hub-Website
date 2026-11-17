@@ -1,60 +1,66 @@
 ﻿<!DOCTYPE html>
-<html lang="en" data-theme="warm">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JHONTY HUB — 360° Interactive 3D Real Person Virtual Showroom</title>
-  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <title>JHONTY HUB — Style That Speaks For You | Elevated Menswear</title>
+  
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Montserrat (Brand) & Plus Jakarta Sans / Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#E86A33',
+              orangeHover: '#d55720',
+              charcoal: '#111317',
+              darkSurface: '#16191F',
+              cream: '#F4ECE4',
+              creamCard: '#FFFFFF',
+              creamBorder: '#E6DDD5',
+              gold: '#D4AF37'
+            }
+          },
+          fontFamily: {
+            brand: ['Montserrat', 'sans-serif'],
+            body: ['"Plus Jakarta Sans"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
     /* ==========================================================================
-       VÄRDE-STYLE 3D DIGITAL SHOWROOM (REAL PERSON 360° TURNTABLE)
-       Warm Architectural Terracotta & Obsidian Noir
+       JHONTY HUB EXACT UI STYLING (MATCHING LAPTOP SHOWROOM SCREEN)
        ========================================================================== */
-    :root, [data-theme="warm"] {
-      --bg-canvas: #ebe3d9;
-      --bg-stage: #dfd4c5;
-      --bg-surface: #ffffff;
-      --bg-glass: rgba(255, 255, 255, 0.88);
-      --bg-card: rgba(255, 255, 255, 0.92);
-      --border-subtle: rgba(0, 0, 0, 0.08);
-      --border-accent: rgba(184, 134, 11, 0.45);
-      
-      --arch-terracotta: #c47c5d;
-      --arch-shadow: rgba(84, 42, 24, 0.25);
-      
-      --text-main: #14171f;
-      --text-secondary: #575f6e;
-      --text-muted: #8b93a0;
-      
-      --gold-primary: #b8860b;
-      --card-shadow: 0 20px 45px rgba(45, 30, 20, 0.12), 0 4px 12px rgba(0, 0, 0, 0.05);
-      --hud-shadow: 0 20px 50px rgba(0, 0, 0, 0.16);
+    :root {
+      --bg-header: #0F1115;
+      --bg-hero: #111317;
+      --bg-body: #EDE5DC;
+      --card-bg: #FFFFFF;
+      --text-main: #14171F;
+      --text-muted: #64748B;
+      --accent-orange: #E86A33;
     }
 
     [data-theme="dark"] {
-      --bg-canvas: #0c0e12;
-      --bg-stage: #14171f;
-      --bg-surface: #12151d;
-      --bg-glass: rgba(18, 21, 29, 0.9);
-      --bg-card: rgba(24, 28, 38, 0.9);
-      --border-subtle: rgba(255, 255, 255, 0.1);
-      --border-accent: rgba(212, 175, 55, 0.45);
-      
-      --arch-terracotta: #543122;
-      --arch-shadow: rgba(0, 0, 0, 0.65);
-      
-      --text-main: #f8fafc;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      
-      --gold-primary: #d4af37;
-      --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 25px rgba(212, 175, 55, 0.12);
-      --hud-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      --bg-header: #0C0D11;
+      --bg-hero: #101216;
+      --bg-body: #16181E;
+      --card-bg: #1F222B;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --accent-orange: #E86A33;
     }
 
     html, body {
@@ -63,26 +69,13 @@
       overflow-x: hidden !important;
       margin: 0;
       padding: 0;
-    }
-
-    body {
-      background-color: var(--bg-canvas);
+      background-color: var(--bg-body);
       color: var(--text-main);
       font-family: 'Plus Jakarta Sans', sans-serif;
-      transition: background-color 0.4s ease, color 0.4s ease;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    .font-brand {
-      font-family: 'Montserrat', sans-serif;
-      letter-spacing: 0.16em;
-    }
-
-    .font-ui {
-      font-family: 'Montserrat', sans-serif;
-      letter-spacing: 0.05em;
-    }
-
-    /* Universal Scrollbar Elimination for all browsers */
+    /* Universal Scrollbar Elimination */
     *, *::before, *::after {
       -ms-overflow-style: none !important;
       scrollbar-width: none !important;
@@ -97,822 +90,933 @@
       display: none !important;
       background: transparent !important;
     }
-    *::-webkit-scrollbar-thumb,
-    *::-webkit-scrollbar-track,
-    *::-webkit-scrollbar-corner {
-      display: none !important;
-      background: transparent !important;
-      width: 0px !important;
-      height: 0px !important;
-    }
 
-    /* Neoclassical Architectural Arch Backdrop */
-    .neoclassical-arch {
-      background: radial-gradient(circle at 50% 120%, rgba(255,255,255,0.22) 0%, transparent 70%),
-                  linear-gradient(180deg, var(--arch-terracotta) 0%, #a86245 100%);
-      border-radius: 420px 420px 0 0;
-      box-shadow: inset 0 25px 60px rgba(0,0,0,0.25), 0 25px 50px var(--arch-shadow);
+    /* Logo Underline Accent (Matching the Mug & Banner in Photo) */
+    .brand-logo-wrap {
       position: relative;
+      display: inline-block;
     }
-    .neoclassical-arch::before {
+    .brand-logo-wrap::after {
       content: '';
       position: absolute;
-      inset: 12px 12px 0 12px;
-      border-radius: 410px 410px 0 0;
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      pointer-events: none;
+      left: 0;
+      bottom: -4px;
+      width: 68%;
+      height: 2.5px;
+      background-color: #E86A33;
+      border-radius: 9999px;
     }
 
-    /* 3D Turntable Stage Container */
-    .showroom-stage-3d {
-      perspective: 1100px;
-      user-select: none;
-      touch-action: none;
-      cursor: grab;
-    }
-    .showroom-stage-3d:active {
-      cursor: grabbing;
-    }
-
-    /* 3D Rotating Floor Pedestal */
-    .turntable-pedestal {
-      width: 380px;
-      height: 380px;
-      border-radius: 50%;
-      transform-style: preserve-3d;
-      transform: rotateX(72deg);
-      background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(200,185,170,0.8) 55%, rgba(140,110,90,0.9) 85%, var(--gold-primary) 100%);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35), inset 0 0 25px rgba(212, 175, 55, 0.4);
-      border: 3px solid var(--gold-primary);
+    /* Active Nav Tab Underline */
+    .nav-tab.is-active {
+      color: #FFFFFF !important;
       position: relative;
-      transition: transform 0.05s linear;
     }
-    [data-theme="dark"] .turntable-pedestal {
-      background: radial-gradient(circle, rgba(40,45,60,0.6) 0%, rgba(20,24,35,0.9) 65%, rgba(10,12,18,0.95) 90%, var(--gold-primary) 100%);
-      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(212, 175, 55, 0.3);
-    }
-    .pedestal-marker {
+    .nav-tab.is-active::after {
+      content: '';
       position: absolute;
-      inset: 12px;
-      border-radius: 50%;
-      border: 1px dashed rgba(255, 255, 255, 0.35);
-      pointer-events: none;
+      left: 0;
+      right: 0;
+      bottom: -6px;
+      height: 2px;
+      background-color: #E86A33;
+      border-radius: 2px;
     }
 
-    /* Real Person Model Display Wrapper */
-    .real-model-container {
-      position: relative;
-      width: 100%;
-      max-width: 440px;
-      height: 540px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transform-style: preserve-3d;
-      pointer-events: none;
+    /* Rounded Category Card Overlays */
+    .cat-card-gradient {
+      background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.85) 100%);
     }
 
-    .real-model-img {
-      position: absolute;
-      bottom: 24px;
-      max-height: 510px;
-      width: auto;
-      object-fit: contain;
-      filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.35));
-      transition: opacity 0.2s ease-in-out, transform 0.1s ease-out;
-      transform-origin: center bottom;
-      pointer-events: none;
+    /* Subtle Card Hover Zoom */
+    .product-card-img {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
-    /* Dynamic Contact Shadow */
-    .real-model-shadow {
-      position: absolute;
-      bottom: 12px;
-      width: 220px;
-      height: 28px;
-      border-radius: 50%;
-      background: radial-gradient(ellipse at center, rgba(15, 10, 5, 0.55) 0%, rgba(15, 10, 5, 0.2) 50%, transparent 75%);
-      filter: blur(4px);
-      pointer-events: none;
-      transition: transform 0.1s ease-out;
-    }
-    [data-theme="dark"] .real-model-shadow {
-      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 75%);
-    }
-
-    /* Bottom Dress Carousel Strip */
-    .dress-strip-card {
-      background: var(--bg-glass);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid var(--border-subtle);
-      border-radius: 18px;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-    .dress-strip-card:hover {
-      transform: translateY(-4px) scale(1.03);
-      border-color: var(--gold-primary);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12), 0 0 15px rgba(212, 175, 55, 0.2);
-    }
-    .dress-strip-card.is-active {
-      border-color: var(--gold-primary);
-      box-shadow: 0 0 0 2px var(--gold-primary), 0 15px 35px rgba(0, 0, 0, 0.15);
-      background: var(--bg-surface);
-    }
-
-    #dress-selector-strip {
-      -webkit-overflow-scrolling: touch;
-      scroll-behavior: smooth;
-      -ms-overflow-style: none !important;
-      scrollbar-width: none !important;
-      user-select: none;
-    }
-    #dress-selector-strip::-webkit-scrollbar {
-      display: none !important;
-      width: 0px !important;
-      height: 0px !important;
-    }
-
-    /* 360 Drag Badge Pulse */
-    @keyframes pulse-ring {
-      0% { transform: scale(0.97); opacity: 0.85; }
-      50% { transform: scale(1.03); opacity: 1; }
-      100% { transform: scale(0.97); opacity: 0.85; }
-    }
-    .drag-hint-badge {
-      animation: pulse-ring 2.8s infinite ease-in-out;
+    .group:hover .product-card-img {
+      transform: scale(1.04);
     }
   </style>
 </head>
-<body class="selection:bg-amber-400 selection:text-black min-h-screen flex flex-col justify-between">
+<body class="selection:bg-[#E86A33] selection:text-white min-h-screen flex flex-col justify-between">
 
-  <!-- Top Dark Announcement Bar (VÄRDE Style) -->
-  <div class="bg-[#14171f] text-white text-[11px] font-bold tracking-[0.14em] uppercase py-2.5 px-6 text-center">
-    <span>FREE EXPRESS DELIVERY &bull; ORDERS OVER ₹1,999 &bull; SAME-DAY HYDERABAD DISPATCH</span>
-  </div>
-
-  <!-- Main Luxury Header -->
-  <header class="sticky top-0 z-40 transition-colors backdrop-blur-xl border-b" style="background-color: var(--bg-glass); border-color: var(--border-subtle);">
-    <div class="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between gap-4">
+  <!-- ==========================================================================
+       1. TOP NAVIGATION BAR (CHARCOAL NOIR WITH ORANGE ACCENTS)
+       ========================================================================== -->
+  <header class="sticky top-0 z-50 bg-[#0F1115] border-b border-[#21242D] px-4 sm:px-8 py-3.5 transition-colors">
+    <div class="max-w-[1400px] mx-auto flex items-center justify-between gap-4">
       
-      <!-- Left Navigation Links -->
-      <nav class="hidden md:flex items-center space-x-7 text-xs font-bold uppercase tracking-widest" style="color: var(--text-secondary);">
-        <a href="#showroom" class="hover:text-black dark:hover:text-white transition">Showroom 3D</a>
-        <a href="#stores" class="hover:text-black dark:hover:text-white transition">Stores (HYD)</a>
-        <a href="#stores" class="hover:text-black dark:hover:text-white transition">VIP Concierge</a>
-      </nav>
-
-      <!-- Center Logo Lockup (Hexagonal JH Vector Emblem + JHONTY HUB) -->
-      <a href="javascript:void(0)" class="flex items-center gap-3 group">
-        <div class="w-9 h-11 flex-shrink-0 filter drop-shadow-[0_0_12px_rgba(212,175,55,0.4)] transition-transform group-hover:scale-105">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" class="w-full h-full" fill="none">
-            <defs>
-              <linearGradient id="jhGold" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#FFF5C0" />
-                <stop offset="25%" stop-color="#F5D061" />
-                <stop offset="55%" stop-color="#D4AF37" />
-                <stop offset="85%" stop-color="#AA771C" />
-                <stop offset="100%" stop-color="#805300" />
-              </linearGradient>
-              <linearGradient id="jhPlat" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#FFFFFF" />
-                <stop offset="35%" stop-color="#F1F5F9" />
-                <stop offset="70%" stop-color="#CBD5E1" />
-                <stop offset="100%" stop-color="#64748B" />
-              </linearGradient>
-            </defs>
-            <polygon points="100,18 184,66 184,174 100,222 16,174 16,66" stroke="url(#jhGold)" stroke-width="13" stroke-linejoin="round" stroke-linecap="round" fill="#0C0E12" />
-            <polygon points="100,30 172,72 172,168 100,210 28,168 28,72" stroke="rgba(245, 208, 97, 0.3)" stroke-width="1.5" fill="none" />
-            <path d="M 64,88 L 94,62 L 94,176 L 38,176 L 38,130 L 52,130 L 52,160 L 78,160 L 78,96 L 64,106 Z" fill="url(#jhGold)" />
-            <path d="M 104,62 L 120,62 L 120,114 L 148,114 L 148,84 L 164,94 L 164,146 L 148,156 L 148,128 L 120,128 L 120,176 L 104,176 Z" fill="url(#jhPlat)" />
-          </svg>
-        </div>
-        <div class="font-brand text-xl sm:text-2xl font-black tracking-[0.2em] uppercase leading-none" style="color: var(--text-main);">
+      <!-- Brand Logo Lockup: "JHONTY HUB" with signature orange underline -->
+      <a href="#" class="flex items-center gap-2 group flex-shrink-0">
+        <div class="brand-logo-wrap font-brand text-xl sm:text-2xl font-black tracking-[0.16em] uppercase text-white">
           JHONTY HUB
         </div>
       </a>
 
-      <!-- Right Action Items (Theme Toggle, Bag) -->
-      <div class="flex items-center space-x-6 text-xs font-bold uppercase tracking-wider" style="color: var(--text-secondary);">
+      <!-- Center Navigation Tabs (Exactly as in photo) -->
+      <nav class="hidden lg:flex items-center space-x-7 text-[13px] font-semibold tracking-wide text-slate-300">
+        <a href="#new-arrivals" class="nav-tab is-active transition hover:text-white">New Arrivals</a>
+        <a href="#shirts" class="nav-tab transition hover:text-white">Shirts</a>
+        <a href="#tshirts" class="nav-tab transition hover:text-white">T-Shirts</a>
+        <a href="#jeans" class="nav-tab transition hover:text-white">Jeans</a>
+        <a href="#trousers" class="nav-tab transition hover:text-white">Trousers</a>
+        <a href="#formal-wear" class="nav-tab transition hover:text-white">Formal Wear</a>
+      </nav>
+
+      <!-- Right Action Icons (Search, Profile, Cart, Theme Switcher) -->
+      <div class="flex items-center space-x-5 text-white">
         
-        <!-- Dark / Light Theme Toggle -->
-        <button onclick="toggleTheme()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border hover:border-amber-500 transition text-[11px]" style="border-color: var(--border-subtle); background-color: var(--bg-surface);">
-          <span id="themeEmoji">☀️</span>
-          <span id="themeText" class="hidden sm:inline">WARM</span>
+        <!-- Search Icon -->
+        <button onclick="openSearchModal()" class="text-slate-300 hover:text-white transition p-1" title="Search Collections">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
         </button>
 
-        <button onclick="toggleBag(true)" class="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#14171f] text-white dark:bg-white dark:text-black hover:opacity-90 transition shadow-md">
-          <span>BAG</span>
-          <span class="w-4 h-4 rounded-full bg-amber-400 text-black text-[10px] font-black flex items-center justify-center" id="header-bag-count">1</span>
+        <!-- Account / Profile Icon -->
+        <button onclick="openAccountModal()" class="text-slate-300 hover:text-white transition p-1" title="VIP Account">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+          </svg>
         </button>
+
+        <!-- Shopping Bag Icon with Active Counter -->
+        <button onclick="toggleBag(true)" class="relative text-slate-300 hover:text-white transition p-1" title="View Bag">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+          </svg>
+          <span id="header-bag-count" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#E86A33] text-white text-[10px] font-black flex items-center justify-center">
+            2
+          </span>
+        </button>
+
+        <!-- Dark / Warm Theme Toggle -->
+        <button onclick="toggleTheme()" class="text-xs px-2.5 py-1 rounded-full border border-slate-700 bg-slate-900/60 hover:border-amber-500 transition flex items-center gap-1.5" title="Toggle Theme">
+          <span id="themeEmoji">🌙</span>
+          <span id="themeText" class="hidden sm:inline text-[11px] font-bold">DARK</span>
+        </button>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button onclick="toggleMobileNav()" class="lg:hidden text-slate-300 hover:text-white p-1">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+
       </div>
 
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-nav" class="lg:hidden hidden pt-4 pb-2 border-t border-slate-800 mt-3 space-y-2 text-sm font-semibold text-slate-300">
+      <a href="#new-arrivals" onclick="toggleMobileNav()" class="block py-1.5 text-white">New Arrivals</a>
+      <a href="#shirts" onclick="toggleMobileNav()" class="block py-1.5 hover:text-white">Shirts</a>
+      <a href="#tshirts" onclick="toggleMobileNav()" class="block py-1.5 hover:text-white">T-Shirts</a>
+      <a href="#jeans" onclick="toggleMobileNav()" class="block py-1.5 hover:text-white">Jeans</a>
+      <a href="#trousers" onclick="toggleMobileNav()" class="block py-1.5 hover:text-white">Trousers</a>
+      <a href="#formal-wear" onclick="toggleMobileNav()" class="block py-1.5 hover:text-white">Formal Wear</a>
     </div>
   </header>
 
   <!-- ==========================================================================
-       REAL PERSON 360° 3D VIRTUAL SHOWROOM (TURNTABLE IN ONE PLACE)
+       2. HERO BANNER: "STYLE THAT SPEAKS FOR YOU" WITH REAL MENSWEAR MODEL
        ========================================================================== -->
-  <main id="showroom" class="relative flex-grow flex flex-col items-center justify-center px-4 py-4 md:py-6 overflow-hidden">
+  <section class="relative bg-[#101217] text-white overflow-hidden border-b border-[#222530]">
     
-    <!-- Top 360° Instructions & Rotation Angle Controls -->
-    <div class="relative z-20 flex flex-wrap items-center justify-center gap-3 mb-3">
+    <!-- Background Architectural Wardrobe Studio Scene -->
+    <div class="absolute inset-0 z-0 opacity-40 pointer-events-none bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-amber-900/30 via-[#101217] to-[#0A0B0E]"></div>
+    
+    <div class="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-10 py-12 md:py-16 lg:py-20 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[500px]">
       
-      <!-- Interactive Drag Hint Badge with Live Compass -->
-      <div class="drag-hint-badge flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border shadow-md" style="background-color: var(--bg-glass); border-color: var(--border-subtle);">
-        <span class="text-amber-500 font-black">🔄 DRAG PERSON 360° IN PLACE</span>
-        <span class="opacity-25">|</span>
-        <span id="rotation-angle-label" class="font-ui font-black text-slate-800 dark:text-slate-200">FRONT (0°)</span>
-      </div>
-
-      <!-- Quick Angle Preset Buttons -->
-      <div class="flex items-center space-x-1.5 p-1 rounded-full border text-[11px] font-bold uppercase tracking-wider shadow-sm" style="background-color: var(--bg-glass); border-color: var(--border-subtle);">
-        <button onclick="setAngle(0)" class="px-3 py-1 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition">Front</button>
-        <button onclick="setAngle(90)" class="px-3 py-1 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition">Side</button>
-        <button onclick="setAngle(180)" class="px-3 py-1 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition">Back</button>
-        <button id="auto-spin-btn" onclick="toggleAutoSpin()" class="px-3 py-1 rounded-full bg-amber-400 text-black font-black hover:bg-amber-300 transition">360° Spin: ON</button>
-      </div>
-
-    </div>
-
-    <!-- Central 3D Stage Area (Neoclassical Arch & 360° Real Human Model Turntable) -->
-    <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center min-h-[520px] md:min-h-[580px] showroom-stage-3d" id="turntable-stage">
-      
-      <!-- Architectural Neoclassical Colonnade Arch Backdrop -->
-      <div class="absolute w-[320px] sm:w-[400px] md:w-[460px] h-[480px] md:h-[550px] bottom-0 neoclassical-arch z-0 flex flex-col items-center justify-start pt-8 pointer-events-none select-none">
-        <div class="w-14 h-14 rounded-full border border-white/30 flex items-center justify-center opacity-40">
-          <div class="w-7 h-7 rounded-full border border-white/40"></div>
-        </div>
-        <div class="text-white/20 font-brand text-2xl font-black tracking-[0.3em] uppercase mt-3">
-          JHONTY
-        </div>
-      </div>
-
-      <!-- 3D Rotating Floor Turntable Pedestal Stand -->
-      <div class="absolute bottom-4 z-0 pointer-events-none flex items-center justify-center">
-        <div class="turntable-pedestal" id="pedestal-disc">
-          <div class="pedestal-marker"></div>
-          <!-- Center 360 Degree Radial Compass Ticks -->
-          <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
-            <div class="w-16 h-16 rounded-full border border-amber-400"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Real Human Model Container (Centerpiece) -->
-      <div class="real-model-container z-10" id="real-model-wrap">
+      <!-- Left Column: Headline, Subheadline & Orange CTA Button -->
+      <div class="lg:col-span-7 flex flex-col justify-center space-y-6">
         
-        <!-- Dynamic Ground Contact Shadow (Reacts to rotation) -->
-        <div class="real-model-shadow" id="model-shadow"></div>
+        <h1 class="font-brand text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight leading-[1.08]">
+          STYLE THAT<br>
+          SPEAKS FOR <span class="text-[#E86A33]">YOU</span>
+        </h1>
+        
+        <p class="text-slate-300 text-base sm:text-lg md:text-xl font-medium tracking-wide">
+          Everyday essentials. Elevated menswear.
+        </p>
 
-        <!-- Real Human Model Photos (Front, 3/4, Profile, Back) -->
-        <img id="model-img-front" src="" alt="Jhonty Hub Model - Front" class="real-model-img">
-        <img id="model-img-side" src="" alt="Jhonty Hub Model - Side" class="real-model-img" style="opacity: 0;">
-        <img id="model-img-back" src="" alt="Jhonty Hub Model - Back" class="real-model-img" style="opacity: 0;">
+        <div>
+          <a href="#trending" class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#E86A33] hover:bg-[#d55720] text-white font-brand font-bold text-xs sm:text-sm tracking-[0.14em] uppercase shadow-[0_10px_25px_rgba(232,106,51,0.4)] transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+            <span>EXPLORE THE COLLECTION</span>
+            <span class="text-base font-bold">&rarr;</span>
+          </a>
+        </div>
+
+        <!-- Store Trust Badges -->
+        <div class="pt-4 flex flex-wrap items-center gap-6 text-xs text-slate-400 font-medium">
+          <div class="flex items-center gap-2">
+            <span class="text-[#E86A33] font-bold">✓</span> Premium 100% Cotton & Linen
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[#E86A33] font-bold">✓</span> Hyderabad Flagship Stores
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[#E86A33] font-bold">✓</span> Same-Day Express Dispatch
+          </div>
+        </div>
 
       </div>
 
-      <!-- Left / Right Quick Orbit Buttons on 3D Stage -->
-      <button onclick="rotateStep(-30)" class="absolute left-2 sm:left-6 md:left-14 top-1/2 -translate-y-1/2 z-20 w-11 h-11 md:w-13 md:h-13 rounded-full flex items-center justify-center border shadow-lg transition-transform hover:scale-110 active:scale-90" style="background-color: var(--bg-glass); border-color: var(--border-subtle); color: var(--text-main);" title="Rotate Left">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
-      </button>
-
-      <button onclick="rotateStep(30)" class="absolute right-2 sm:right-6 md:right-14 top-1/2 -translate-y-1/2 z-20 w-11 h-11 md:w-13 md:h-13 rounded-full flex items-center justify-center border shadow-lg transition-transform hover:scale-110 active:scale-90" style="background-color: var(--bg-glass); border-color: var(--border-subtle); color: var(--text-main);" title="Rotate Right">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
-      </button>
-
-    </div>
-
-    <!-- ==========================================================================
-         BOTTOM DRESS SELECTOR BAR (REAL PERSON WEARS SELECTED OUTFIT FOR PREVIEW)
-         ========================================================================== -->
-    <div class="relative z-20 w-full max-w-6xl mx-auto mt-2">
-      
-      <div class="flex items-center justify-between mb-2 px-2">
-        <span class="text-[11px] font-black uppercase tracking-wider text-amber-500">
-          SELECT A DRESS BELOW TO PREVIEW ON REAL PERSON &bull; DRAG PERSON TO ROTATE 360°
-        </span>
-        <span id="active-dress-label" class="text-xs font-bold text-slate-500">
-          Wearing: <strong>320 GSM Vintage Ringer Tee</strong>
-        </span>
-      </div>
-
-      <!-- Horizontal Scrollable Dress Cards Carousel Strip with Left & Right Arrows -->
-      <div class="relative group/strip my-1">
-        <!-- Left Scroll Arrow -->
-        <button onclick="scrollDressStrip(-260)" class="absolute -left-3 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full flex items-center justify-center border shadow-md transition-transform hover:scale-110 active:scale-95 bg-white/90 dark:bg-black/90 text-black dark:text-white" style="border-color: var(--border-subtle);" title="Scroll Left">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
-        </button>
-
-        <div class="flex items-center space-x-3.5 overflow-x-auto py-2 px-1 select-none" id="dress-selector-strip">
+      <!-- Right Column: Real Model in Boutique Studio (Matching the Laptop photo) -->
+      <div class="lg:col-span-5 relative flex justify-center lg:justify-end">
+        
+        <div class="relative w-full max-w-[460px] aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
+          <!-- Real Model with Sunglasses & Textured Shirt in Boutique Showroom -->
+          <img src="https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=1000&q=85" 
+               alt="Jhonty Hub Elevated Menswear Model" 
+               class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
           
-          <!-- Dress 0: Ringer Tee -->
-          <div onclick="selectDress(0)" class="dress-strip-card is-active p-3 w-40 flex flex-col justify-between" id="dress-card-0">
-            <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
-              <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=300&q=80" alt="Ringer Tee" class="w-full h-full object-cover rounded-lg">
-            </div>
-            <div>
-              <div class="font-ui text-xs font-bold line-clamp-1">Ringer Tee (320 GSM)</div>
-              <div class="text-xs font-black text-amber-500 mt-0.5">₹1,299</div>
-            </div>
-          </div>
+          <!-- Subtle Dark Gradient Scrim -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none"></div>
 
-          <!-- Dress 1: Oxford Shirt -->
-          <div onclick="selectDress(1)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-1">
-            <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
-              <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=300&q=80" alt="Linen Oxford" class="w-full h-full object-cover rounded-lg">
-            </div>
+          <!-- Bottom Floating Badge on Model -->
+          <div class="absolute bottom-5 left-5 right-5 p-3.5 rounded-2xl bg-black/60 backdrop-blur-md border border-white/15 flex items-center justify-between">
             <div>
-              <div class="font-ui text-xs font-bold line-clamp-1">Linen Oxford Shirt</div>
-              <div class="text-xs font-black text-amber-500 mt-0.5">₹1,899</div>
+              <div class="text-[11px] font-bold uppercase tracking-wider text-[#E86A33]">Signature Drop</div>
+              <div class="text-sm font-bold text-white font-brand">Onyx Textured Button-Up</div>
             </div>
+            <div class="text-sm font-black text-white font-brand">₹2,499</div>
           </div>
-
-          <!-- Dress 2: Loop Hoodie -->
-          <div onclick="selectDress(2)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-2">
-            <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
-              <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=300&q=80" alt="Loop Hoodie" class="w-full h-full object-cover rounded-lg">
-            </div>
-            <div>
-              <div class="font-ui text-xs font-bold line-clamp-1">Loopback Heavy Hoodie</div>
-              <div class="text-xs font-black text-amber-500 mt-0.5">₹2,499</div>
-            </div>
-          </div>
-
-          <!-- Dress 3: Breton Striped -->
-          <div onclick="selectDress(3)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-3">
-            <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
-              <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=300&q=80" alt="Breton" class="w-full h-full object-cover rounded-lg">
-            </div>
-            <div>
-              <div class="font-ui text-xs font-bold line-clamp-1">Breton Striped Long Sleeve</div>
-              <div class="text-xs font-black text-amber-500 mt-0.5">₹1,499</div>
-            </div>
-          </div>
-
-          <!-- Dress 4: Canvas Chore Jacket -->
-          <div onclick="selectDress(4)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-4">
-            <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
-              <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=300&q=80" alt="Chore Jacket" class="w-full h-full object-cover rounded-lg">
-            </div>
-            <div>
-              <div class="font-ui text-xs font-bold line-clamp-1">Canvas Chore Jacket</div>
-              <div class="text-xs font-black text-amber-500 mt-0.5">₹2,699</div>
-            </div>
-          </div>
-
-          <!-- Dress 5: Nylon Minimalist Bomber -->
-          <div onclick="selectDress(5)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-5">
-            <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
-              <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=300&q=80" alt="Nylon Bomber" class="w-full h-full object-cover rounded-lg">
-            </div>
-            <div>
-              <div class="font-ui text-xs font-bold line-clamp-1">Nylon Minimalist Bomber</div>
-              <div class="text-xs font-black text-amber-500 mt-0.5">₹2,999</div>
-            </div>
-          </div>
-
-          <!-- Dress 6: Tokyo Cyber Graphic Tee -->
-          <div onclick="selectDress(6)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-6">
-            <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
-              <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=300&q=80" alt="Tokyo Cyber" class="w-full h-full object-cover rounded-lg">
-            </div>
-            <div>
-              <div class="font-ui text-xs font-bold line-clamp-1">Tokyo Cyber 320 GSM Tee</div>
-              <div class="text-xs font-black text-amber-500 mt-0.5">₹1,299</div>
-            </div>
-          </div>
-
-          <!-- Dress 7: Korean Liquid Satin Shirt -->
-          <div onclick="selectDress(7)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-7">
-            <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
-              <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=300&q=80" alt="Korean Satin" class="w-full h-full object-cover rounded-lg">
-            </div>
-            <div>
-              <div class="font-ui text-xs font-bold line-clamp-1">Korean Liquid Satin Shirt</div>
-              <div class="text-xs font-black text-amber-500 mt-0.5">₹1,899</div>
-            </div>
-          </div>
-
         </div>
 
-        <!-- Right Scroll Arrow -->
-        <button onclick="scrollDressStrip(260)" class="absolute -right-3 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full flex items-center justify-center border shadow-md transition-transform hover:scale-110 active:scale-95 bg-white/90 dark:bg-black/90 text-black dark:text-white" style="border-color: var(--border-subtle);" title="Scroll Right">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
-        </button>
-      </div>
-
-      <!-- Action HUD: Add Selected Dress to Bag -->
-      <div class="flex items-center justify-between p-3.5 mt-2 rounded-2xl border" style="background-color: var(--bg-glass); border-color: var(--border-subtle);">
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-full bg-amber-400 text-black font-black flex items-center justify-center text-xs">✓</div>
-          <div>
-            <span class="text-[11px] text-slate-500">Selected Outfit:</span>
-            <span id="hud-dress-title" class="text-xs font-black ml-1">320 GSM Vintage Ringer Tee</span>
-            <span id="hud-dress-price" class="text-xs font-black text-amber-500 ml-2">₹1,299</span>
-          </div>
-        </div>
-        <button onclick="addActiveDressToBag()" class="px-6 py-2.5 rounded-full bg-[#14171f] text-white dark:bg-white dark:text-black font-ui text-xs font-black uppercase tracking-wider hover:opacity-90 transition shadow-md">
-          + Add to Bag
-        </button>
       </div>
 
     </div>
-
-  </main>
+  </section>
 
   <!-- ==========================================================================
-       "YOUR BAG" SLIDE-OUT CART DRAWER
+       3. FIVE CATEGORY CARDS STRIP (CASUAL SHIRTS, T-SHIRTS, DENIM, TROUSERS, FORMAL)
+       ========================================================================== -->
+  <section class="py-8 sm:py-10 px-4 sm:px-8 max-w-[1400px] mx-auto w-full">
+    
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4.5">
+      
+      <!-- Category 1: Casual Shirts -->
+      <a href="#trending" onclick="filterCategory('shirts')" class="group relative aspect-[4/3] sm:aspect-[16/11] rounded-2xl overflow-hidden shadow-md border border-black/10 dark:border-white/10">
+        <img src="https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=600&q=80" 
+             alt="Casual Shirts" 
+             class="w-full h-full object-cover product-card-img">
+        <div class="absolute inset-0 cat-card-gradient flex flex-col justify-end p-3.5 sm:p-4">
+          <div class="flex items-end justify-between">
+            <h3 class="font-brand font-bold text-white text-xs sm:text-sm md:text-base leading-tight">
+              Casual<br>Shirts
+            </h3>
+            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-black flex items-center justify-center font-bold text-xs sm:text-sm group-hover:bg-[#E86A33] group-hover:text-white transition-colors shadow">
+              &rarr;
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Category 2: T-Shirts -->
+      <a href="#trending" onclick="filterCategory('tshirts')" class="group relative aspect-[4/3] sm:aspect-[16/11] rounded-2xl overflow-hidden shadow-md border border-black/10 dark:border-white/10">
+        <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80" 
+             alt="T-Shirts" 
+             class="w-full h-full object-cover product-card-img">
+        <div class="absolute inset-0 cat-card-gradient flex flex-col justify-end p-3.5 sm:p-4">
+          <div class="flex items-end justify-between">
+            <h3 class="font-brand font-bold text-white text-xs sm:text-sm md:text-base leading-tight">
+              T-Shirts
+            </h3>
+            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-black flex items-center justify-center font-bold text-xs sm:text-sm group-hover:bg-[#E86A33] group-hover:text-white transition-colors shadow">
+              &rarr;
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Category 3: Denim & Jeans -->
+      <a href="#trending" onclick="filterCategory('jeans')" class="group relative aspect-[4/3] sm:aspect-[16/11] rounded-2xl overflow-hidden shadow-md border border-black/10 dark:border-white/10">
+        <img src="https://images.unsplash.com/photo-1542272604-780c96856592?auto=format&fit=crop&w=600&q=80" 
+             alt="Denim & Jeans" 
+             class="w-full h-full object-cover product-card-img">
+        <div class="absolute inset-0 cat-card-gradient flex flex-col justify-end p-3.5 sm:p-4">
+          <div class="flex items-end justify-between">
+            <h3 class="font-brand font-bold text-white text-xs sm:text-sm md:text-base leading-tight">
+              Denim &<br>Jeans
+            </h3>
+            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-black flex items-center justify-center font-bold text-xs sm:text-sm group-hover:bg-[#E86A33] group-hover:text-white transition-colors shadow">
+              &rarr;
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Category 4: Trousers -->
+      <a href="#trending" onclick="filterCategory('trousers')" class="group relative aspect-[4/3] sm:aspect-[16/11] rounded-2xl overflow-hidden shadow-md border border-black/10 dark:border-white/10">
+        <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=600&q=80" 
+             alt="Trousers" 
+             class="w-full h-full object-cover product-card-img">
+        <div class="absolute inset-0 cat-card-gradient flex flex-col justify-end p-3.5 sm:p-4">
+          <div class="flex items-end justify-between">
+            <h3 class="font-brand font-bold text-white text-xs sm:text-sm md:text-base leading-tight">
+              Trousers
+            </h3>
+            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-black flex items-center justify-center font-bold text-xs sm:text-sm group-hover:bg-[#E86A33] group-hover:text-white transition-colors shadow">
+              &rarr;
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Category 5: Formal Wear -->
+      <a href="#trending" onclick="filterCategory('formal')" class="group relative col-span-2 sm:col-span-1 aspect-[4/3] sm:aspect-[16/11] rounded-2xl overflow-hidden shadow-md border border-black/10 dark:border-white/10">
+        <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=600&q=80" 
+             alt="Formal Wear" 
+             class="w-full h-full object-cover product-card-img">
+        <div class="absolute inset-0 cat-card-gradient flex flex-col justify-end p-3.5 sm:p-4">
+          <div class="flex items-end justify-between">
+            <h3 class="font-brand font-bold text-white text-xs sm:text-sm md:text-base leading-tight">
+              Formal<br>Wear
+            </h3>
+            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-black flex items-center justify-center font-bold text-xs sm:text-sm group-hover:bg-[#E86A33] group-hover:text-white transition-colors shadow">
+              &rarr;
+            </div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- ==========================================================================
+       4. "TRENDING AT JHONTY HUB" SECTION (4 PRODUCT CARDS + 2 STACKED TILES)
+       ========================================================================== -->
+  <section id="trending" class="py-6 sm:py-10 px-4 sm:px-8 max-w-[1400px] mx-auto w-full">
+    
+    <!-- Section Header: "Trending at Jhonty Hub" + "View All →" -->
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="font-brand text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight" style="color: var(--text-main);">
+        Trending at Jhonty Hub
+      </h2>
+      <a href="#trending" class="font-brand text-xs sm:text-sm font-bold flex items-center gap-1 hover:text-[#E86A33] transition" style="color: var(--text-main);">
+        <span>View All</span>
+        <span>&rarr;</span>
+      </a>
+    </div>
+
+    <!-- Product Grid: 4 Cards on Left + 2 Stacked Feature Tiles on Right -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      
+      <!-- Product Card 1: Olive Green Shirt (₹1,899) -->
+      <div class="rounded-2xl overflow-hidden p-3 transition shadow-sm hover:shadow-md border flex flex-col justify-between group" 
+           style="background-color: var(--card-bg); border-color: rgba(0,0,0,0.06);">
+        <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-black/5 dark:bg-white/5 mb-3">
+          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80" 
+               alt="Olive Utility Slim-Fit Shirt" 
+               class="w-full h-full object-cover object-top product-card-img">
+          <!-- Wishlist Heart on Top-Left -->
+          <button onclick="toggleWishlist(this)" class="absolute top-2.5 left-2.5 w-8 h-8 rounded-full bg-white/80 dark:bg-black/60 backdrop-blur-sm flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-red-500 transition shadow-sm">
+            ♥
+          </button>
+          <!-- Price on Top-Right -->
+          <div class="absolute top-2.5 right-2.5 px-2.5 py-1 rounded-md bg-black/70 backdrop-blur-sm text-white font-brand text-xs font-black">
+            ₹1,899
+          </div>
+        </div>
+        <div>
+          <h3 class="font-brand text-sm font-bold line-clamp-1" style="color: var(--text-main);">Olive Utility Slim-Fit Shirt</h3>
+          <p class="text-[11px] text-slate-500 mt-0.5">Breathable Cotton Blend &bull; Sage Green</p>
+          <div class="flex items-center justify-between mt-3">
+            <button onclick="quickViewProduct(0)" class="text-xs font-bold text-[#E86A33] hover:underline">Quick Preview</button>
+            <button onclick="addToBagItem(0)" class="px-3 py-1.5 rounded-full bg-[#111317] dark:bg-white text-white dark:text-black font-brand text-[11px] font-bold uppercase hover:bg-[#E86A33] dark:hover:bg-[#E86A33] dark:hover:text-white transition">
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card 2: Striped Beige Shirt (₹2,199) -->
+      <div class="rounded-2xl overflow-hidden p-3 transition shadow-sm hover:shadow-md border flex flex-col justify-between group" 
+           style="background-color: var(--card-bg); border-color: rgba(0,0,0,0.06);">
+        <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-black/5 dark:bg-white/5 mb-3">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80" 
+               alt="Breton Striped Linen Shirt" 
+               class="w-full h-full object-cover object-top product-card-img">
+          <!-- Wishlist Heart on Top-Left -->
+          <button onclick="toggleWishlist(this)" class="absolute top-2.5 left-2.5 w-8 h-8 rounded-full bg-white/80 dark:bg-black/60 backdrop-blur-sm flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-red-500 transition shadow-sm">
+            ♥
+          </button>
+          <!-- Price on Top-Right -->
+          <div class="absolute top-2.5 right-2.5 px-2.5 py-1 rounded-md bg-black/70 backdrop-blur-sm text-white font-brand text-xs font-black">
+            ₹2,199
+          </div>
+        </div>
+        <div>
+          <h3 class="font-brand text-sm font-bold line-clamp-1" style="color: var(--text-main);">Breton Striped Linen Shirt</h3>
+          <p class="text-[11px] text-slate-500 mt-0.5">100% Pure Flax Linen &bull; Cream Striped</p>
+          <div class="flex items-center justify-between mt-3">
+            <button onclick="quickViewProduct(1)" class="text-xs font-bold text-[#E86A33] hover:underline">Quick Preview</button>
+            <button onclick="addToBagItem(1)" class="px-3 py-1.5 rounded-full bg-[#111317] dark:bg-white text-white dark:text-black font-brand text-[11px] font-bold uppercase hover:bg-[#E86A33] dark:hover:bg-[#E86A33] dark:hover:text-white transition">
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card 3: Navy Blue Polo (₹2,499) -->
+      <div class="rounded-2xl overflow-hidden p-3 transition shadow-sm hover:shadow-md border flex flex-col justify-between group" 
+           style="background-color: var(--card-bg); border-color: rgba(0,0,0,0.06);">
+        <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-black/5 dark:bg-white/5 mb-3">
+          <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80" 
+               alt="Structured Navy Pique Polo" 
+               class="w-full h-full object-cover object-top product-card-img">
+          <!-- Wishlist Heart on Top-Left -->
+          <button onclick="toggleWishlist(this)" class="absolute top-2.5 left-2.5 w-8 h-8 rounded-full bg-white/80 dark:bg-black/60 backdrop-blur-sm flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-red-500 transition shadow-sm">
+            ♥
+          </button>
+          <!-- Price on Top-Right -->
+          <div class="absolute top-2.5 right-2.5 px-2.5 py-1 rounded-md bg-black/70 backdrop-blur-sm text-white font-brand text-xs font-black">
+            ₹2,499
+          </div>
+        </div>
+        <div>
+          <h3 class="font-brand text-sm font-bold line-clamp-1" style="color: var(--text-main);">Structured Navy Pique Polo</h3>
+          <p class="text-[11px] text-slate-500 mt-0.5">Heavy Mercerized Pique &bull; Midnight Navy</p>
+          <div class="flex items-center justify-between mt-3">
+            <button onclick="quickViewProduct(2)" class="text-xs font-bold text-[#E86A33] hover:underline">Quick Preview</button>
+            <button onclick="addToBagItem(2)" class="px-3 py-1.5 rounded-full bg-[#111317] dark:bg-white text-white dark:text-black font-brand text-[11px] font-bold uppercase hover:bg-[#E86A33] dark:hover:bg-[#E86A33] dark:hover:text-white transition">
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card 4: Burgundy Wine Shirt (₹1,799) -->
+      <div class="rounded-2xl overflow-hidden p-3 transition shadow-sm hover:shadow-md border flex flex-col justify-between group" 
+           style="background-color: var(--card-bg); border-color: rgba(0,0,0,0.06);">
+        <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden bg-black/5 dark:bg-white/5 mb-3">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" 
+               alt="Signature Wine Oxford Shirt" 
+               class="w-full h-full object-cover object-top product-card-img">
+          <!-- Wishlist Heart on Top-Left -->
+          <button onclick="toggleWishlist(this)" class="absolute top-2.5 left-2.5 w-8 h-8 rounded-full bg-white/80 dark:bg-black/60 backdrop-blur-sm flex items-center justify-center text-slate-700 dark:text-slate-200 hover:text-red-500 transition shadow-sm">
+            ♥
+          </button>
+          <!-- Price on Top-Right -->
+          <div class="absolute top-2.5 right-2.5 px-2.5 py-1 rounded-md bg-black/70 backdrop-blur-sm text-white font-brand text-xs font-black">
+            ₹1,799
+          </div>
+        </div>
+        <div>
+          <h3 class="font-brand text-sm font-bold line-clamp-1" style="color: var(--text-main);">Signature Wine Oxford Shirt</h3>
+          <p class="text-[11px] text-slate-500 mt-0.5">Tailored Oxford Weave &bull; Deep Burgundy</p>
+          <div class="flex items-center justify-between mt-3">
+            <button onclick="quickViewProduct(3)" class="text-xs font-bold text-[#E86A33] hover:underline">Quick Preview</button>
+            <button onclick="addToBagItem(3)" class="px-3 py-1.5 rounded-full bg-[#111317] dark:bg-white text-white dark:text-black font-brand text-[11px] font-bold uppercase hover:bg-[#E86A33] dark:hover:bg-[#E86A33] dark:hover:text-white transition">
+              + Add
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: 2 Stacked Dark Feature Tiles (Find Your Fit & Visit Our Store) -->
+      <div class="sm:col-span-2 md:col-span-3 lg:col-span-2 flex flex-col gap-4">
+        
+        <!-- Tile 1: "Find Your Fit" -->
+        <div onclick="openFitModal()" class="flex-1 rounded-2xl bg-[#14161C] text-white p-6 flex items-center justify-between border border-white/10 hover:border-[#E86A33] transition-all cursor-pointer group shadow-md">
+          <div class="flex items-center gap-4">
+            <!-- Hanger Icon -->
+            <div class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#E86A33] group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4a3 3 0 00-3 3c0 1.3.8 2.4 2 2.8V12L3 18h18l-8-6V9.8c1.2-.4 2-1.5 2-2.8a3 3 0 00-3-3z"></path>
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-brand font-bold text-base text-white">Find Your Fit</h4>
+              <p class="text-xs text-slate-400 mt-0.5">Explore styles for every occasion</p>
+            </div>
+          </div>
+          <!-- Arrow Circle Button -->
+          <div class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[#E86A33] transition-colors">
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Tile 2: "Visit Our Store" -->
+        <div onclick="openStoresModal()" class="flex-1 rounded-2xl bg-[#14161C] text-white p-6 flex items-center justify-between border border-white/10 hover:border-[#E86A33] transition-all cursor-pointer group shadow-md">
+          <div class="flex items-center gap-4">
+            <!-- Location Pin Icon -->
+            <div class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#E86A33] group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <h4 class="font-brand font-bold text-base text-white">Visit Our Store</h4>
+              <p class="text-xs text-slate-400 mt-0.5">LB Nagar &bull; Kukatpally &bull; Madhapur, Hyd</p>
+            </div>
+          </div>
+          <!-- Arrow Circle Button -->
+          <div class="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[#E86A33] transition-colors">
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ==========================================================================
+       5. INTERACTIVE 360° TRY-ON & QUICK VIEW MODAL
+       ========================================================================== -->
+  <div id="product-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="relative w-full max-w-4xl bg-[#12141A] text-white rounded-3xl overflow-hidden border border-white/15 shadow-2xl grid grid-cols-1 md:grid-cols-2 max-h-[90vh]">
+      
+      <!-- Close Button -->
+      <button onclick="closeProductModal()" class="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-lg">
+        &times;
+      </button>
+
+      <!-- Left Modal Column: Real Model 360° Drag View -->
+      <div class="relative bg-[#0A0B0E] p-6 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-white/10">
+        <div class="relative w-full aspect-[3/4] max-h-[380px] flex items-center justify-center select-none cursor-grab active:cursor-grabbing" id="modal-drag-area">
+          <img id="modal-product-img" src="" alt="Product Detail" class="w-full h-full object-contain">
+        </div>
+        <div class="mt-3 flex items-center gap-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+          <span class="text-[#E86A33]">🔄 DRAG TO ROTATE 360°</span>
+          <span>&bull;</span>
+          <span id="modal-angle-indicator">FRONT (0°)</span>
+        </div>
+      </div>
+
+      <!-- Right Modal Column: Details, Size Swatches, Add to Bag -->
+      <div class="p-6 md:p-8 flex flex-col justify-between overflow-y-auto">
+        <div>
+          <span class="text-xs font-bold text-[#E86A33] uppercase tracking-wider">Elevated Menswear</span>
+          <h3 id="modal-title" class="font-brand text-2xl font-black mt-1">Product Title</h3>
+          <div id="modal-price" class="text-2xl font-black text-white font-brand mt-2">₹1,899</div>
+          <p id="modal-desc" class="text-xs text-slate-300 mt-3 leading-relaxed">
+            Crafted from high-density premium cotton with tailored seam finishes. Designed for effortless elegance from everyday casual to elevated evening outings.
+          </p>
+
+          <!-- Size Selector -->
+          <div class="mt-6">
+            <div class="flex justify-between text-xs font-bold uppercase tracking-wider mb-2">
+              <span>Select Size:</span>
+              <span class="text-[#E86A33] cursor-pointer" onclick="openFitModal()">Size Guide</span>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="selectSize(this)" class="size-btn px-4 py-2 rounded-xl border border-white/20 text-xs font-bold hover:border-[#E86A33] transition is-selected bg-white/10">M</button>
+              <button onclick="selectSize(this)" class="size-btn px-4 py-2 rounded-xl border border-white/20 text-xs font-bold hover:border-[#E86A33] transition">L</button>
+              <button onclick="selectSize(this)" class="size-btn px-4 py-2 rounded-xl border border-white/20 text-xs font-bold hover:border-[#E86A33] transition">XL</button>
+              <button onclick="selectSize(this)" class="size-btn px-4 py-2 rounded-xl border border-white/20 text-xs font-bold hover:border-[#E86A33] transition">XXL</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add to Bag CTA -->
+        <div class="mt-8 pt-4 border-t border-white/10">
+          <button onclick="addModalItemToBag()" class="w-full py-4 rounded-full bg-[#E86A33] hover:bg-[#d55720] text-white font-brand text-xs font-bold uppercase tracking-widest shadow-xl transition flex items-center justify-center gap-2">
+            <span>+ ADD TO BAG</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       6. STORE LOCATOR & VISIT MODAL (HYDERABAD FLAGSHIPS)
+       ========================================================================== -->
+  <div id="stores-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="relative w-full max-w-lg bg-[#14161C] text-white rounded-3xl p-6 sm:p-8 border border-white/15 shadow-2xl">
+      <button onclick="closeStoresModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-lg">
+        &times;
+      </button>
+      <div class="text-[#E86A33] text-xs font-bold uppercase tracking-widest mb-1">Hyderabad Flagships</div>
+      <h3 class="font-brand text-2xl font-black mb-4">Visit Jhonty Hub Stores</h3>
+      
+      <div class="space-y-4 text-xs">
+        <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+          <div class="font-bold text-sm text-white font-brand">📍 LB Nagar Flagship</div>
+          <div class="text-slate-400 mt-1">Near Ring Road Junction, LB Nagar, Hyderabad - 500074</div>
+          <div class="text-emerald-400 font-bold mt-1.5">Open Today: 10:30 AM &ndash; 10:00 PM</div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+          <div class="font-bold text-sm text-white font-brand">📍 Kukatpally Experience Center</div>
+          <div class="text-slate-400 mt-1">Main Road, Opp. KPHB Colony Pillar 742, Hyderabad - 500072</div>
+          <div class="text-emerald-400 font-bold mt-1.5">Open Today: 10:30 AM &ndash; 10:00 PM</div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+          <div class="font-bold text-sm text-white font-brand">📍 Madhapur High Street</div>
+          <div class="text-slate-400 mt-1">Hitech City Road, Near Metro Pillar 1740, Hyderabad - 500081</div>
+          <div class="text-emerald-400 font-bold mt-1.5">Open Today: 11:00 AM &ndash; 10:30 PM</div>
+        </div>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
+        <span class="text-xs text-slate-400">Need personal styling assistance?</span>
+        <a href="https://wa.me/919160663888" target="_blank" class="px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5">
+          <span>WhatsApp Concierge</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       7. FIND YOUR FIT / SIZE GUIDE MODAL
+       ========================================================================== -->
+  <div id="fit-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="relative w-full max-w-md bg-[#14161C] text-white rounded-3xl p-6 sm:p-8 border border-white/15 shadow-2xl">
+      <button onclick="closeFitModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white text-lg">
+        &times;
+      </button>
+      <div class="text-[#E86A33] text-xs font-bold uppercase tracking-widest mb-1">Fit &amp; Sizing Intelligence</div>
+      <h3 class="font-brand text-2xl font-black mb-3">Find Your Ideal Fit</h3>
+      <p class="text-xs text-slate-300 mb-4">Jhonty Hub cuts are tailored for modern Indian male physiques, balancing athletic shoulder breadth with comfortable taper.</p>
+      
+      <div class="space-y-3 text-xs">
+        <div class="flex justify-between p-3 rounded-xl bg-white/5 border border-white/10">
+          <span class="font-bold">Slim Fit (Structured)</span>
+          <span class="text-slate-400">Order your usual chest size</span>
+        </div>
+        <div class="flex justify-between p-3 rounded-xl bg-white/5 border border-white/10">
+          <span class="font-bold">Relaxed / Boxy Streetwear</span>
+          <span class="text-slate-400">Cut 2 inches broader for easy drape</span>
+        </div>
+        <div class="flex justify-between p-3 rounded-xl bg-white/5 border border-white/10">
+          <span class="font-bold">Pleated Trousers</span>
+          <span class="text-slate-400">True-to-waist with internal drawcord</span>
+        </div>
+      </div>
+
+      <button onclick="closeFitModal()" class="w-full mt-6 py-3.5 rounded-full bg-[#E86A33] text-white font-brand text-xs font-bold uppercase tracking-wider">
+        GOT IT &rarr;
+      </button>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       8. SLIDE-OUT CART DRAWER ("YOUR BAG")
        ========================================================================== -->
   <div id="bag-drawer-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300" onclick="toggleBag(false)"></div>
   
-  <div id="bag-drawer" class="fixed top-0 right-0 bottom-0 w-full max-w-md border-l z-50 transform translate-x-full transition-transform duration-300 flex flex-col p-6 shadow-2xl" style="background-color: var(--bg-surface); border-color: var(--border-subtle); color: var(--text-main);">
+  <div id="bag-drawer" class="fixed top-0 right-0 bottom-0 w-full max-w-md bg-[#12141A] text-white border-l border-white/10 z-50 transform translate-x-full transition-transform duration-300 flex flex-col p-6 shadow-2xl">
     
-    <div class="flex items-center justify-between pb-4 border-b" style="border-color: var(--border-subtle);">
-      <h3 class="font-brand text-lg font-bold tracking-wider">YOUR BAG</h3>
-      <button onclick="toggleBag(false)" class="text-2xl text-slate-400 hover:text-black dark:hover:text-white transition">&times;</button>
+    <div class="flex items-center justify-between pb-4 border-b border-white/10">
+      <div class="flex items-center gap-2">
+        <span class="font-brand text-lg font-bold tracking-wider">YOUR BAG</span>
+        <span id="bag-count-badge" class="px-2 py-0.5 rounded-full bg-[#E86A33] text-white text-[11px] font-black">2</span>
+      </div>
+      <button onclick="toggleBag(false)" class="text-2xl text-slate-400 hover:text-white transition">&times;</button>
     </div>
 
     <!-- Free Delivery Progress Meter -->
-    <div class="py-3 px-4 rounded-xl my-4 text-xs font-bold" style="background-color: var(--bg-stage);">
-      <div class="flex items-center justify-between text-emerald-600 dark:text-emerald-400 mb-1.5">
+    <div class="py-3 px-4 rounded-xl my-4 text-xs font-bold bg-white/5 border border-white/10">
+      <div class="flex items-center justify-between text-emerald-400 mb-1.5">
         <span>⚡ UNLOCKED! Free Express Delivery</span>
         <span>100%</span>
       </div>
-      <div class="w-full bg-black/10 rounded-full h-1.5 overflow-hidden">
+      <div class="w-full bg-white/10 rounded-full h-1.5 overflow-hidden">
         <div class="bg-emerald-500 h-full rounded-full" style="width: 100%;"></div>
       </div>
     </div>
 
     <!-- Bag Items List -->
     <div id="bag-items-list" class="flex-grow overflow-y-auto space-y-4 pr-1">
-      <div class="flex gap-4 p-4 rounded-2xl border" style="background-color: var(--bg-canvas); border-color: var(--border-subtle);">
-        <img id="bag-item-img" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=200&q=80" alt="Item" class="w-18 h-22 object-cover rounded-xl bg-black/10">
+      
+      <!-- Cart Item 1 -->
+      <div class="flex gap-4 p-4 rounded-2xl bg-white/5 border border-white/10">
+        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80" alt="Olive Utility Shirt" class="w-18 h-22 object-cover rounded-xl bg-black/10">
         <div class="flex-grow flex flex-col justify-between">
           <div>
             <div class="flex justify-between items-start">
-              <h4 id="bag-item-title" class="font-ui text-sm font-bold">320 GSM Vintage Ringer Tee</h4>
-              <button onclick="this.closest('.flex').remove()" class="text-slate-400 hover:text-rose-500 text-sm">&times;</button>
+              <h4 class="font-brand text-sm font-bold">Olive Utility Slim-Fit Shirt</h4>
+              <button onclick="this.closest('.flex').remove(); updateCartTotals();" class="text-slate-400 hover:text-rose-500 text-sm">&times;</button>
             </div>
-            <div class="text-[11px] text-slate-500 mt-0.5">Size: L &bull; Custom Fit</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">Size: L &bull; Sage Green</div>
           </div>
           <div class="flex items-center justify-between mt-3">
-            <span id="bag-item-price" class="text-sm font-black text-amber-500">₹1,299</span>
-            <div class="flex items-center border rounded-lg text-xs font-bold px-2 py-1 gap-2" style="border-color: var(--border-subtle);">
-              <span>Qty: 1</span>
-            </div>
+            <span class="text-sm font-black text-[#E86A33]">₹1,899</span>
+            <span class="text-xs text-slate-400">Qty: 1</span>
           </div>
         </div>
       </div>
+
+      <!-- Cart Item 2 -->
+      <div class="flex gap-4 p-4 rounded-2xl bg-white/5 border border-white/10">
+        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=200&q=80" alt="Navy Polo" class="w-18 h-22 object-cover rounded-xl bg-black/10">
+        <div class="flex-grow flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start">
+              <h4 class="font-brand text-sm font-bold">Structured Navy Pique Polo</h4>
+              <button onclick="this.closest('.flex').remove(); updateCartTotals();" class="text-slate-400 hover:text-rose-500 text-sm">&times;</button>
+            </div>
+            <div class="text-[11px] text-slate-400 mt-0.5">Size: M &bull; Midnight Navy</div>
+          </div>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-sm font-black text-[#E86A33]">₹2,499</span>
+            <span class="text-xs text-slate-400">Qty: 1</span>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- Checkout Footer -->
-    <div class="pt-4 border-t mt-auto" style="border-color: var(--border-subtle);">
+    <div class="pt-4 border-t border-white/10 mt-auto">
       <div class="flex justify-between text-sm font-bold mb-1">
         <span>Subtotal</span>
-        <span id="bag-subtotal">₹1,299</span>
+        <span id="bag-subtotal" class="font-brand font-black text-white text-base">₹4,398</span>
       </div>
-      <div class="text-[11px] text-slate-500 mb-4">Taxes and Hyderabad courier included.</div>
-      <button onclick="alert('Proceeding to Jhonty Hub Razorpay / UPI Express Checkout...')" class="w-full py-4 rounded-full bg-[#14171f] text-white dark:bg-white dark:text-black font-ui text-xs font-black uppercase tracking-widest hover:opacity-90 transition shadow-xl flex items-center justify-center gap-2">
+      <div class="text-[11px] text-slate-400 mb-4">GST included &bull; Same-day Hyderabad dispatch.</div>
+      <button onclick="alert('Proceeding to Jhonty Hub UPI & Card Secure Checkout...')" class="w-full py-4 rounded-full bg-[#E86A33] hover:bg-[#d55720] text-white font-brand text-xs font-bold uppercase tracking-widest shadow-xl transition flex items-center justify-center gap-2">
         <span>PROCEED TO CHECKOUT &rarr;</span>
       </button>
     </div>
 
   </div>
 
-  <!-- Store Information & Footnotes -->
-  <footer class="mt-8 border-t py-6 px-6 text-center text-xs" style="border-color: var(--border-subtle); color: var(--text-secondary);" id="stores">
-    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div>
-        <strong>JHONTY HUB FLAGSHIP STORES:</strong> Kukatpally Main Rd &bull; Madhapur Metro Pillar 1740 &bull; LB Nagar Ring Rd, Hyderabad
+  <!-- ==========================================================================
+       9. FOOTER (JHONTY HUB ELEVATED MENSWEAR)
+       ========================================================================== -->
+  <footer class="bg-[#0C0D11] text-slate-400 border-t border-[#1C1F28] py-12 px-6 sm:px-10 mt-12">
+    <div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      
+      <!-- Brand Column -->
+      <div class="space-y-3">
+        <div class="brand-logo-wrap font-brand text-xl font-black tracking-widest uppercase text-white">
+          JHONTY HUB
+        </div>
+        <p class="text-xs leading-relaxed text-slate-400 mt-2">
+          Everyday essentials. Elevated menswear. Designed with architectural tailoring for modern living.
+        </p>
+        <div class="text-xs text-[#E86A33] font-bold">
+          Hyderabad Flagships: Kukatpally &bull; Madhapur &bull; LB Nagar
+        </div>
       </div>
-      <div class="text-amber-500 font-bold">
-        WhatsApp Concierge: +91 91606 63888
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="font-brand text-sm font-bold text-white uppercase tracking-wider mb-3">Collections</h4>
+        <ul class="space-y-2 text-xs">
+          <li><a href="#trending" class="hover:text-white transition">Casual Linen &amp; Cotton Shirts</a></li>
+          <li><a href="#trending" class="hover:text-white transition">320 GSM Heavyweight T-Shirts</a></li>
+          <li><a href="#trending" class="hover:text-white transition">Japanese Selvedge Denim</a></li>
+          <li><a href="#trending" class="hover:text-white transition">Pleated Chinos &amp; Trousers</a></li>
+          <li><a href="#trending" class="hover:text-white transition">Formal &amp; Evening Overshirts</a></li>
+        </ul>
+      </div>
+
+      <!-- Customer Service -->
+      <div>
+        <h4 class="font-brand text-sm font-bold text-white uppercase tracking-wider mb-3">Concierge</h4>
+        <ul class="space-y-2 text-xs">
+          <li><a href="javascript:openStoresModal()" class="hover:text-white transition">Store Locator &amp; Hours</a></li>
+          <li><a href="javascript:openFitModal()" class="hover:text-white transition">Size &amp; Fit Advisor</a></li>
+          <li><a href="https://wa.me/919160663888" target="_blank" class="hover:text-white transition">WhatsApp: +91 91606 63888</a></li>
+          <li><a href="#" class="hover:text-white transition">Track Hyderabad Orders</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div>
+        <h4 class="font-brand text-sm font-bold text-white uppercase tracking-wider mb-3">VIP Membership</h4>
+        <p class="text-xs text-slate-400 mb-3">Receive early access to limited capsule drops and Hyderabad store events.</p>
+        <form onsubmit="event.preventDefault(); alert('Subscribed to Jhonty Hub VIP Club!');" class="flex gap-2">
+          <input type="email" placeholder="Enter your email" required class="flex-grow px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-white focus:outline-none focus:border-[#E86A33]">
+          <button type="submit" class="px-4 py-2.5 rounded-xl bg-[#E86A33] text-white font-brand text-xs font-bold uppercase hover:bg-[#d55720] transition">
+            JOIN
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+    <div class="max-w-[1400px] mx-auto pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-3">
+      <div>&copy; 2026 JHONTY HUB MENSWEAR PVT. LTD. ALL RIGHTS RESERVED.</div>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-white transition">Privacy Policy</a>
+        <a href="#" class="hover:text-white transition">Terms of Service</a>
+        <a href="#" class="hover:text-white transition">Shipping &amp; Returns</a>
       </div>
     </div>
   </footer>
 
   <!-- ==========================================================================
-       REAL PERSON 360° 3D TURNTABLE JAVASCRIPT ENGINE
+       10. JAVASCRIPT CONTROLLERS
        ========================================================================== -->
   <script>
-    // Real Human Model Dataset for 8 Outfits across 360° Photorealistic Angles
-    const realModelCatalog = [
+    // Product Catalog Database
+    const catalog = [
       {
-        id: 'ringer-tee',
-        name: '320 GSM Vintage Ringer Tee',
-        price: 1299,
-        thumb: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=300&q=80',
-        views: {
-          front: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=85',
-          side: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=800&q=85',
-          back: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=85'
-        }
-      },
-      {
-        id: 'oxford-shirt',
-        name: 'Linen Classic Oxford Shirt',
+        id: 'olive-shirt',
+        name: 'Olive Utility Slim-Fit Shirt',
         price: 1899,
-        thumb: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=300&q=80',
-        views: {
-          front: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=85',
-          side: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=800&q=85',
-          back: 'https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=800&q=85'
-        }
+        category: 'shirts',
+        frontImg: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=85',
+        backImg: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=85',
+        desc: 'Breathable Cotton Blend in sage olive green with brushed utility chest pockets and roll-tab sleeve detailing.'
       },
       {
-        id: 'loop-hoodie',
-        name: 'Loopback Heavy Streetwear Hoodie',
+        id: 'striped-shirt',
+        name: 'Breton Striped Linen Shirt',
+        price: 2199,
+        category: 'shirts',
+        frontImg: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=85',
+        backImg: 'https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=800&q=85',
+        desc: '100% Normandy Flax Linen in classic ecru stripe. Pre-washed for a buttery soft drape in warm weather.'
+      },
+      {
+        id: 'navy-polo',
+        name: 'Structured Navy Pique Polo',
         price: 2499,
-        thumb: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=300&q=80',
-        views: {
-          front: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=85',
-          side: 'https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=800&q=85',
-          back: 'https://images.unsplash.com/photo-1578587018452-892bacefd3f2?auto=format&fit=crop&w=800&q=85'
-        }
+        category: 'tshirts',
+        frontImg: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=85',
+        backImg: 'https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=800&q=85',
+        desc: 'Mercerized double-knit pique polo in midnight navy with structured collar and mother-of-pearl buttons.'
       },
       {
-        id: 'breton-striped',
-        name: 'Breton Striped Long Sleeve',
-        price: 1499,
-        thumb: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=300&q=80',
-        views: {
-          front: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=800&q=85',
-          side: 'https://images.unsplash.com/photo-1516826957135-700dedea698c?auto=format&fit=crop&w=800&q=85',
-          back: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=85'
-        }
-      },
-      {
-        id: 'chore-jacket',
-        name: 'Canvas Workwear Chore Jacket',
-        price: 2699,
-        thumb: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=300&q=80',
-        views: {
-          front: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=800&q=85',
-          side: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=85',
-          back: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=85'
-        }
-      },
-      {
-        id: 'nylon-bomber',
-        name: 'Nylon Minimalist Bomber Jacket',
-        price: 2999,
-        thumb: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=300&q=80',
-        views: {
-          front: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=85',
-          side: 'https://images.unsplash.com/photo-1516257984-b1b4d707412e?auto=format&fit=crop&w=800&q=85',
-          back: 'https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=800&q=85'
-        }
-      },
-      {
-        id: 'tokyo-cyber',
-        name: 'Tokyo Cyber 320 GSM Tee',
-        price: 1299,
-        thumb: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=300&q=80',
-        views: {
-          front: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=85',
-          side: 'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?auto=format&fit=crop&w=800&q=85',
-          back: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=800&q=85'
-        }
-      },
-      {
-        id: 'korean-satin',
-        name: 'Korean Liquid Satin Shirt',
-        price: 1899,
-        thumb: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=300&q=80',
-        views: {
-          front: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=85',
-          side: 'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=800&q=85',
-          back: 'https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=800&q=85'
-        }
+        id: 'wine-shirt',
+        name: 'Signature Wine Oxford Shirt',
+        price: 1799,
+        category: 'shirts',
+        frontImg: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=85',
+        backImg: 'https://images.unsplash.com/photo-1578587018452-892bacefd3f2?auto=format&fit=crop&w=800&q=85',
+        desc: 'Tailored Oxford weave in rich deep burgundy. Features a button-down collar and gentle curved hem.'
       }
     ];
 
-    let currentDressIdx = 0;
-    let currentAngleDeg = 0;
-    let targetAngleDeg = 0;
-    let autoRotate = true;
-    let isDragging = false;
-    let startPointerX = 0;
-    let angleAtDragStart = 0;
+    let activeModalProductIdx = 0;
+    let modalRotationAngle = 0;
 
-    // Elements
-    const stageEl = document.getElementById('turntable-stage');
-    const pedestalEl = document.getElementById('pedestal-disc');
-    const modelWrapEl = document.getElementById('real-model-wrap');
-    const modelShadowEl = document.getElementById('model-shadow');
-    const frontImg = document.getElementById('model-img-front');
-    const sideImg = document.getElementById('model-img-side');
-    const backImg = document.getElementById('model-img-back');
-    const angleLabel = document.getElementById('rotation-angle-label');
-    const autoSpinBtn = document.getElementById('auto-spin-btn');
+    // Quick View Modal
+    function quickViewProduct(idx) {
+      activeModalProductIdx = idx;
+      const product = catalog[idx];
+      modalRotationAngle = 0;
 
-    // Select Dress Function
-    function selectDress(idx) {
-      currentDressIdx = idx;
-      const dress = realModelCatalog[idx];
+      document.getElementById('modal-title').textContent = product.name;
+      document.getElementById('modal-price').textContent = `₹${product.price.toLocaleString('en-IN')}`;
+      document.getElementById('modal-desc').textContent = product.desc;
+      document.getElementById('modal-product-img').src = product.frontImg;
+      document.getElementById('modal-angle-indicator').textContent = 'FRONT (0°)';
 
-      // Update Active Dress Cards
-      document.querySelectorAll('.dress-strip-card').forEach((card, i) => {
-        if (i === idx) {
-          card.classList.add('is-active');
+      const modal = document.getElementById('product-modal');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+    }
+
+    function closeProductModal() {
+      const modal = document.getElementById('product-modal');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    // Modal 360° Drag
+    (function initModalDrag() {
+      const dragArea = document.getElementById('modal-drag-area');
+      if (!dragArea) return;
+      let isDown = false;
+      let startX = 0;
+
+      dragArea.addEventListener('pointerdown', (e) => {
+        isDown = true;
+        startX = e.clientX;
+        dragArea.setPointerCapture(e.pointerId);
+      });
+
+      dragArea.addEventListener('pointermove', (e) => {
+        if (!isDown) return;
+        const deltaX = e.clientX - startX;
+        modalRotationAngle = (modalRotationAngle + deltaX * 0.8) % 360;
+        startX = e.clientX;
+
+        const norm = ((modalRotationAngle % 360) + 360) % 360;
+        const prod = catalog[activeModalProductIdx];
+        const img = document.getElementById('modal-product-img');
+        const label = document.getElementById('modal-angle-indicator');
+
+        if (norm >= 90 && norm <= 270) {
+          img.src = prod.backImg;
+          label.textContent = `BACK (${Math.round(norm)}°)`;
         } else {
-          card.classList.remove('is-active');
+          img.src = prod.frontImg;
+          label.textContent = `FRONT (${Math.round(norm)}°)`;
         }
       });
 
-      // Update Labels & HUD
-      document.getElementById('active-dress-label').innerHTML = `Wearing: <strong>${dress.name}</strong>`;
-      document.getElementById('hud-dress-title').textContent = dress.name;
-      document.getElementById('hud-dress-price').textContent = `₹${dress.price.toLocaleString('en-IN')}`;
-
-      // Preload & Apply Real Model Views
-      frontImg.src = dress.views.front;
-      sideImg.src = dress.views.side;
-      backImg.src = dress.views.back;
-
-      // Update view rendering at current rotation angle
-      renderTurntableFrame();
-    }
-
-    // 360-Degree Turntable Frame Render Function
-    function renderTurntableFrame() {
-      // Normalize angle to 0 - 360 degrees
-      const normalizedAngle = ((targetAngleDeg % 360) + 360) % 360;
-      currentAngleDeg += (targetAngleDeg - currentAngleDeg) * 0.12;
-      const displayAngle = Math.round(((currentAngleDeg % 360) + 360) % 360);
-
-      // Rotate Floor Pedestal Disc in 3D Perspective
-      if (pedestalEl) {
-        pedestalEl.style.transform = `rotateX(72deg) rotateZ(${-currentAngleDeg}deg)`;
-      }
-
-      // 3D Parallax & Horizontal Scale effect on model as it turns
-      // In 3D: Front is at 0°, Side is at 90° and 270°, Back is at 180°
-      let viewZone = 'FRONT';
-      let frontOpacity = 0;
-      let sideOpacity = 0;
-      let backOpacity = 0;
-      let flipX = 1;
-      let scaleX = 1;
-
-      // Calculate smooth perspective crossfade between real camera angles
-      if (normalizedAngle >= 315 || normalizedAngle < 45) {
-        // Front View
-        viewZone = 'FRONT';
-        frontOpacity = 1;
-        const offset = normalizedAngle >= 315 ? normalizedAngle - 360 : normalizedAngle;
-        scaleX = Math.cos(offset * Math.PI / 180);
-      } else if (normalizedAngle >= 45 && normalizedAngle < 135) {
-        // Left Profile
-        viewZone = 'SIDE (PROFILE)';
-        sideOpacity = 1;
-        flipX = 1;
-        scaleX = Math.sin(normalizedAngle * Math.PI / 180);
-      } else if (normalizedAngle >= 135 && normalizedAngle < 225) {
-        // Back View
-        viewZone = 'BACK';
-        backOpacity = 1;
-        const offset = normalizedAngle - 180;
-        scaleX = Math.cos(offset * Math.PI / 180);
-      } else {
-        // Right Profile
-        viewZone = 'SIDE (PROFILE)';
-        sideOpacity = 1;
-        flipX = -1; // Mirror side view for opposite profile
-        scaleX = Math.abs(Math.sin(normalizedAngle * Math.PI / 180));
-      }
-
-      // Apply opacities
-      frontImg.style.opacity = frontOpacity;
-      sideImg.style.opacity = sideOpacity;
-      backImg.style.opacity = backOpacity;
-
-      // Subtle 3D perspective squish/rotation to give physical volume
-      const clampScaleX = Math.max(0.68, Math.abs(scaleX));
-      const transformStr = `scaleX(${flipX * clampScaleX}) scaleY(1)`;
-      frontImg.style.transform = transformStr;
-      sideImg.style.transform = transformStr;
-      backImg.style.transform = transformStr;
-
-      // Dynamic Contact Shadow Reacts to 360° Light & Angle
-      if (modelShadowEl) {
-        const shadowOffset = Math.sin(currentAngleDeg * Math.PI / 180) * 14;
-        const shadowScale = 0.95 + Math.cos(currentAngleDeg * Math.PI / 180) * 0.1;
-        modelShadowEl.style.transform = `translateX(${shadowOffset}px) scaleX(${shadowScale})`;
-      }
-
-      // Update Angle Label Badge
-      if (angleLabel) {
-        angleLabel.textContent = `${viewZone} (${displayAngle}°)`;
-      }
-    }
-
-    // Animation Loop
-    function tickAnimation() {
-      if (autoRotate && !isDragging) {
-        targetAngleDeg += 0.45; // Smooth slow turntable spin
-      }
-      renderTurntableFrame();
-      requestAnimationFrame(tickAnimation);
-    }
-
-    // 360 Degree Drag Interaction (Mouse & Touch)
-    (function initTurntableControls() {
-      if (!stageEl) return;
-
-      // Pointer / Mouse Down
-      stageEl.addEventListener('pointerdown', (e) => {
-        isDragging = true;
-        autoRotate = false;
-        autoSpinBtn.textContent = '360° Spin: OFF';
-        autoSpinBtn.className = 'px-3 py-1 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-800 dark:text-white font-bold transition';
-        startPointerX = e.clientX;
-        angleAtDragStart = targetAngleDeg;
-        stageEl.setPointerCapture(e.pointerId);
-      });
-
-      // Pointer Move (Drag)
-      stageEl.addEventListener('pointermove', (e) => {
-        if (!isDragging) return;
-        const deltaX = e.clientX - startPointerX;
-        // Sensitivity: 0.7 degrees per pixel
-        targetAngleDeg = angleAtDragStart + deltaX * 0.75;
-      });
-
-      // Pointer Up
-      stageEl.addEventListener('pointerup', (e) => {
-        isDragging = false;
-        try { stageEl.releasePointerCapture(e.pointerId); } catch(err) {}
-      });
-
-      stageEl.addEventListener('pointercancel', () => {
-        isDragging = false;
+      dragArea.addEventListener('pointerup', (e) => {
+        isDown = false;
+        try { dragArea.releasePointerCapture(e.pointerId); } catch(err) {}
       });
     })();
 
-    // Preset Angle Functions
-    function setAngle(deg) {
-      autoRotate = false;
-      autoSpinBtn.textContent = '360° Spin: OFF';
-      autoSpinBtn.className = 'px-3 py-1 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-800 dark:text-white font-bold transition';
-      targetAngleDeg = deg;
-    }
-
-    function rotateStep(deltaDeg) {
-      autoRotate = false;
-      autoSpinBtn.textContent = '360° Spin: OFF';
-      autoSpinBtn.className = 'px-3 py-1 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-800 dark:text-white font-bold transition';
-      targetAngleDeg += deltaDeg;
-    }
-
-    function toggleAutoSpin() {
-      autoRotate = !autoRotate;
-      if (autoRotate) {
-        autoSpinBtn.textContent = '360° Spin: ON';
-        autoSpinBtn.className = 'px-3 py-1 rounded-full bg-amber-400 text-black font-black hover:bg-amber-300 transition';
-      } else {
-        autoSpinBtn.textContent = '360° Spin: OFF';
-        autoSpinBtn.className = 'px-3 py-1 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-800 dark:text-white font-bold transition';
-      }
-    }
-
-    // Bottom Dress Strip Scroll & Mouse Drag
-    function scrollDressStrip(delta) {
-      const el = document.getElementById('dress-selector-strip');
-      if (el) el.scrollBy({ left: delta, behavior: 'smooth' });
-    }
-
-    (function initDressStripDrag() {
-      window.addEventListener('DOMContentLoaded', () => {
-        const strip = document.getElementById('dress-selector-strip');
-        if (!strip) return;
-        let isDown = false;
-        let startX, scrollLeft;
-
-        strip.addEventListener('mousedown', (e) => {
-          isDown = true;
-          strip.classList.add('cursor-grabbing');
-          startX = e.pageX - strip.offsetLeft;
-          scrollLeft = strip.scrollLeft;
-        });
-        window.addEventListener('mouseup', () => {
-          isDown = false;
-          strip.classList.remove('cursor-grabbing');
-        });
-        strip.addEventListener('mousemove', (e) => {
-          if (!isDown) return;
-          e.preventDefault();
-          const x = e.pageX - strip.offsetLeft;
-          const walk = (x - startX) * 1.5;
-          strip.scrollLeft = scrollLeft - walk;
-        });
+    // Size Selector
+    function selectSize(btn) {
+      document.querySelectorAll('.size-btn').forEach(b => {
+        b.classList.remove('is-selected', 'border-[#E86A33]', 'bg-white/10');
       });
-    })();
+      btn.classList.add('is-selected', 'border-[#E86A33]', 'bg-white/10');
+    }
 
-    // Slide-out Bag Drawer
+    // Add Item to Bag
+    function addToBagItem(idx) {
+      const item = catalog[idx];
+      addItemToBagHTML(item);
+      toggleBag(true);
+    }
+
+    function addModalItemToBag() {
+      const item = catalog[activeModalProductIdx];
+      addItemToBagHTML(item);
+      closeProductModal();
+      toggleBag(true);
+    }
+
+    function addItemToBagHTML(item) {
+      const list = document.getElementById('bag-items-list');
+      const card = document.createElement('div');
+      card.className = 'flex gap-4 p-4 rounded-2xl bg-white/5 border border-white/10';
+      card.innerHTML = `
+        <img src="${item.frontImg}" alt="${item.name}" class="w-18 h-22 object-cover rounded-xl bg-black/10">
+        <div class="flex-grow flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-start">
+              <h4 class="font-brand text-sm font-bold">${item.name}</h4>
+              <button onclick="this.closest('.flex').remove(); updateCartTotals();" class="text-slate-400 hover:text-rose-500 text-sm">&times;</button>
+            </div>
+            <div class="text-[11px] text-slate-400 mt-0.5">Size: L &bull; Custom Fit</div>
+          </div>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-sm font-black text-[#E86A33]">₹${item.price.toLocaleString('en-IN')}</span>
+            <span class="text-xs text-slate-400">Qty: 1</span>
+          </div>
+        </div>
+      `;
+      list.prepend(card);
+      updateCartTotals();
+    }
+
+    function updateCartTotals() {
+      const items = document.querySelectorAll('#bag-items-list > div');
+      document.getElementById('header-bag-count').textContent = items.length;
+      document.getElementById('bag-count-badge').textContent = items.length;
+
+      let total = 0;
+      items.forEach(el => {
+        const priceTxt = el.querySelector('.text-\\[\\#E86A33\\]').textContent;
+        const num = parseInt(priceTxt.replace(/[^0-9]/g, '')) || 0;
+        total += num;
+      });
+      document.getElementById('bag-subtotal').textContent = `₹${total.toLocaleString('en-IN')}`;
+    }
+
+    // Bag Drawer Toggle
     function toggleBag(open) {
       const drawer = document.getElementById('bag-drawer');
       const overlay = document.getElementById('bag-drawer-overlay');
@@ -925,34 +1029,91 @@
       }
     }
 
-    function addActiveDressToBag() {
-      const dress = realModelCatalog[currentDressIdx];
-      document.getElementById('bag-item-title').textContent = dress.name;
-      document.getElementById('bag-item-price').textContent = `₹${dress.price.toLocaleString('en-IN')}`;
-      document.getElementById('bag-item-img').src = dress.thumb;
-      document.getElementById('bag-subtotal').textContent = `₹${dress.price.toLocaleString('en-IN')}`;
-      toggleBag(true);
+    // Modals
+    function openStoresModal() {
+      document.getElementById('stores-modal').classList.remove('opacity-0', 'pointer-events-none');
+    }
+    function closeStoresModal() {
+      document.getElementById('stores-modal').classList.add('opacity-0', 'pointer-events-none');
+    }
+    function openFitModal() {
+      document.getElementById('fit-modal').classList.remove('opacity-0', 'pointer-events-none');
+    }
+    function closeFitModal() {
+      document.getElementById('fit-modal').classList.add('opacity-0', 'pointer-events-none');
+    }
+    function openSearchModal() {
+      const q = prompt('Search Jhonty Hub (e.g. linen shirt, denim, polo, formal):');
+      if (q) {
+        window.location.href = '#trending';
+      }
+    }
+    function openAccountModal() {
+      alert('Jhonty Hub VIP Club: Welcome back! Enter your phone or email to view exclusive member drops.');
+    }
+    function toggleMobileNav() {
+      const nav = document.getElementById('mobile-nav');
+      nav.classList.toggle('hidden');
     }
 
-    // Dark / Warm Theme Switcher
+    // Wishlist Toggle
+    function toggleWishlist(btn) {
+      if (btn.classList.contains('text-red-500')) {
+        btn.classList.remove('text-red-500');
+        btn.textContent = '♥';
+      } else {
+        btn.classList.add('text-red-500');
+        btn.textContent = '❤️';
+      }
+    }
+
+    // Filter Category
+    function filterCategory(cat) {
+      const heading = document.querySelector('#trending h2');
+      if (heading) {
+        const names = {
+          shirts: 'Trending Casual Shirts',
+          tshirts: 'Trending T-Shirts & Polos',
+          jeans: 'Trending Denim & Jeans',
+          trousers: 'Trending Chinos & Trousers',
+          formal: 'Trending Formal & Evening Wear'
+        };
+        heading.textContent = names[cat] || 'Trending at Jhonty Hub';
+      }
+    }
+
+    // Theme Switcher
     function toggleTheme() {
-      const current = document.documentElement.getAttribute('data-theme') || 'warm';
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme') || 'dark';
       const target = current === 'dark' ? 'warm' : 'dark';
-      document.documentElement.setAttribute('data-theme', target);
-      document.getElementById('themeEmoji').textContent = target === 'dark' ? '🌙' : '☀️';
-      document.getElementById('themeText').textContent = target === 'dark' ? 'DARK' : 'WARM';
-      localStorage.setItem('jhonty_theme', target);
+      html.setAttribute('data-theme', target);
+      if (target === 'dark') {
+        html.classList.add('dark');
+        document.getElementById('themeEmoji').textContent = '🌙';
+        document.getElementById('themeText').textContent = 'DARK';
+      } else {
+        html.classList.remove('dark');
+        document.getElementById('themeEmoji').textContent = '☀️';
+        document.getElementById('themeText').textContent = 'WARM';
+      }
+      localStorage.setItem('jhonty_theme_pref', target);
     }
 
-    // Initialization
+    // Load initial theme
     window.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('jhonty_theme') || 'warm';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-      document.getElementById('themeEmoji').textContent = savedTheme === 'dark' ? '🌙' : '☀️';
-      document.getElementById('themeText').textContent = savedTheme === 'dark' ? 'DARK' : 'WARM';
-
-      selectDress(0);
-      requestAnimationFrame(tickAnimation);
+      const saved = localStorage.getItem('jhonty_theme_pref') || 'dark';
+      if (saved === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('themeEmoji').textContent = '🌙';
+        document.getElementById('themeText').textContent = 'DARK';
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.setAttribute('data-theme', 'warm');
+        document.getElementById('themeEmoji').textContent = '☀️';
+        document.getElementById('themeText').textContent = 'WARM';
+      }
     });
   </script>
 </body>
