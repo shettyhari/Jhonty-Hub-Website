@@ -125,13 +125,28 @@
       box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5);
     }
 
+    /* Universal Scrollbar Elimination for all screens & devices */
+    ::-webkit-scrollbar {
+      width: 0px !important;
+      height: 0px !important;
+      display: none !important;
+    }
+    * {
+      -ms-overflow-style: none !important;
+      scrollbar-width: none !important;
+    }
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden !important;
+    }
+
     /* Category Bubbles Scroll */
     .bubble-scroll::-webkit-scrollbar {
-      display: none;
+      display: none !important;
     }
     .bubble-scroll {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
+      -ms-overflow-style: none !important;
+      scrollbar-width: none !important;
     }
 
     /* Theme Toggle Switch Pill */
@@ -270,16 +285,21 @@
           <span>Bag</span>
           <span id="vault-badge" class="absolute -top-1.5 -right-2 bg-gradient-to-r from-amber-300 to-amber-500 text-black text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center">1</span>
         </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-xl border text-amber-400 hover:border-amber-400 transition" style="border-color: var(--border-glass);" aria-label="Open mobile menu">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
       </div>
 
     </div>
 
-    <!-- Mega Department Menu Strip -->
+    <!-- Mega Department Menu Strip (Fit to Screen, No Scrollbar) -->
     <div class="border-t hidden lg:block transition-colors" style="background-color: var(--bg-surface); border-color: var(--border-glass);">
-      <div class="max-w-7xl mx-auto px-6 flex items-center space-x-8 text-[12px] font-bold tracking-wider uppercase py-2.5 overflow-x-auto" style="color: var(--text-secondary);">
-        <a href="#tees" class="hover:text-amber-400 transition flex items-center gap-1.5 whitespace-nowrap">
+      <div class="max-w-7xl mx-auto px-6 flex items-center justify-between text-[11px] xl:text-[12px] font-bold tracking-wider uppercase py-2.5 overflow-hidden w-full gap-2 xl:gap-3" style="color: var(--text-secondary);">
+        <a href="#tees" class="hover:text-amber-400 transition flex items-center gap-1 whitespace-nowrap">
           <span>Oversized Tees</span>
-          <span class="text-[9px] px-1.5 py-0.2 bg-amber-400 text-black font-black rounded">320 GSM</span>
+          <span class="text-[8px] px-1 py-0.2 bg-amber-400 text-black font-black rounded">320 GSM</span>
         </a>
         <a href="#shirts" class="hover:text-amber-400 transition whitespace-nowrap">Korean Shirts</a>
         <a href="#denim" class="hover:text-amber-400 transition whitespace-nowrap">Baggy Denim</a>
@@ -287,9 +307,9 @@
         <a href="#sneakers" class="hover:text-amber-400 transition whitespace-nowrap">Chunky Kicks</a>
         <a href="#jackets" class="hover:text-amber-400 transition whitespace-nowrap">Varsity Jackets</a>
         <a href="#perfumes" class="hover:text-amber-400 transition whitespace-nowrap">Oud &amp; Scents</a>
-        <a href="#stores" class="text-amber-400 font-extrabold hover:underline whitespace-nowrap">Hyderabad Flagships</a>
-        <a href="#dropsale" class="text-rose-400 font-extrabold ml-auto flex items-center gap-1 whitespace-nowrap">
-          <span>🔥 Drop Sale &bull; Flat 50% Off</span>
+        <a href="#stores" class="text-amber-400 font-extrabold hover:underline whitespace-nowrap">Hyderabad Stores</a>
+        <a href="#featured" class="text-rose-400 font-extrabold flex items-center gap-1 whitespace-nowrap">
+          <span>🔥 Drop Sale &bull; 50% Off</span>
         </a>
       </div>
     </div>
@@ -882,7 +902,49 @@
     </div>
   </div>
 
+  <!-- Slide-out Mobile Menu Drawer -->
+  <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+  <div id="mobile-menu-drawer" class="fixed top-0 left-0 bottom-0 w-80 max-w-[85vw] border-r z-50 transform -translate-x-full transition-transform duration-300 flex flex-col p-6 overflow-y-auto" style="background-color: var(--bg-surface); border-color: var(--border-glass); color: var(--text-primary);">
+    <div class="flex items-center justify-between pb-4 border-b" style="border-color: var(--border-glass);">
+      <div class="font-cinzel text-lg font-bold text-amber-400">JHONTY HUB</div>
+      <button onclick="toggleMobileMenu()" class="text-2xl text-slate-400 hover:text-white">&times;</button>
+    </div>
+    <div class="py-4 space-y-4 text-xs font-bold uppercase tracking-wider flex-grow">
+      <a href="#tees" onclick="toggleMobileMenu()" class="block py-2 hover:text-amber-400">Oversized Tees (320 GSM)</a>
+      <a href="#shirts" onclick="toggleMobileMenu()" class="block py-2 hover:text-amber-400">Korean Satin Shirts</a>
+      <a href="#denim" onclick="toggleMobileMenu()" class="block py-2 hover:text-amber-400">Baggy Skate Denim</a>
+      <a href="#cargos" onclick="toggleMobileMenu()" class="block py-2 hover:text-amber-400">Parachute Cargos</a>
+      <a href="#sneakers" onclick="toggleMobileMenu()" class="block py-2 hover:text-amber-400">Chunky Street Runners</a>
+      <a href="#jackets" onclick="toggleMobileMenu()" class="block py-2 hover:text-amber-400">Varsity Jackets</a>
+      <a href="#perfumes" onclick="toggleMobileMenu()" class="block py-2 hover:text-amber-400">Jhonty Oud Scents</a>
+      <a href="#stores" onclick="toggleMobileMenu()" class="block py-2 text-amber-400 font-extrabold">Hyderabad Stores (3)</a>
+      <a href="#featured" onclick="toggleMobileMenu()" class="block py-2 text-rose-500 font-extrabold">🔥 Drop Sale (50% Off)</a>
+    </div>
+    <div class="pt-4 border-t text-xs text-slate-400" style="border-color: var(--border-glass);">
+      <p class="font-bold text-white mb-1">Hyderabad Stores:</p>
+      <p class="text-[11px]">Kukatpally &bull; Madhapur &bull; LB Nagar</p>
+      <a href="tel:+919160663888" class="block text-amber-400 font-bold mt-2">📞 +91 91606 63888</a>
+    </div>
+  </div>
+
   <script>
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobile-menu-drawer');
+      const overlay = document.getElementById('mobile-menu-overlay');
+      const isOpen = drawer.classList.contains('translate-x-0');
+      if (isOpen) {
+        drawer.classList.remove('translate-x-0');
+        drawer.classList.add('-translate-x-full');
+        overlay.classList.remove('opacity-100', 'pointer-events-auto');
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+      } else {
+        drawer.classList.remove('-translate-x-full');
+        drawer.classList.add('translate-x-0');
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        overlay.classList.add('opacity-100', 'pointer-events-auto');
+      }
+    }
     // Theme Toggle Functionality
     function initTheme() {
       const savedTheme = localStorage.getItem('jh_theme') || 'dark';
