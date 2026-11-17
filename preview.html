@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JHONTY HUB — Interactive Digital Showroom &amp; Luxe Streetwear</title>
+  <title>JHONTY HUB — 3D Virtual Try-On &amp; Luxe Streetwear Showroom</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
   <style>
     /* ==========================================================================
@@ -19,13 +19,13 @@
       --bg-canvas: #ebe3d9;
       --bg-stage: #dfd4c5;
       --bg-surface: #ffffff;
-      --bg-glass: rgba(255, 255, 255, 0.78);
-      --bg-card: rgba(255, 255, 255, 0.85);
+      --bg-glass: rgba(255, 255, 255, 0.82);
+      --bg-card: rgba(255, 255, 255, 0.88);
       --border-subtle: rgba(0, 0, 0, 0.08);
-      --border-accent: rgba(184, 134, 11, 0.4);
+      --border-accent: rgba(184, 134, 11, 0.45);
       
       --arch-terracotta: #c47c5d;
-      --arch-shadow: rgba(84, 42, 24, 0.22);
+      --arch-shadow: rgba(84, 42, 24, 0.25);
       --pedestal-color: #d1c4b2;
       
       --text-main: #14171f;
@@ -33,22 +33,21 @@
       --text-muted: #8b93a0;
       
       --gold-primary: #b8860b;
-      --gold-gradient: linear-gradient(135deg, #d4af37 0%, #b8860b 50%, #7c5806 100%);
       --card-shadow: 0 20px 45px rgba(45, 30, 20, 0.12), 0 4px 12px rgba(0, 0, 0, 0.05);
-      --hud-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+      --hud-shadow: 0 20px 50px rgba(0, 0, 0, 0.16);
     }
 
     [data-theme="dark"] {
       --bg-canvas: #0c0e12;
       --bg-stage: #14171f;
       --bg-surface: #12151d;
-      --bg-glass: rgba(18, 21, 29, 0.85);
-      --bg-card: rgba(24, 28, 38, 0.85);
+      --bg-glass: rgba(18, 21, 29, 0.88);
+      --bg-card: rgba(24, 28, 38, 0.88);
       --border-subtle: rgba(255, 255, 255, 0.1);
       --border-accent: rgba(212, 175, 55, 0.45);
       
       --arch-terracotta: #543122;
-      --arch-shadow: rgba(0, 0, 0, 0.6);
+      --arch-shadow: rgba(0, 0, 0, 0.65);
       --pedestal-color: #1e222d;
       
       --text-main: #f8fafc;
@@ -56,8 +55,7 @@
       --text-muted: #64748b;
       
       --gold-primary: #d4af37;
-      --gold-gradient: linear-gradient(135deg, #fef08a 0%, #d4af37 50%, #996515 100%);
-      --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.1);
+      --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 25px rgba(212, 175, 55, 0.12);
       --hud-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
     }
 
@@ -76,7 +74,7 @@
 
     .font-ui {
       font-family: 'Montserrat', sans-serif;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
     }
 
     /* Universal Scrollbar Elimination */
@@ -119,9 +117,9 @@
       cursor: pointer;
     }
     .orbit-card:hover {
-      transform: translateY(-6px) scale(1.03);
+      transform: translateY(-5px) scale(1.03);
       border-color: var(--gold-primary);
-      box-shadow: 0 25px 50px rgba(0,0,0,0.2), 0 0 20px rgba(212, 175, 55, 0.25);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.18), 0 0 20px rgba(212, 175, 55, 0.25);
     }
     .orbit-card.is-active {
       border-color: var(--gold-primary);
@@ -145,26 +143,32 @@
     }
     .model-viewport.fade-out {
       opacity: 0;
-      transform: scale(0.98);
+      transform: scale(0.97) translateY(4px);
     }
     .model-viewport.fade-in {
       opacity: 1;
-      transform: scale(1);
+      transform: scale(1) translateY(0px);
     }
 
-    /* Category Pill Selector */
-    .category-pill {
-      transition: all 0.25s ease;
+    /* Stage Arrow Buttons Styling */
+    .stage-arrow-btn {
+      background: var(--bg-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.18);
+      color: var(--text-main);
       cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .category-pill.active {
-      background: #14171f;
-      color: #ffffff;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    .stage-arrow-btn:hover {
+      transform: translateY(-50%) scale(1.15);
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+      box-shadow: 0 16px 40px rgba(212, 175, 55, 0.3);
     }
-    [data-theme="dark"] .category-pill.active {
-      background: #ffffff;
-      color: #0c0e12;
+    .stage-arrow-btn:active {
+      transform: translateY(-50%) scale(0.92);
     }
   </style>
 </head>
@@ -229,12 +233,8 @@
           <span id="themeText" class="hidden sm:inline">WARM</span>
         </button>
 
-        <a href="javascript:void(0)" onclick="document.getElementById('quick-search').focus()" class="hidden sm:inline hover:text-black dark:hover:text-white transition">
-          SEARCH
-        </a>
-
         <a href="javascript:void(0)" onclick="alert('Wishlist: 2 exclusive Jhonty drops saved.')" class="hover:text-black dark:hover:text-white transition">
-          WISHLIST (<span id="wishlist-count">2</span>)
+          WISHLIST (2)
         </a>
 
         <button onclick="toggleBag(true)" class="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#14171f] text-white dark:bg-white dark:text-black hover:opacity-90 transition shadow-md">
@@ -247,21 +247,18 @@
   </header>
 
   <!-- ==========================================================================
-       VÄRDE-STYLE 3D DIGITAL SHOWROOM (VIRTUAL TRY-ON STAGE)
+       VÄRDE-STYLE 3D DIGITAL SHOWROOM (VIRTUAL TRY-ON STAGE WITH ARROWS)
        ========================================================================== -->
   <main id="showroom" class="relative flex-grow flex flex-col items-center justify-center px-4 py-6 md:py-10 overflow-hidden">
     
-    <!-- Top Floating Category Pill Switcher (Tees | Overshirt) -->
-    <div class="relative z-20 flex items-center p-1.5 rounded-full mb-6 border shadow-lg" style="background-color: var(--bg-glass); border-color: var(--border-subtle);">
-      <button id="cat-btn-tees" onclick="switchCategory('tees')" class="category-pill active px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider">
-        Tees &amp; Tops
-      </button>
-      <button id="cat-btn-overshirt" onclick="switchCategory('overshirt')" class="category-pill px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider text-slate-500">
-        Overshirts &amp; Outerwear
-      </button>
+    <!-- Top Status & Click Arrow Indicator Pill -->
+    <div class="relative z-20 flex items-center gap-3 px-5 py-2 rounded-full mb-6 border shadow-lg text-xs font-bold uppercase tracking-wider" style="background-color: var(--bg-glass); border-color: var(--border-subtle);">
+      <span class="text-amber-500 font-black">✦ CLICK ARROWS &larr; &rarr; TO CHANGE DRESS</span>
+      <span class="opacity-25">|</span>
+      <span id="stage-dress-index" class="font-ui font-black text-slate-700 dark:text-slate-300">LOOK 01 / 06</span>
     </div>
 
-    <!-- Central Stage Area (Neoclassical Arch & Floating Cards) -->
+    <!-- Central Stage Area (Neoclassical Arch, Floating Cards & Navigation Arrows) -->
     <div class="relative w-full max-w-6xl mx-auto flex items-center justify-center min-h-[580px] md:min-h-[640px]">
       
       <!-- Architectural Neoclassical Colonnade Arch Backdrop -->
@@ -280,61 +277,98 @@
       <div class="absolute bottom-4 w-[280px] sm:w-[360px] md:w-[400px] h-[36px] rounded-[100%] shadow-2xl z-0" style="background: radial-gradient(ellipse at center, rgba(30,20,15,0.45) 0%, rgba(30,20,15,0.15) 50%, transparent 80%);"></div>
 
       <!-- Left Orbiting Product Cards (Float in 3D) -->
-      <div class="absolute left-2 md:left-6 lg:left-12 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-5 w-44 sm:w-52 pointer-events-auto">
+      <div class="absolute left-2 md:left-6 lg:left-10 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-5 w-40 sm:w-48 pointer-events-auto hidden sm:flex">
         
         <!-- Left Card 1 -->
-        <div id="card-left-1" onclick="selectGarmentByIndex(0)" class="orbit-card p-3.5 flex items-center gap-3 is-active">
-          <div class="w-14 h-16 rounded-xl bg-white/40 dark:bg-black/30 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden">
-            <img id="thumb-left-1" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=200&q=80" alt="Garment" class="w-full h-full object-contain">
+        <div id="card-orbit-0" onclick="dressModel(0)" class="orbit-card p-3 flex items-center gap-3 is-active">
+          <div class="w-12 h-14 rounded-xl bg-white/40 dark:bg-black/30 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=200&q=80" alt="Garment" class="w-full h-full object-contain">
           </div>
           <div class="flex-grow">
-            <div id="name-left-1" class="font-ui text-[11px] font-bold line-clamp-1" style="color: var(--text-main);">Ringer Tee</div>
-            <div id="price-left-1" class="text-xs font-black text-amber-500 mt-0.5">₹1,299</div>
+            <div class="font-ui text-[11px] font-bold line-clamp-1" style="color: var(--text-main);">Ringer Tee</div>
+            <div class="text-xs font-black text-amber-500 mt-0.5">₹1,299</div>
           </div>
         </div>
 
         <!-- Left Card 2 -->
-        <div id="card-left-2" onclick="selectGarmentByIndex(1)" class="orbit-card p-3.5 flex items-center gap-3">
-          <div class="w-14 h-16 rounded-xl bg-white/40 dark:bg-black/30 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden">
-            <img id="thumb-left-2" src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=200&q=80" alt="Garment" class="w-full h-full object-contain">
+        <div id="card-orbit-1" onclick="dressModel(1)" class="orbit-card p-3 flex items-center gap-3">
+          <div class="w-12 h-14 rounded-xl bg-white/40 dark:bg-black/30 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=200&q=80" alt="Garment" class="w-full h-full object-contain">
           </div>
           <div class="flex-grow">
-            <div id="name-left-2" class="font-ui text-[11px] font-bold line-clamp-1" style="color: var(--text-main);">Linen Shirt</div>
-            <div id="price-left-2" class="text-xs font-black text-amber-500 mt-0.5">₹1,899</div>
+            <div class="font-ui text-[11px] font-bold line-clamp-1" style="color: var(--text-main);">Linen Shirt</div>
+            <div class="text-xs font-black text-amber-500 mt-0.5">₹1,899</div>
+          </div>
+        </div>
+
+        <!-- Left Card 3 -->
+        <div id="card-orbit-2" onclick="dressModel(2)" class="orbit-card p-3 flex items-center gap-3">
+          <div class="w-12 h-14 rounded-xl bg-white/40 dark:bg-black/30 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=200&q=80" alt="Garment" class="w-full h-full object-contain">
+          </div>
+          <div class="flex-grow">
+            <div class="font-ui text-[11px] font-bold line-clamp-1" style="color: var(--text-main);">Loop Hoodie</div>
+            <div class="text-xs font-black text-amber-500 mt-0.5">₹2,499</div>
           </div>
         </div>
 
       </div>
 
-      <!-- Live Model Display (Center Stage) -->
-      <div class="relative z-10 w-[300px] sm:w-[380px] md:w-[440px] h-[520px] md:h-[590px] flex items-end justify-center">
-        <div id="model-container" class="model-viewport w-full h-full flex items-end justify-center">
-          <img id="active-model-image" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=800&q=85" alt="Jhonty Hub Model" class="h-full w-auto object-contain filter drop-shadow-[0_20px_25px_rgba(0,0,0,0.35)] select-none pointer-events-none">
+      <!-- STAGE NAVIGATION ARROW: PREVIOUS DRESS (LEFT) -->
+      <button id="stage-arrow-left" onclick="changeDress(-1)" class="stage-arrow-btn absolute left-4 sm:left-24 md:left-32 lg:left-64 top-1/2 -translate-y-1/2 z-30 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center group" title="Previous Dress (Left Arrow)" aria-label="Previous Dress">
+        <svg class="w-6 h-6 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+
+      <!-- Live 3D Model Display (Center Stage) -->
+      <div class="relative z-10 w-[280px] sm:w-[360px] md:w-[420px] h-[510px] md:h-[580px] flex items-end justify-center pointer-events-none">
+        <div id="model-container" class="model-viewport w-full h-full flex items-end justify-center relative">
+          <!-- 3D Standing Fashion Model Image -->
+          <img id="active-model-image" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=800&q=85" alt="Jhonty Hub 3D Virtual Model" class="h-full w-auto object-contain filter drop-shadow-[0_20px_25px_rgba(0,0,0,0.35)] select-none">
         </div>
       </div>
+
+      <!-- STAGE NAVIGATION ARROW: NEXT DRESS (RIGHT) -->
+      <button id="stage-arrow-right" onclick="changeDress(1)" class="stage-arrow-btn absolute right-4 sm:right-24 md:right-32 lg:right-64 top-1/2 -translate-y-1/2 z-30 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center group" title="Next Dress (Right Arrow)" aria-label="Next Dress">
+        <svg class="w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
 
       <!-- Right Orbiting Product Cards (Float in 3D) -->
-      <div class="absolute right-2 md:right-6 lg:right-12 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-5 w-44 sm:w-52 pointer-events-auto">
+      <div class="absolute right-2 md:right-6 lg:right-10 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-5 w-40 sm:w-48 pointer-events-auto hidden sm:flex">
         
         <!-- Right Card 1 -->
-        <div id="card-right-1" onclick="selectGarmentByIndex(2)" class="orbit-card p-3.5 flex items-center gap-3">
-          <div class="w-14 h-16 rounded-xl bg-white/40 dark:bg-black/30 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden">
-            <img id="thumb-right-1" src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=200&q=80" alt="Garment" class="w-full h-full object-contain">
+        <div id="card-orbit-3" onclick="dressModel(3)" class="orbit-card p-3 flex items-center gap-3">
+          <div class="w-12 h-14 rounded-xl bg-white/40 dark:bg-black/30 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=200&q=80" alt="Garment" class="w-full h-full object-contain">
           </div>
           <div class="flex-grow">
-            <div id="name-right-1" class="font-ui text-[11px] font-bold line-clamp-1" style="color: var(--text-main);">Loop Hoodie</div>
-            <div id="price-right-1" class="text-xs font-black text-amber-500 mt-0.5">₹2,499</div>
+            <div class="font-ui text-[11px] font-bold line-clamp-1" style="color: var(--text-main);">Breton Striped</div>
+            <div class="text-xs font-black text-amber-500 mt-0.5">₹1,499</div>
           </div>
         </div>
 
         <!-- Right Card 2 -->
-        <div id="card-right-2" onclick="selectGarmentByIndex(3)" class="orbit-card p-3.5 flex items-center gap-3">
-          <div class="w-14 h-16 rounded-xl bg-white/40 dark:bg-black/30 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden">
-            <img id="thumb-right-2" src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=200&q=80" alt="Garment" class="w-full h-full object-contain">
+        <div id="card-orbit-4" onclick="dressModel(4)" class="orbit-card p-3 flex items-center gap-3">
+          <div class="w-12 h-14 rounded-xl bg-white/40 dark:bg-black/30 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=200&q=80" alt="Garment" class="w-full h-full object-contain">
           </div>
           <div class="flex-grow">
-            <div id="name-right-2" class="font-ui text-[11px] font-bold line-clamp-1" style="color: var(--text-main);">Breton Striped</div>
-            <div id="price-right-2" class="text-xs font-black text-amber-500 mt-0.5">₹1,499</div>
+            <div class="font-ui text-[11px] font-bold line-clamp-1" style="color: var(--text-main);">Chore Jacket</div>
+            <div class="text-xs font-black text-amber-500 mt-0.5">₹2,699</div>
+          </div>
+        </div>
+
+        <!-- Right Card 3 -->
+        <div id="card-orbit-5" onclick="dressModel(5)" class="orbit-card p-3 flex items-center gap-3">
+          <div class="w-12 h-14 rounded-xl bg-white/40 dark:bg-black/30 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=200&q=80" alt="Garment" class="w-full h-full object-contain">
+          </div>
+          <div class="flex-grow">
+            <div class="font-ui text-[11px] font-bold line-clamp-1" style="color: var(--text-main);">Nylon Bomber</div>
+            <div class="text-xs font-black text-amber-500 mt-0.5">₹2,999</div>
           </div>
         </div>
 
@@ -342,16 +376,24 @@
 
     </div>
 
-    <!-- Bottom Floating Garment HUD Pill Controller (Matches Video Exactly) -->
-    <div class="relative z-20 mt-4 showroom-hud px-5 py-3 flex flex-wrap items-center justify-between gap-4 sm:gap-8 max-w-xl w-full">
+    <!-- Bottom Floating Garment HUD Pill Controller (With Arrow Stepper) -->
+    <div class="relative z-20 mt-4 showroom-hud px-5 py-3 flex flex-wrap items-center justify-between gap-4 sm:gap-6 max-w-xl w-full">
       
-      <!-- Current Garment Thumbnail & Details -->
+      <!-- Current Garment Thumbnail & Details with Stepper Arrows -->
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-white/60 dark:bg-black/40 p-1 flex items-center justify-center overflow-hidden border" style="border-color: var(--border-subtle);">
+        
+        <!-- Quick Arrow Stepper -->
+        <div class="flex items-center space-x-1 border rounded-full px-2 py-1" style="border-color: var(--border-subtle); background: var(--bg-surface);">
+          <button onclick="changeDress(-1)" class="w-5 h-5 rounded-full flex items-center justify-center hover:bg-black/10 dark:hover:bg-white/10 text-xs font-bold transition" title="Previous Dress">&larr;</button>
+          <span id="hud-dress-counter" class="text-[10px] font-black px-1 text-amber-500">1 / 6</span>
+          <button onclick="changeDress(1)" class="w-5 h-5 rounded-full flex items-center justify-center hover:bg-black/10 dark:hover:bg-white/10 text-xs font-bold transition" title="Next Dress">&rarr;</button>
+        </div>
+
+        <div class="w-10 h-10 rounded-xl bg-white/60 dark:bg-black/40 p-1 flex items-center justify-center overflow-hidden border flex-shrink-0" style="border-color: var(--border-subtle);">
           <img id="hud-active-thumb" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=150&q=80" alt="Garment" class="w-full h-full object-contain">
         </div>
         <div>
-          <div id="hud-active-title" class="font-ui text-xs font-black" style="color: var(--text-main);">320 GSM Ringer Tee</div>
+          <div id="hud-active-title" class="font-ui text-xs font-black line-clamp-1" style="color: var(--text-main);">320 GSM Ringer Tee</div>
           <div id="hud-active-price" class="text-xs font-black text-amber-500">₹1,299</div>
         </div>
       </div>
@@ -402,23 +444,22 @@
       
       <!-- Primary Item in Bag -->
       <div class="flex gap-4 p-4 rounded-2xl border" style="background-color: var(--bg-canvas); border-color: var(--border-subtle);">
-        <img id="bag-primary-img" src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=200&q=80" alt="Item" class="w-18 h-22 object-cover rounded-xl bg-black/10">
+        <img id="bag-primary-img" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=200&q=80" alt="Item" class="w-18 h-22 object-cover rounded-xl bg-black/10">
         <div class="flex-grow flex flex-col justify-between">
           <div>
             <div class="flex justify-between items-start">
-              <h4 id="bag-primary-title" class="font-ui text-sm font-bold">Nylon Bomber</h4>
+              <h4 id="bag-primary-title" class="font-ui text-sm font-bold">320 GSM Ringer Tee</h4>
               <button onclick="removeBagItem(this)" class="text-slate-400 hover:text-rose-500 text-sm">&times;</button>
             </div>
-            <div class="text-[11px] text-slate-500 mt-0.5">Size: L &bull; Color: Navy</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">Size: L &bull; Color: Ivory/Navy</div>
           </div>
           <div class="flex items-center justify-between mt-3">
-            <!-- Stepper -->
             <div class="flex items-center border rounded-lg text-xs" style="border-color: var(--border-subtle); background-color: var(--bg-surface);">
               <button class="px-2.5 py-1 text-slate-500 hover:text-black">&minus;</button>
               <span class="px-2 font-bold">1</span>
               <button class="px-2.5 py-1 text-slate-500 hover:text-black">&plus;</button>
             </div>
-            <div id="bag-primary-price" class="font-ui font-black text-sm text-amber-500">₹2,999</div>
+            <div id="bag-primary-price" class="font-ui font-black text-sm text-amber-500">₹1,299</div>
           </div>
         </div>
       </div>
@@ -446,7 +487,7 @@
     <div class="pt-4 border-t space-y-3" style="border-color: var(--border-subtle);">
       <div class="flex items-center justify-between font-ui text-sm font-bold">
         <span class="text-slate-500">Subtotal:</span>
-        <span id="bag-subtotal" class="text-lg font-black" style="color: var(--text-main);">₹2,999</span>
+        <span id="bag-subtotal" class="text-lg font-black" style="color: var(--text-main);">₹1,299</span>
       </div>
       <button onclick="alert('Proceeding to 100% Secure Checkout via PhonePe / GPay / Cards / COD...');" class="w-full py-4 rounded-full bg-[#14171f] text-white dark:bg-white dark:text-black font-brand font-black text-xs uppercase tracking-[0.2em] hover:opacity-90 transition shadow-xl">
         CHECKOUT
@@ -487,10 +528,10 @@
       <div>
         <h5 class="font-ui text-xs font-bold uppercase tracking-widest mb-3">COLLECTIONS</h5>
         <ul class="space-y-2 text-xs text-slate-500">
-          <li><a href="#showroom" onclick="switchCategory('tees')" class="hover:text-black dark:hover:text-white">Heavyweight 320 GSM Tees</a></li>
-          <li><a href="#showroom" onclick="switchCategory('overshirt')" class="hover:text-black dark:hover:text-white">Korean Satin &amp; Cuban Shirts</a></li>
-          <li><a href="#showroom" onclick="switchCategory('overshirt')" class="hover:text-black dark:hover:text-white">Canvas Chore &amp; Nylon Bombers</a></li>
-          <li><a href="#showroom" class="hover:text-black dark:hover:text-white">Skater Wide-Leg Denim</a></li>
+          <li><a href="#showroom" onclick="dressModel(0)" class="hover:text-black dark:hover:text-white">Heavyweight 320 GSM Tees</a></li>
+          <li><a href="#showroom" onclick="dressModel(1)" class="hover:text-black dark:hover:text-white">Linen Oxford Shirts</a></li>
+          <li><a href="#showroom" onclick="dressModel(4)" class="hover:text-black dark:hover:text-white">Canvas Chore Jackets</a></li>
+          <li><a href="#showroom" onclick="dressModel(5)" class="hover:text-black dark:hover:text-white">Nylon Minimalist Bombers</a></li>
         </ul>
       </div>
 
@@ -524,147 +565,74 @@
        INTERACTIVE WARDROBE DATA & SCRIPT ENGINE
        ========================================================================== -->
   <script>
-    // Wardrobe Dataset for Interactive Virtual Try-on (Matches Video Flow)
-    const wardrobeCatalog = {
-      tees: [
-        {
-          id: 'ringer-tee',
-          name: '320 GSM Ringer Tee',
-          price: 1299,
-          thumb: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=250&q=80',
-          modelImg: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=800&q=85',
-          swatches: ['#f8fafc', '#1e293b', '#475569', '#c47c5d']
-        },
-        {
-          id: 'linen-shirt',
-          name: 'Linen Classic Oxford Shirt',
-          price: 1899,
-          thumb: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=250&q=80',
-          modelImg: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=85',
-          swatches: ['#93c5fd', '#f8fafc', '#fed7aa', '#1e293b']
-        },
-        {
-          id: 'loop-hoodie',
-          name: 'Loopback Heavy Hoodie',
-          price: 2499,
-          thumb: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=250&q=80',
-          modelImg: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=85',
-          swatches: ['#94a3b8', '#0f172a', '#475569', '#c47c5d']
-        },
-        {
-          id: 'breton-striped',
-          name: 'Breton Striped Long Sleeve',
-          price: 1499,
-          thumb: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=250&q=80',
-          modelImg: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=85',
-          swatches: ['#1e293b', '#ffffff', '#b91c1c', '#0f766e']
-        }
-      ],
-      overshirt: [
-        {
-          id: 'chore-jacket',
-          name: 'Canvas Chore Jacket',
-          price: 2699,
-          thumb: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=250&q=80',
-          modelImg: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=85',
-          swatches: ['#4d533c', '#78350f', '#0f172a', '#d4af37']
-        },
-        {
-          id: 'nylon-bomber',
-          name: 'Nylon Minimalist Bomber',
-          price: 2999,
-          thumb: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=250&q=80',
-          modelImg: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=85',
-          swatches: ['#1e293b', '#0f172a', '#3f3f46', '#713f12']
-        },
-        {
-          id: 'satin-cuban',
-          name: 'Korean Liquid Satin Shirt',
-          price: 1899,
-          thumb: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=250&q=80',
-          modelImg: 'https://images.unsplash.com/photo-1480429370139-e0132c086e2a?auto=format&fit=crop&w=800&q=85',
-          swatches: ['#fef08a', '#e2e8f0', '#090d16', '#b8860b']
-        },
-        {
-          id: 'varsity-jacket',
-          name: 'Two-Tone Wool Varsity',
-          price: 3499,
-          thumb: 'https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=250&q=80',
-          modelImg: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=85',
-          swatches: ['#1e293b', '#881337', '#065f46', '#78350f']
-        }
-      ]
-    };
-
-    let activeCategory = 'tees';
-    let activeGarmentIndex = 0;
-
-    // Switch Category (Tees vs Overshirt)
-    function switchCategory(category) {
-      activeCategory = category;
-      activeGarmentIndex = 0;
-
-      // Update Pill UI
-      const btnTees = document.getElementById('cat-btn-tees');
-      const btnOvershirt = document.getElementById('cat-btn-overshirt');
-      if (category === 'tees') {
-        btnTees.className = 'category-pill active px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider';
-        btnOvershirt.className = 'category-pill px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider text-slate-500';
-      } else {
-        btnOvershirt.className = 'category-pill active px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider';
-        btnTees.className = 'category-pill px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider text-slate-500';
+    // 6 Signature Dresses from the Video
+    const dresses = [
+      {
+        id: 'ringer-tee',
+        name: '320 GSM Ringer Tee',
+        price: 1299,
+        thumb: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=250&q=80',
+        modelImg: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=800&q=85',
+        swatches: ['#f8fafc', '#1e293b', '#475569', '#c47c5d']
+      },
+      {
+        id: 'linen-shirt',
+        name: 'Linen Classic Oxford Shirt',
+        price: 1899,
+        thumb: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=250&q=80',
+        modelImg: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=85',
+        swatches: ['#93c5fd', '#f8fafc', '#fed7aa', '#1e293b']
+      },
+      {
+        id: 'loop-hoodie',
+        name: 'Loopback Heavy Streetwear Hoodie',
+        price: 2499,
+        thumb: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=250&q=80',
+        modelImg: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=85',
+        swatches: ['#94a3b8', '#0f172a', '#475569', '#c47c5d']
+      },
+      {
+        id: 'breton-striped',
+        name: 'Breton Striped Long Sleeve',
+        price: 1499,
+        thumb: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=250&q=80',
+        modelImg: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=85',
+        swatches: ['#1e293b', '#ffffff', '#b91c1c', '#0f766e']
+      },
+      {
+        id: 'chore-jacket',
+        name: 'Canvas Workwear Chore Jacket',
+        price: 2699,
+        thumb: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=250&q=80',
+        modelImg: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=85',
+        swatches: ['#4d533c', '#78350f', '#0f172a', '#d4af37']
+      },
+      {
+        id: 'nylon-bomber',
+        name: 'Nylon Minimalist Bomber Jacket',
+        price: 2999,
+        thumb: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=250&q=80',
+        modelImg: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=85',
+        swatches: ['#1e293b', '#0f172a', '#3f3f46', '#713f12']
       }
+    ];
 
-      renderOrbitCards();
-      dressModel(0);
+    let currentDressIndex = 0;
+
+    // Change Dress via Arrow Click (Left = -1, Right = +1)
+    function changeDress(direction) {
+      currentDressIndex = (currentDressIndex + direction + dresses.length) % dresses.length;
+      dressModel(currentDressIndex);
     }
 
-    // Render the 4 Floating Cards
-    function renderOrbitCards() {
-      const items = wardrobeCatalog[activeCategory];
-      
-      // Left 1
-      document.getElementById('name-left-1').textContent = items[0].name;
-      document.getElementById('price-left-1').textContent = '₹' + items[0].price.toLocaleString('en-IN');
-      document.getElementById('thumb-left-1').src = items[0].thumb;
-
-      // Left 2
-      document.getElementById('name-left-2').textContent = items[1].name;
-      document.getElementById('price-left-2').textContent = '₹' + items[1].price.toLocaleString('en-IN');
-      document.getElementById('thumb-left-2').src = items[1].thumb;
-
-      // Right 1
-      document.getElementById('name-right-1').textContent = items[2].name;
-      document.getElementById('price-right-1').textContent = '₹' + items[2].price.toLocaleString('en-IN');
-      document.getElementById('thumb-right-1').src = items[2].thumb;
-
-      // Right 2
-      document.getElementById('name-right-2').textContent = items[3].name;
-      document.getElementById('price-right-2').textContent = '₹' + items[3].price.toLocaleString('en-IN');
-      document.getElementById('thumb-right-2').src = items[3].thumb;
-    }
-
-    // Select a Garment from Cards (0, 1, 2, or 3)
-    function selectGarmentByIndex(index) {
-      activeGarmentIndex = index;
-      
-      // Clear Active Ring
-      ['card-left-1', 'card-left-2', 'card-right-1', 'card-right-2'].forEach((id, i) => {
-        const el = document.getElementById(id);
-        if (i === index) el.classList.add('is-active');
-        else el.classList.remove('is-active');
-      });
-
-      dressModel(index);
-    }
-
-    // Dress the Model with Smooth Cross-fade Animation
+    // Dress the 3D Model with Smooth Animation
     function dressModel(index) {
-      const item = wardrobeCatalog[activeCategory][index];
+      currentDressIndex = index;
+      const item = dresses[index];
       const modelContainer = document.getElementById('model-container');
       const modelImg = document.getElementById('active-model-image');
 
-      // Trigger Fade Out
+      // Add fade out animation
       modelContainer.classList.add('fade-out');
 
       setTimeout(() => {
@@ -676,12 +644,23 @@
         document.getElementById('hud-active-thumb').src = item.thumb;
         document.getElementById('hud-active-title').textContent = item.name;
         document.getElementById('hud-active-price').textContent = '₹' + item.price.toLocaleString('en-IN');
+        document.getElementById('hud-dress-counter').textContent = (index + 1) + ' / ' + dresses.length;
+        document.getElementById('stage-dress-index').textContent = 'LOOK ' + String(index + 1).padStart(2, '0') + ' / ' + String(dresses.length).padStart(2, '0');
 
         // Update Swatches
         renderSwatches(item.swatches);
 
+        // Highlight Active Orbit Card
+        for (let i = 0; i < dresses.length; i++) {
+          const card = document.getElementById('card-orbit-' + i);
+          if (card) {
+            if (i === index) card.classList.add('is-active');
+            else card.classList.remove('is-active');
+          }
+        }
+
         setTimeout(() => modelContainer.classList.remove('fade-in'), 300);
-      }, 180);
+      }, 160);
     }
 
     function renderSwatches(colors) {
@@ -705,6 +684,12 @@
       });
     }
 
+    // Keyboard Arrow Controls
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') changeDress(-1);
+      if (e.key === 'ArrowRight') changeDress(1);
+    });
+
     // Bag Drawer Logic
     function toggleBag(open) {
       const drawer = document.getElementById('bag-drawer');
@@ -723,7 +708,7 @@
     }
 
     function addCurrentItemToBag() {
-      const item = wardrobeCatalog[activeCategory][activeGarmentIndex];
+      const item = dresses[currentDressIndex];
       document.getElementById('bag-primary-title').textContent = item.name;
       document.getElementById('bag-primary-price').textContent = '₹' + item.price.toLocaleString('en-IN');
       document.getElementById('bag-primary-img').src = item.thumb;
@@ -734,7 +719,7 @@
 
     function addCrossSell() {
       const subtotalEl = document.getElementById('bag-subtotal');
-      const current = parseInt(subtotalEl.textContent.replace(/[^0-9]/g, '')) || 2999;
+      const current = parseInt(subtotalEl.textContent.replace(/[^0-9]/g, '')) || 1299;
       subtotalEl.textContent = '₹' + (current + 1499).toLocaleString('en-IN');
       alert('Breton Long Sleeve added to your bag!');
     }
@@ -763,8 +748,7 @@
       document.getElementById('themeEmoji').textContent = savedTheme === 'dark' ? '🌙' : '☀️';
       document.getElementById('themeText').textContent = savedTheme === 'dark' ? 'DARK' : 'WARM';
       
-      renderOrbitCards();
-      renderSwatches(wardrobeCatalog.tees[0].swatches);
+      dressModel(0);
     });
   </script>
 </body>
