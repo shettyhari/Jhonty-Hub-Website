@@ -3,25 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JHONTY HUB — 360° Interactive 3D Virtual Try-On Showroom</title>
+  <title>JHONTY HUB — 360° Interactive 3D Real Person Virtual Showroom</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Three.js 3D WebGL Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
   <style>
     /* ==========================================================================
-       VÄRDE-STYLE 3D DIGITAL SHOWROOM (WARM ARCHITECTURAL & OBSIDIAN NOIR)
+       VÄRDE-STYLE 3D DIGITAL SHOWROOM (REAL PERSON 360° TURNTABLE)
+       Warm Architectural Terracotta & Obsidian Noir
        ========================================================================== */
     :root, [data-theme="warm"] {
       --bg-canvas: #ebe3d9;
       --bg-stage: #dfd4c5;
       --bg-surface: #ffffff;
-      --bg-glass: rgba(255, 255, 255, 0.85);
-      --bg-card: rgba(255, 255, 255, 0.9);
+      --bg-glass: rgba(255, 255, 255, 0.88);
+      --bg-card: rgba(255, 255, 255, 0.92);
       --border-subtle: rgba(0, 0, 0, 0.08);
       --border-accent: rgba(184, 134, 11, 0.45);
       
@@ -41,8 +40,8 @@
       --bg-canvas: #0c0e12;
       --bg-stage: #14171f;
       --bg-surface: #12151d;
-      --bg-glass: rgba(18, 21, 29, 0.88);
-      --bg-card: rgba(24, 28, 38, 0.88);
+      --bg-glass: rgba(18, 21, 29, 0.9);
+      --bg-card: rgba(24, 28, 38, 0.9);
       --border-subtle: rgba(255, 255, 255, 0.1);
       --border-accent: rgba(212, 175, 55, 0.45);
       
@@ -58,11 +57,18 @@
       --hud-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
     }
 
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden !important;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       background-color: var(--bg-canvas);
       color: var(--text-main);
       font-family: 'Plus Jakarta Sans', sans-serif;
-      overflow-x: hidden;
       transition: background-color 0.4s ease, color 0.4s ease;
     }
 
@@ -76,15 +82,7 @@
       letter-spacing: 0.05em;
     }
 
-    html, body {
-      width: 100%;
-      max-width: 100vw;
-      overflow-x: hidden !important;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* Universal Scrollbar Elimination for all browsers (Chrome, Edge, Safari, Firefox, Opera) */
+    /* Universal Scrollbar Elimination for all browsers */
     *, *::before, *::after {
       -ms-overflow-style: none !important;
       scrollbar-width: none !important;
@@ -108,24 +106,11 @@
       height: 0px !important;
     }
 
-    #dress-selector-strip {
-      -webkit-overflow-scrolling: touch;
-      scroll-behavior: smooth;
-      -ms-overflow-style: none !important;
-      scrollbar-width: none !important;
-      user-select: none;
-    }
-    #dress-selector-strip::-webkit-scrollbar {
-      display: none !important;
-      width: 0px !important;
-      height: 0px !important;
-    }
-
-    /* Neoclassical Architectural Arch */
+    /* Neoclassical Architectural Arch Backdrop */
     .neoclassical-arch {
-      background: radial-gradient(circle at 50% 120%, rgba(255,255,255,0.2) 0%, transparent 70%),
+      background: radial-gradient(circle at 50% 120%, rgba(255,255,255,0.22) 0%, transparent 70%),
                   linear-gradient(180deg, var(--arch-terracotta) 0%, #a86245 100%);
-      border-radius: 400px 400px 0 0;
+      border-radius: 420px 420px 0 0;
       box-shadow: inset 0 25px 60px rgba(0,0,0,0.25), 0 25px 50px var(--arch-shadow);
       position: relative;
     }
@@ -133,20 +118,86 @@
       content: '';
       position: absolute;
       inset: 12px 12px 0 12px;
-      border-radius: 390px 390px 0 0;
-      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 410px 410px 0 0;
+      border: 1px solid rgba(255, 255, 255, 0.28);
       pointer-events: none;
     }
 
-    /* 3D Canvas Container */
-    #three-canvas-container {
-      width: 100%;
-      height: 560px;
-      cursor: grab;
+    /* 3D Turntable Stage Container */
+    .showroom-stage-3d {
+      perspective: 1100px;
+      user-select: none;
       touch-action: none;
+      cursor: grab;
     }
-    #three-canvas-container:active {
+    .showroom-stage-3d:active {
       cursor: grabbing;
+    }
+
+    /* 3D Rotating Floor Pedestal */
+    .turntable-pedestal {
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      transform-style: preserve-3d;
+      transform: rotateX(72deg);
+      background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(200,185,170,0.8) 55%, rgba(140,110,90,0.9) 85%, var(--gold-primary) 100%);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35), inset 0 0 25px rgba(212, 175, 55, 0.4);
+      border: 3px solid var(--gold-primary);
+      position: relative;
+      transition: transform 0.05s linear;
+    }
+    [data-theme="dark"] .turntable-pedestal {
+      background: radial-gradient(circle, rgba(40,45,60,0.6) 0%, rgba(20,24,35,0.9) 65%, rgba(10,12,18,0.95) 90%, var(--gold-primary) 100%);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(212, 175, 55, 0.3);
+    }
+    .pedestal-marker {
+      position: absolute;
+      inset: 12px;
+      border-radius: 50%;
+      border: 1px dashed rgba(255, 255, 255, 0.35);
+      pointer-events: none;
+    }
+
+    /* Real Person Model Display Wrapper */
+    .real-model-container {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
+      height: 540px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-style: preserve-3d;
+      pointer-events: none;
+    }
+
+    .real-model-img {
+      position: absolute;
+      bottom: 24px;
+      max-height: 510px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.35));
+      transition: opacity 0.2s ease-in-out, transform 0.1s ease-out;
+      transform-origin: center bottom;
+      pointer-events: none;
+    }
+
+    /* Dynamic Contact Shadow */
+    .real-model-shadow {
+      position: absolute;
+      bottom: 12px;
+      width: 220px;
+      height: 28px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(15, 10, 5, 0.55) 0%, rgba(15, 10, 5, 0.2) 50%, transparent 75%);
+      filter: blur(4px);
+      pointer-events: none;
+      transition: transform 0.1s ease-out;
+    }
+    [data-theme="dark"] .real-model-shadow {
+      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 75%);
     }
 
     /* Bottom Dress Carousel Strip */
@@ -171,14 +222,27 @@
       background: var(--bg-surface);
     }
 
+    #dress-selector-strip {
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      -ms-overflow-style: none !important;
+      scrollbar-width: none !important;
+      user-select: none;
+    }
+    #dress-selector-strip::-webkit-scrollbar {
+      display: none !important;
+      width: 0px !important;
+      height: 0px !important;
+    }
+
     /* 360 Drag Badge Pulse */
     @keyframes pulse-ring {
-      0% { transform: scale(0.95); opacity: 0.8; }
-      50% { transform: scale(1.05); opacity: 1; }
-      100% { transform: scale(0.95); opacity: 0.8; }
+      0% { transform: scale(0.97); opacity: 0.85; }
+      50% { transform: scale(1.03); opacity: 1; }
+      100% { transform: scale(0.97); opacity: 0.85; }
     }
     .drag-hint-badge {
-      animation: pulse-ring 2.5s infinite ease-in-out;
+      animation: pulse-ring 2.8s infinite ease-in-out;
     }
   </style>
 </head>
@@ -186,7 +250,7 @@
 
   <!-- Top Dark Announcement Bar (VÄRDE Style) -->
   <div class="bg-[#14171f] text-white text-[11px] font-bold tracking-[0.14em] uppercase py-2.5 px-6 text-center">
-    <span>FREE DELIVERY WORLDWIDE | ORDERS OVER ₹1,999 &bull; SAME-DAY HYDERABAD DISPATCH</span>
+    <span>FREE EXPRESS DELIVERY &bull; ORDERS OVER ₹1,999 &bull; SAME-DAY HYDERABAD DISPATCH</span>
   </div>
 
   <!-- Main Luxury Header -->
@@ -249,73 +313,89 @@
   </header>
 
   <!-- ==========================================================================
-       360° INTERACTIVE 3D VIRTUAL MODEL SHOWROOM (TURNTABLE ROTATION IN PLACE)
+       REAL PERSON 360° 3D VIRTUAL SHOWROOM (TURNTABLE IN ONE PLACE)
        ========================================================================== -->
   <main id="showroom" class="relative flex-grow flex flex-col items-center justify-center px-4 py-4 md:py-6 overflow-hidden">
     
     <!-- Top 360° Instructions & Rotation Angle Controls -->
     <div class="relative z-20 flex flex-wrap items-center justify-center gap-3 mb-3">
       
-      <!-- Interactive Drag Hint Badge -->
+      <!-- Interactive Drag Hint Badge with Live Compass -->
       <div class="drag-hint-badge flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border shadow-md" style="background-color: var(--bg-glass); border-color: var(--border-subtle);">
-        <span class="text-amber-500 font-black">🔄 DRAG TO ROTATE 360° IN PLACE</span>
+        <span class="text-amber-500 font-black">🔄 DRAG PERSON 360° IN PLACE</span>
         <span class="opacity-25">|</span>
-        <span id="rotation-angle-label" class="font-ui font-black text-slate-700 dark:text-slate-300">FRONT (0°)</span>
+        <span id="rotation-angle-label" class="font-ui font-black text-slate-800 dark:text-slate-200">FRONT (0°)</span>
       </div>
 
       <!-- Quick Angle Preset Buttons -->
       <div class="flex items-center space-x-1.5 p-1 rounded-full border text-[11px] font-bold uppercase tracking-wider shadow-sm" style="background-color: var(--bg-glass); border-color: var(--border-subtle);">
         <button onclick="setAngle(0)" class="px-3 py-1 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition">Front</button>
-        <button onclick="setAngle(Math.PI / 2)" class="px-3 py-1 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition">Side</button>
-        <button onclick="setAngle(Math.PI)" class="px-3 py-1 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition">Back</button>
+        <button onclick="setAngle(90)" class="px-3 py-1 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition">Side</button>
+        <button onclick="setAngle(180)" class="px-3 py-1 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition">Back</button>
         <button id="auto-spin-btn" onclick="toggleAutoSpin()" class="px-3 py-1 rounded-full bg-amber-400 text-black font-black hover:bg-amber-300 transition">360° Spin: ON</button>
       </div>
 
     </div>
 
-    <!-- Central Stage Area (Neoclassical Arch & 360° WebGL 3D Model Canvas) -->
-    <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center min-h-[520px] md:min-h-[580px]">
+    <!-- Central 3D Stage Area (Neoclassical Arch & 360° Real Human Model Turntable) -->
+    <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center min-h-[520px] md:min-h-[580px] showroom-stage-3d" id="turntable-stage">
       
       <!-- Architectural Neoclassical Colonnade Arch Backdrop -->
-      <div class="absolute w-[320px] sm:w-[400px] md:w-[460px] h-[480px] md:h-[550px] bottom-0 neoclassical-arch z-0 flex flex-col items-center justify-start pt-8 pointer-events-none">
+      <div class="absolute w-[320px] sm:w-[400px] md:w-[460px] h-[480px] md:h-[550px] bottom-0 neoclassical-arch z-0 flex flex-col items-center justify-start pt-8 pointer-events-none select-none">
         <div class="w-14 h-14 rounded-full border border-white/30 flex items-center justify-center opacity-40">
           <div class="w-7 h-7 rounded-full border border-white/40"></div>
         </div>
-        <div class="text-white/20 font-brand text-2xl font-black tracking-[0.3em] uppercase mt-3 select-none">
+        <div class="text-white/20 font-brand text-2xl font-black tracking-[0.3em] uppercase mt-3">
           JHONTY
         </div>
       </div>
 
-      <!-- Circular 3D Floor Pedestal Stand -->
-      <div class="absolute bottom-2 w-[260px] sm:w-[340px] md:w-[380px] h-[34px] rounded-[100%] shadow-2xl z-0 pointer-events-none" style="background: radial-gradient(ellipse at center, rgba(30,20,15,0.45) 0%, rgba(30,20,15,0.15) 50%, transparent 80%);"></div>
-
-      <!-- Real-Time 3D WebGL Canvas (User drags here to rotate 360 degrees) -->
-      <div id="three-canvas-container" class="relative z-10 flex items-center justify-center">
-        <!-- Canvas injected by Three.js -->
+      <!-- 3D Rotating Floor Turntable Pedestal Stand -->
+      <div class="absolute bottom-4 z-0 pointer-events-none flex items-center justify-center">
+        <div class="turntable-pedestal" id="pedestal-disc">
+          <div class="pedestal-marker"></div>
+          <!-- Center 360 Degree Radial Compass Ticks -->
+          <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
+            <div class="w-16 h-16 rounded-full border border-amber-400"></div>
+          </div>
+        </div>
       </div>
 
-      <!-- Left / Right Quick Orbit Buttons directly on 3D Stage -->
-      <button onclick="rotateStep(-0.5)" class="absolute left-2 sm:left-6 md:left-14 top-1/2 -translate-y-1/2 z-20 w-11 h-11 md:w-13 md:h-13 rounded-full flex items-center justify-center border shadow-lg transition-transform hover:scale-110 active:scale-90" style="background-color: var(--bg-glass); border-color: var(--border-subtle); color: var(--text-main);" title="Rotate Left (360°)">
+      <!-- Real Human Model Container (Centerpiece) -->
+      <div class="real-model-container z-10" id="real-model-wrap">
+        
+        <!-- Dynamic Ground Contact Shadow (Reacts to rotation) -->
+        <div class="real-model-shadow" id="model-shadow"></div>
+
+        <!-- Real Human Model Photos (Front, 3/4, Profile, Back) -->
+        <img id="model-img-front" src="" alt="Jhonty Hub Model - Front" class="real-model-img">
+        <img id="model-img-side" src="" alt="Jhonty Hub Model - Side" class="real-model-img" style="opacity: 0;">
+        <img id="model-img-back" src="" alt="Jhonty Hub Model - Back" class="real-model-img" style="opacity: 0;">
+
+      </div>
+
+      <!-- Left / Right Quick Orbit Buttons on 3D Stage -->
+      <button onclick="rotateStep(-30)" class="absolute left-2 sm:left-6 md:left-14 top-1/2 -translate-y-1/2 z-20 w-11 h-11 md:w-13 md:h-13 rounded-full flex items-center justify-center border shadow-lg transition-transform hover:scale-110 active:scale-90" style="background-color: var(--bg-glass); border-color: var(--border-subtle); color: var(--text-main);" title="Rotate Left">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
       </button>
 
-      <button onclick="rotateStep(0.5)" class="absolute right-2 sm:right-6 md:right-14 top-1/2 -translate-y-1/2 z-20 w-11 h-11 md:w-13 md:h-13 rounded-full flex items-center justify-center border shadow-lg transition-transform hover:scale-110 active:scale-90" style="background-color: var(--bg-glass); border-color: var(--border-subtle); color: var(--text-main);" title="Rotate Right (360°)">
+      <button onclick="rotateStep(30)" class="absolute right-2 sm:right-6 md:right-14 top-1/2 -translate-y-1/2 z-20 w-11 h-11 md:w-13 md:h-13 rounded-full flex items-center justify-center border shadow-lg transition-transform hover:scale-110 active:scale-90" style="background-color: var(--bg-glass); border-color: var(--border-subtle); color: var(--text-main);" title="Rotate Right">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
       </button>
 
     </div>
 
     <!-- ==========================================================================
-         BOTTOM DRESS SELECTOR BAR (USER CLICKS DRESS TO PREVIEW ON 3D PERSON)
+         BOTTOM DRESS SELECTOR BAR (REAL PERSON WEARS SELECTED OUTFIT FOR PREVIEW)
          ========================================================================== -->
     <div class="relative z-20 w-full max-w-6xl mx-auto mt-2">
       
       <div class="flex items-center justify-between mb-2 px-2">
         <span class="text-[11px] font-black uppercase tracking-wider text-amber-500">
-          SELECT A DRESS BELOW TO PREVIEW ON 3D PERSON &bull; DRAG PERSON TO ROTATE 360°
+          SELECT A DRESS BELOW TO PREVIEW ON REAL PERSON &bull; DRAG PERSON TO ROTATE 360°
         </span>
         <span id="active-dress-label" class="text-xs font-bold text-slate-500">
-          Wearing: <strong>320 GSM Ringer Tee</strong>
+          Wearing: <strong>320 GSM Vintage Ringer Tee</strong>
         </span>
       </div>
 
@@ -327,93 +407,95 @@
         </button>
 
         <div class="flex items-center space-x-3.5 overflow-x-auto py-2 px-1 select-none" id="dress-selector-strip">
-        
-        <!-- Dress 0: Ringer Tee -->
-        <div onclick="selectDress(0)" class="dress-strip-card is-active p-3 w-40 flex flex-col justify-between" id="dress-card-0">
-          <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
-            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=200&q=80" alt="Ringer Tee" class="w-full h-full object-contain">
+          
+          <!-- Dress 0: Ringer Tee -->
+          <div onclick="selectDress(0)" class="dress-strip-card is-active p-3 w-40 flex flex-col justify-between" id="dress-card-0">
+            <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
+              <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=300&q=80" alt="Ringer Tee" class="w-full h-full object-cover rounded-lg">
+            </div>
+            <div>
+              <div class="font-ui text-xs font-bold line-clamp-1">Ringer Tee (320 GSM)</div>
+              <div class="text-xs font-black text-amber-500 mt-0.5">₹1,299</div>
+            </div>
           </div>
-          <div>
-            <div class="font-ui text-xs font-bold line-clamp-1">Ringer Tee (320 GSM)</div>
-            <div class="text-xs font-black text-amber-500 mt-0.5">₹1,299</div>
-          </div>
-        </div>
 
-        <!-- Dress 1: Oxford Shirt -->
-        <div onclick="selectDress(1)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-1">
-          <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
-            <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=200&q=80" alt="Linen Oxford" class="w-full h-full object-contain">
+          <!-- Dress 1: Oxford Shirt -->
+          <div onclick="selectDress(1)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-1">
+            <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
+              <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=300&q=80" alt="Linen Oxford" class="w-full h-full object-cover rounded-lg">
+            </div>
+            <div>
+              <div class="font-ui text-xs font-bold line-clamp-1">Linen Oxford Shirt</div>
+              <div class="text-xs font-black text-amber-500 mt-0.5">₹1,899</div>
+            </div>
           </div>
-          <div>
-            <div class="font-ui text-xs font-bold line-clamp-1">Linen Oxford Shirt</div>
-            <div class="text-xs font-black text-amber-500 mt-0.5">₹1,899</div>
-          </div>
-        </div>
 
-        <!-- Dress 2: Loop Hoodie -->
-        <div onclick="selectDress(2)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-2">
-          <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
-            <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=200&q=80" alt="Loop Hoodie" class="w-full h-full object-contain">
+          <!-- Dress 2: Loop Hoodie -->
+          <div onclick="selectDress(2)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-2">
+            <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
+              <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=300&q=80" alt="Loop Hoodie" class="w-full h-full object-cover rounded-lg">
+            </div>
+            <div>
+              <div class="font-ui text-xs font-bold line-clamp-1">Loopback Heavy Hoodie</div>
+              <div class="text-xs font-black text-amber-500 mt-0.5">₹2,499</div>
+            </div>
           </div>
-          <div>
-            <div class="font-ui text-xs font-bold line-clamp-1">Loopback Heavy Hoodie</div>
-            <div class="text-xs font-black text-amber-500 mt-0.5">₹2,499</div>
-          </div>
-        </div>
 
-        <!-- Dress 3: Breton Striped -->
-        <div onclick="selectDress(3)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-3">
-          <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
-            <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=200&q=80" alt="Breton" class="w-full h-full object-contain">
+          <!-- Dress 3: Breton Striped -->
+          <div onclick="selectDress(3)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-3">
+            <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
+              <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=300&q=80" alt="Breton" class="w-full h-full object-cover rounded-lg">
+            </div>
+            <div>
+              <div class="font-ui text-xs font-bold line-clamp-1">Breton Striped Long Sleeve</div>
+              <div class="text-xs font-black text-amber-500 mt-0.5">₹1,499</div>
+            </div>
           </div>
-          <div>
-            <div class="font-ui text-xs font-bold line-clamp-1">Breton Striped Long Sleeve</div>
-            <div class="text-xs font-black text-amber-500 mt-0.5">₹1,499</div>
-          </div>
-        </div>
 
-        <!-- Dress 4: Canvas Chore Jacket -->
-        <div onclick="selectDress(4)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-4">
-          <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
-            <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=200&q=80" alt="Chore Jacket" class="w-full h-full object-contain">
+          <!-- Dress 4: Canvas Chore Jacket -->
+          <div onclick="selectDress(4)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-4">
+            <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
+              <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=300&q=80" alt="Chore Jacket" class="w-full h-full object-cover rounded-lg">
+            </div>
+            <div>
+              <div class="font-ui text-xs font-bold line-clamp-1">Canvas Chore Jacket</div>
+              <div class="text-xs font-black text-amber-500 mt-0.5">₹2,699</div>
+            </div>
           </div>
-          <div>
-            <div class="font-ui text-xs font-bold line-clamp-1">Canvas Chore Jacket</div>
-            <div class="text-xs font-black text-amber-500 mt-0.5">₹2,699</div>
-          </div>
-        </div>
 
-        <!-- Dress 5: Nylon Minimalist Bomber -->
-        <div onclick="selectDress(5)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-5">
-          <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
-            <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=200&q=80" alt="Nylon Bomber" class="w-full h-full object-contain">
+          <!-- Dress 5: Nylon Minimalist Bomber -->
+          <div onclick="selectDress(5)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-5">
+            <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
+              <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=300&q=80" alt="Nylon Bomber" class="w-full h-full object-cover rounded-lg">
+            </div>
+            <div>
+              <div class="font-ui text-xs font-bold line-clamp-1">Nylon Minimalist Bomber</div>
+              <div class="text-xs font-black text-amber-500 mt-0.5">₹2,999</div>
+            </div>
           </div>
-          <div>
-            <div class="font-ui text-xs font-bold line-clamp-1">Nylon Minimalist Bomber</div>
-            <div class="text-xs font-black text-amber-500 mt-0.5">₹2,999</div>
-          </div>
-        </div>
 
-        <!-- Dress 6: Tokyo Cyber Graphic Tee -->
-        <div onclick="selectDress(6)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-6">
-          <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
-            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=200&q=80" alt="Tokyo Cyber" class="w-full h-full object-contain">
+          <!-- Dress 6: Tokyo Cyber Graphic Tee -->
+          <div onclick="selectDress(6)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-6">
+            <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
+              <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=300&q=80" alt="Tokyo Cyber" class="w-full h-full object-cover rounded-lg">
+            </div>
+            <div>
+              <div class="font-ui text-xs font-bold line-clamp-1">Tokyo Cyber 320 GSM Tee</div>
+              <div class="text-xs font-black text-amber-500 mt-0.5">₹1,299</div>
+            </div>
           </div>
-          <div>
-            <div class="font-ui text-xs font-bold line-clamp-1">Tokyo Cyber 320 GSM Tee</div>
-            <div class="text-xs font-black text-amber-500 mt-0.5">₹1,299</div>
-          </div>
-        </div>
 
-        <!-- Dress 7: Korean Liquid Satin Shirt -->
-        <div onclick="selectDress(7)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-7">
-          <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
-            <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=200&q=80" alt="Korean Satin" class="w-full h-full object-contain">
+          <!-- Dress 7: Korean Liquid Satin Shirt -->
+          <div onclick="selectDress(7)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-7">
+            <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
+              <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=300&q=80" alt="Korean Satin" class="w-full h-full object-cover rounded-lg">
+            </div>
+            <div>
+              <div class="font-ui text-xs font-bold line-clamp-1">Korean Liquid Satin Shirt</div>
+              <div class="text-xs font-black text-amber-500 mt-0.5">₹1,899</div>
+            </div>
           </div>
-          <div>
-            <div class="font-ui text-xs font-bold line-clamp-1">Korean Liquid Satin Shirt</div>
-            <div class="text-xs font-black text-amber-500 mt-0.5">₹1,899</div>
-          </div>
+
         </div>
 
         <!-- Right Scroll Arrow -->
@@ -427,8 +509,8 @@
         <div class="flex items-center gap-3">
           <div class="w-8 h-8 rounded-full bg-amber-400 text-black font-black flex items-center justify-center text-xs">✓</div>
           <div>
-            <span class="text-[11px] text-slate-500">Selected Dress:</span>
-            <span id="hud-dress-title" class="text-xs font-black ml-1">320 GSM Ringer Tee</span>
+            <span class="text-[11px] text-slate-500">Selected Outfit:</span>
+            <span id="hud-dress-title" class="text-xs font-black ml-1">320 GSM Vintage Ringer Tee</span>
             <span id="hud-dress-price" class="text-xs font-black text-amber-500 ml-2">₹1,299</span>
           </div>
         </div>
@@ -471,566 +553,338 @@
         <div class="flex-grow flex flex-col justify-between">
           <div>
             <div class="flex justify-between items-start">
-              <h4 id="bag-item-title" class="font-ui text-sm font-bold">320 GSM Ringer Tee</h4>
+              <h4 id="bag-item-title" class="font-ui text-sm font-bold">320 GSM Vintage Ringer Tee</h4>
               <button onclick="this.closest('.flex').remove()" class="text-slate-400 hover:text-rose-500 text-sm">&times;</button>
             </div>
             <div class="text-[11px] text-slate-500 mt-0.5">Size: L &bull; Custom Fit</div>
           </div>
           <div class="flex items-center justify-between mt-3">
-            <div class="flex items-center border rounded-lg text-xs" style="border-color: var(--border-subtle); background-color: var(--bg-surface);">
-              <button class="px-2.5 py-1 text-slate-500 hover:text-black">&minus;</button>
-              <span class="px-2 font-bold">1</span>
-              <button class="px-2.5 py-1 text-slate-500 hover:text-black">&plus;</button>
+            <span id="bag-item-price" class="text-sm font-black text-amber-500">₹1,299</span>
+            <div class="flex items-center border rounded-lg text-xs font-bold px-2 py-1 gap-2" style="border-color: var(--border-subtle);">
+              <span>Qty: 1</span>
             </div>
-            <div id="bag-item-price" class="font-ui font-black text-sm text-amber-500">₹1,299</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Drawer Checkout Footer -->
-    <div class="pt-4 border-t space-y-3" style="border-color: var(--border-subtle);">
-      <div class="flex items-center justify-between font-ui text-sm font-bold">
-        <span class="text-slate-500">Subtotal:</span>
-        <span id="bag-subtotal" class="text-lg font-black" style="color: var(--text-main);">₹1,299</span>
+    <!-- Checkout Footer -->
+    <div class="pt-4 border-t mt-auto" style="border-color: var(--border-subtle);">
+      <div class="flex justify-between text-sm font-bold mb-1">
+        <span>Subtotal</span>
+        <span id="bag-subtotal">₹1,299</span>
       </div>
-      <button onclick="alert('Proceeding to 100% Secure Checkout via PhonePe / GPay / Cards / COD...');" class="w-full py-4 rounded-full bg-[#14171f] text-white dark:bg-white dark:text-black font-brand font-black text-xs uppercase tracking-[0.2em] hover:opacity-90 transition shadow-xl">
-        CHECKOUT
+      <div class="text-[11px] text-slate-500 mb-4">Taxes and Hyderabad courier included.</div>
+      <button onclick="alert('Proceeding to Jhonty Hub Razorpay / UPI Express Checkout...')" class="w-full py-4 rounded-full bg-[#14171f] text-white dark:bg-white dark:text-black font-ui text-xs font-black uppercase tracking-widest hover:opacity-90 transition shadow-xl flex items-center justify-center gap-2">
+        <span>PROCEED TO CHECKOUT &rarr;</span>
       </button>
-      <div class="text-center text-[10px] text-slate-400 flex items-center justify-center gap-2">
-        <span>🔒 256-Bit Encrypted</span>
-        <span>&bull;</span>
-        <span>Free Exchanges in Hyderabad</span>
-      </div>
     </div>
 
   </div>
 
-  <!-- Hyderabad Stores & Sitemaps Strip -->
-  <footer id="stores" class="border-t py-10 px-6 transition-colors" style="background-color: var(--bg-surface); border-color: var(--border-subtle);">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-xs text-slate-500">
+  <!-- Store Information & Footnotes -->
+  <footer class="mt-8 border-t py-6 px-6 text-center text-xs" style="border-color: var(--border-subtle); color: var(--text-secondary);" id="stores">
+    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
       <div>
-        <div class="font-brand text-sm font-black text-black dark:text-white uppercase mb-2">JHONTY HUB &bull; HYDERABAD</div>
-        <p>Visit our physical stores in Kukatpally (Venkata Ramana Colony), Madhapur (Hitech City Road), and LB Nagar.</p>
-        <p class="mt-2 text-amber-500 font-bold">📞 WhatsApp Concierge: +91 91606 63888</p>
+        <strong>JHONTY HUB FLAGSHIP STORES:</strong> Kukatpally Main Rd &bull; Madhapur Metro Pillar 1740 &bull; LB Nagar Ring Rd, Hyderabad
       </div>
-      <div>
-        <div class="font-ui text-xs font-bold text-black dark:text-white uppercase mb-2">360° VIRTUAL SHOWROOM</div>
-        <p>Rotate the model 360 degrees to inspect tailored fits, fabric drapes, back prints, and collar contours before purchasing.</p>
-      </div>
-      <div>
-        <div class="font-ui text-xs font-bold text-black dark:text-white uppercase mb-2">CLIENT GUARANTEE</div>
-        <p>Same-Day Hyderabad Dispatch &bull; 7-Day Easy Size Replacement &bull; 100% Quality Checked 280-320 GSM Cotton</p>
+      <div class="text-amber-500 font-bold">
+        WhatsApp Concierge: +91 91606 63888
       </div>
     </div>
   </footer>
 
   <!-- ==========================================================================
-       THREE.JS REAL-TIME 3D CHARACTER ENGINE WITH 360° TURNTABLE & DRESS MAPPING
+       REAL PERSON 360° 3D TURNTABLE JAVASCRIPT ENGINE
        ========================================================================== -->
   <script>
-    // 8 Signature Dresses for 3D Model
-    const dressCatalog = [
+    // Real Human Model Dataset for 8 Outfits across 360° Photorealistic Angles
+    const realModelCatalog = [
       {
         id: 'ringer-tee',
-        name: '320 GSM Ringer Tee',
+        name: '320 GSM Vintage Ringer Tee',
         price: 1299,
-        category: 'Tees',
-        thumb: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=200&q=80',
-        torsoColor: 0xf5f3ea, // Vintage ivory
-        collarColor: 0x1e293b, // Contrast navy rib
-        sleeveType: 'short',
-        sleeveColor: 0xf5f3ea,
-        sleeveCuffColor: 0x1e293b,
-        hasHood: false,
-        hasJacket: false,
-        backGraphic: false
+        thumb: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=300&q=80',
+        views: {
+          front: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=85',
+          side: 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=800&q=85',
+          back: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=85'
+        }
       },
       {
         id: 'oxford-shirt',
         name: 'Linen Classic Oxford Shirt',
         price: 1899,
-        category: 'Shirts',
-        thumb: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=200&q=80',
-        torsoColor: 0x93c5fd, // Sky blue chambray
-        collarColor: 0x60a5fa,
-        sleeveType: 'long',
-        sleeveColor: 0x93c5fd,
-        hasHood: false,
-        hasJacket: false,
-        backGraphic: false
+        thumb: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=300&q=80',
+        views: {
+          front: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=800&q=85',
+          side: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=800&q=85',
+          back: 'https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=800&q=85'
+        }
       },
       {
         id: 'loop-hoodie',
         name: 'Loopback Heavy Streetwear Hoodie',
         price: 2499,
-        category: 'Hoodies',
-        thumb: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=200&q=80',
-        torsoColor: 0x94a3b8, // Heather grey
-        collarColor: 0x64748b,
-        sleeveType: 'long',
-        sleeveColor: 0x94a3b8,
-        hasHood: true,
-        hoodColor: 0x94a3b8,
-        hasJacket: false,
-        backGraphic: false
+        thumb: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=300&q=80',
+        views: {
+          front: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=85',
+          side: 'https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=800&q=85',
+          back: 'https://images.unsplash.com/photo-1578587018452-892bacefd3f2?auto=format&fit=crop&w=800&q=85'
+        }
       },
       {
         id: 'breton-striped',
         name: 'Breton Striped Long Sleeve',
         price: 1499,
-        category: 'Tees',
-        thumb: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=200&q=80',
-        torsoColor: 0x1e293b, // Striped canvas
-        collarColor: 0x1e293b,
-        sleeveType: 'long',
-        sleeveColor: 0x1e293b,
-        hasHood: false,
-        hasJacket: false,
-        isStriped: true,
-        backGraphic: false
+        thumb: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=300&q=80',
+        views: {
+          front: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=800&q=85',
+          side: 'https://images.unsplash.com/photo-1516826957135-700dedea698c?auto=format&fit=crop&w=800&q=85',
+          back: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=85'
+        }
       },
       {
         id: 'chore-jacket',
         name: 'Canvas Workwear Chore Jacket',
         price: 2699,
-        category: 'Jackets',
-        thumb: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=200&q=80',
-        torsoColor: 0x4d533c, // Earthy olive canvas
-        collarColor: 0x3d432e,
-        sleeveType: 'long',
-        sleeveColor: 0x4d533c,
-        hasHood: false,
-        hasJacket: true,
-        jacketColor: 0x4d533c,
-        backGraphic: false
+        thumb: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=300&q=80',
+        views: {
+          front: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=800&q=85',
+          side: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=85',
+          back: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=85'
+        }
       },
       {
         id: 'nylon-bomber',
         name: 'Nylon Minimalist Bomber Jacket',
         price: 2999,
-        category: 'Jackets',
-        thumb: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=200&q=80',
-        torsoColor: 0x172554, // Midnight navy satin
-        collarColor: 0x0f172a,
-        sleeveType: 'long',
-        sleeveColor: 0x172554,
-        hasHood: false,
-        hasJacket: true,
-        jacketColor: 0x172554,
-        backGraphic: false
+        thumb: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=300&q=80',
+        views: {
+          front: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=85',
+          side: 'https://images.unsplash.com/photo-1516257984-b1b4d707412e?auto=format&fit=crop&w=800&q=85',
+          back: 'https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=800&q=85'
+        }
       },
       {
         id: 'tokyo-cyber',
         name: 'Tokyo Cyber 320 GSM Tee',
         price: 1299,
-        category: 'Tees',
-        thumb: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=200&q=80',
-        torsoColor: 0x090d16, // Pitch black
-        collarColor: 0x000000,
-        sleeveType: 'short',
-        sleeveColor: 0x090d16,
-        hasHood: false,
-        hasJacket: false,
-        backGraphic: true // Shows cyber graphic on back when turned 180°!
+        thumb: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=300&q=80',
+        views: {
+          front: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=85',
+          side: 'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?auto=format&fit=crop&w=800&q=85',
+          back: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=800&q=85'
+        }
       },
       {
         id: 'korean-satin',
         name: 'Korean Liquid Satin Shirt',
         price: 1899,
-        category: 'Shirts',
-        thumb: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=200&q=80',
-        torsoColor: 0xd4af37, // Liquid champagne gold
-        collarColor: 0xb8860b,
-        sleeveType: 'long',
-        sleeveColor: 0xd4af37,
-        hasHood: false,
-        hasJacket: false,
-        backGraphic: false
+        thumb: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=300&q=80',
+        views: {
+          front: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=85',
+          side: 'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=800&q=85',
+          back: 'https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=800&q=85'
+        }
       }
     ];
 
-    let currentDressIndex = 0;
-    let scene, camera, renderer, characterGroup;
-    let isDragging = false;
-    let prevMouseX = 0;
-    let targetRotationY = 0;
+    let currentDressIdx = 0;
+    let currentAngleDeg = 0;
+    let targetAngleDeg = 0;
     let autoRotate = true;
+    let isDragging = false;
+    let startPointerX = 0;
+    let angleAtDragStart = 0;
 
-    // Garment Meshes on Character
-    let torsoMesh, collarMesh, lSleeveMesh, rSleeveMesh, lForearmMesh, rForearmMesh;
-    let hoodMesh, jacketPocketsMesh, backGraphicMesh;
+    // Elements
+    const stageEl = document.getElementById('turntable-stage');
+    const pedestalEl = document.getElementById('pedestal-disc');
+    const modelWrapEl = document.getElementById('real-model-wrap');
+    const modelShadowEl = document.getElementById('model-shadow');
+    const frontImg = document.getElementById('model-img-front');
+    const sideImg = document.getElementById('model-img-side');
+    const backImg = document.getElementById('model-img-back');
+    const angleLabel = document.getElementById('rotation-angle-label');
+    const autoSpinBtn = document.getElementById('auto-spin-btn');
 
-    function init3DShowroom() {
-      const container = document.getElementById('three-canvas-container');
-      const width = container.clientWidth || 800;
-      const height = container.clientHeight || 560;
+    // Select Dress Function
+    function selectDress(idx) {
+      currentDressIdx = idx;
+      const dress = realModelCatalog[idx];
 
-      // 1. Scene
-      scene = new THREE.Scene();
-
-      // 2. Camera
-      camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
-      camera.position.set(0, 1.35, 4.2);
-
-      // 3. Renderer with High-End Lighting & Shadows
-      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.shadowMap.enabled = true;
-      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.15;
-      container.appendChild(renderer.domElement);
-
-      // 4. Lighting Rig
-      const ambientLight = new THREE.AmbientLight(0xfff7ed, 0.7);
-      scene.add(ambientLight);
-
-      // Warm directional sunlight (casting soft shadow)
-      const sunLight = new THREE.DirectionalLight(0xffedd5, 1.4);
-      sunLight.position.set(3, 5, 4);
-      sunLight.castShadow = true;
-      sunLight.shadow.mapSize.width = 1024;
-      sunLight.shadow.mapSize.height = 1024;
-      sunLight.shadow.bias = -0.001;
-      scene.add(sunLight);
-
-      // Soft blue/amber rim light from back-left
-      const rimLight = new THREE.DirectionalLight(0xd4af37, 0.6);
-      rimLight.position.set(-3, 3, -3);
-      scene.add(rimLight);
-
-      // 5. Floor Pedestal (Receives 3D shadow)
-      const pedestalGeo = new THREE.CylinderGeometry(1.2, 1.25, 0.08, 48);
-      const pedestalMat = new THREE.MeshStandardMaterial({
-        color: 0xd6c7b2,
-        roughness: 0.6,
-        metalness: 0.1
-      });
-      const pedestal = new THREE.Mesh(pedestalGeo, pedestalMat);
-      pedestal.position.y = -1.04;
-      pedestal.receiveShadow = true;
-      scene.add(pedestal);
-
-      // 6. Build the 3D Person (Character Group)
-      build3DCharacter();
-
-      // 7. Interaction Listeners (Drag to rotate 360°)
-      setup3DRotationEvents(container);
-
-      // 8. Start Animation Loop
-      animate3D();
-    }
-
-    // Build Realistic 3D Humanoid Character in Three.js
-    function build3DCharacter() {
-      characterGroup = new THREE.Group();
-      characterGroup.position.y = -1.0;
-      scene.add(characterGroup);
-
-      const skinMat = new THREE.MeshStandardMaterial({
-        color: 0xdfab92,
-        roughness: 0.65,
-        metalness: 0.05
-      });
-
-      const hairMat = new THREE.MeshStandardMaterial({
-        color: 0x241a15,
-        roughness: 0.8
-      });
-
-      const pantsMat = new THREE.MeshStandardMaterial({
-        color: 0x222630, // Charcoal tailored trousers
-        roughness: 0.75
-      });
-
-      const shoeMat = new THREE.MeshStandardMaterial({
-        color: 0x0f172a,
-        roughness: 0.4
-      });
-
-      const soleMat = new THREE.MeshStandardMaterial({
-        color: 0xf8fafc,
-        roughness: 0.2
-      });
-
-      // --- HEAD & NECK ---
-      const neckGeo = new THREE.CylinderGeometry(0.09, 0.1, 0.18, 16);
-      const neck = new THREE.Mesh(neckGeo, skinMat);
-      neck.position.y = 1.95;
-      characterGroup.add(neck);
-
-      const headGeo = new THREE.SphereGeometry(0.16, 24, 24);
-      headGeo.scale(0.9, 1.15, 0.95);
-      const head = new THREE.Mesh(headGeo, skinMat);
-      head.position.y = 2.15;
-      head.castShadow = true;
-      characterGroup.add(head);
-
-      // Styled Hair
-      const hairGeo = new THREE.SphereGeometry(0.17, 20, 20);
-      hairGeo.scale(0.94, 0.85, 0.98);
-      const hair = new THREE.Mesh(hairGeo, hairMat);
-      hair.position.set(0, 2.22, -0.02);
-      characterGroup.add(hair);
-
-      // --- TORSO (GARMENT PREVIEW TARGET) ---
-      const torsoGeo = new THREE.CylinderGeometry(0.3, 0.23, 0.8, 24);
-      torsoGeo.scale(1.15, 1, 0.75);
-      const defaultGarmentMat = new THREE.MeshStandardMaterial({
-        color: 0xf5f3ea,
-        roughness: 0.5,
-        metalness: 0.05
-      });
-      torsoMesh = new THREE.Mesh(torsoGeo, defaultGarmentMat);
-      torsoMesh.position.y = 1.48;
-      torsoMesh.castShadow = true;
-      torsoMesh.receiveShadow = true;
-      characterGroup.add(torsoMesh);
-
-      // Contrast Collar Ring
-      const collarGeo = new THREE.TorusGeometry(0.13, 0.025, 16, 24);
-      collarGeo.rotateX(Math.PI / 2);
-      const collarMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.6 });
-      collarMesh = new THREE.Mesh(collarGeo, collarMat);
-      collarMesh.position.set(0, 1.88, 0);
-      characterGroup.add(collarMesh);
-
-      // 3D Hood (Shown when Hoodie is selected)
-      const hoodGeo = new THREE.SphereGeometry(0.22, 16, 16);
-      hoodGeo.scale(0.9, 0.8, 0.5);
-      const hoodMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.7 });
-      hoodMesh = new THREE.Mesh(hoodGeo, hoodMat);
-      hoodMesh.position.set(0, 1.85, -0.15);
-      hoodMesh.visible = false;
-      characterGroup.add(hoodMesh);
-
-      // Back Graphic Patch (Visible when character turns 180°)
-      const backGeo = new THREE.PlaneGeometry(0.32, 0.42);
-      const backMat = new THREE.MeshBasicMaterial({ color: 0xd946ef, side: THREE.DoubleSide });
-      backGraphicMesh = new THREE.Mesh(backGeo, backMat);
-      backGraphicMesh.position.set(0, 1.5, -0.19);
-      backGraphicMesh.rotation.y = Math.PI;
-      backGraphicMesh.visible = false;
-      characterGroup.add(backGraphicMesh);
-
-      // --- ARMS & SHOULDERS ---
-      // Left Upper Arm (Sleeve)
-      const armGeo = new THREE.CylinderGeometry(0.08, 0.075, 0.45, 16);
-      lSleeveMesh = new THREE.Mesh(armGeo, defaultGarmentMat);
-      lSleeveMesh.position.set(-0.38, 1.6, 0);
-      lSleeveMesh.rotation.z = 0.12;
-      lSleeveMesh.castShadow = true;
-      characterGroup.add(lSleeveMesh);
-
-      // Right Upper Arm (Sleeve)
-      rSleeveMesh = new THREE.Mesh(armGeo, defaultGarmentMat);
-      rSleeveMesh.position.set(0.38, 1.6, 0);
-      rSleeveMesh.rotation.z = -0.12;
-      rSleeveMesh.castShadow = true;
-      characterGroup.add(rSleeveMesh);
-
-      // Left Forearm / Hand
-      const forearmGeo = new THREE.CylinderGeometry(0.065, 0.055, 0.45, 16);
-      lForearmMesh = new THREE.Mesh(forearmGeo, skinMat);
-      lForearmMesh.position.set(-0.43, 1.18, 0);
-      lForearmMesh.castShadow = true;
-      characterGroup.add(lForearmMesh);
-
-      // Right Forearm / Hand
-      rForearmMesh = new THREE.Mesh(forearmGeo, skinMat);
-      rForearmMesh.position.set(0.43, 1.18, 0);
-      rForearmMesh.castShadow = true;
-      characterGroup.add(rForearmMesh);
-
-      // Hands
-      const handGeo = new THREE.SphereGeometry(0.065, 12, 12);
-      handGeo.scale(0.8, 1.1, 0.6);
-      const lHand = new THREE.Mesh(handGeo, skinMat);
-      lHand.position.set(-0.43, 0.92, 0);
-      characterGroup.add(lHand);
-
-      const rHand = new THREE.Mesh(handGeo, skinMat);
-      rHand.position.set(0.43, 0.92, 0);
-      characterGroup.add(rHand);
-
-      // --- LOWER BODY & PANTS ---
-      const hipGeo = new THREE.CylinderGeometry(0.24, 0.23, 0.22, 20);
-      hipGeo.scale(1.1, 1, 0.75);
-      const hip = new THREE.Mesh(hipGeo, pantsMat);
-      hip.position.y = 1.0;
-      hip.castShadow = true;
-      characterGroup.add(hip);
-
-      // Left Leg (Wide-leg tailored trouser)
-      const legGeo = new THREE.CylinderGeometry(0.115, 0.12, 0.88, 16);
-      const lLeg = new THREE.Mesh(legGeo, pantsMat);
-      lLeg.position.set(-0.16, 0.5, 0);
-      lLeg.castShadow = true;
-      characterGroup.add(lLeg);
-
-      // Right Leg
-      const rLeg = new THREE.Mesh(legGeo, pantsMat);
-      rLeg.position.set(0.16, 0.5, 0);
-      rLeg.castShadow = true;
-      characterGroup.add(rLeg);
-
-      // --- SNEAKERS & PLATFORM SOLES ---
-      const shoeGeo = new THREE.BoxGeometry(0.14, 0.1, 0.28);
-      const soleGeo = new THREE.BoxGeometry(0.15, 0.045, 0.3);
-
-      // Left Shoe
-      const lShoe = new THREE.Mesh(shoeGeo, shoeMat);
-      lShoe.position.set(-0.16, 0.08, 0.04);
-      lShoe.castShadow = true;
-      characterGroup.add(lShoe);
-      const lSole = new THREE.Mesh(soleGeo, soleMat);
-      lSole.position.set(-0.16, 0.025, 0.04);
-      characterGroup.add(lSole);
-
-      // Right Shoe
-      const rShoe = new THREE.Mesh(shoeGeo, shoeMat);
-      rShoe.position.set(0.16, 0.08, 0.04);
-      rShoe.castShadow = true;
-      characterGroup.add(rShoe);
-      const rSole = new THREE.Mesh(soleGeo, soleMat);
-      rSole.position.set(0.16, 0.025, 0.04);
-      characterGroup.add(rSole);
-    }
-
-    // Update 3D Character Outfit when a Dress is Selected at Bottom
-    function selectDress(index) {
-      currentDressIndex = index;
-      const dress = dressCatalog[index];
-
-      // Update Active Card in Bottom Strip
-      for (let i = 0; i < dressCatalog.length; i++) {
-        const card = document.getElementById('dress-card-' + i);
-        if (card) {
-          if (i === index) card.classList.add('is-active');
-          else card.classList.remove('is-active');
+      // Update Active Dress Cards
+      document.querySelectorAll('.dress-strip-card').forEach((card, i) => {
+        if (i === idx) {
+          card.classList.add('is-active');
+        } else {
+          card.classList.remove('is-active');
         }
-      }
+      });
 
-      // Update Labels
+      // Update Labels & HUD
       document.getElementById('active-dress-label').innerHTML = `Wearing: <strong>${dress.name}</strong>`;
       document.getElementById('hud-dress-title').textContent = dress.name;
-      document.getElementById('hud-dress-price').textContent = '₹' + dress.price.toLocaleString('en-IN');
+      document.getElementById('hud-dress-price').textContent = `₹${dress.price.toLocaleString('en-IN')}`;
 
-      // Apply Outfit Materials & Colors to 3D Person
-      torsoMesh.material.color.setHex(dress.torsoColor);
-      collarMesh.material.color.setHex(dress.collarColor);
+      // Preload & Apply Real Model Views
+      frontImg.src = dress.views.front;
+      sideImg.src = dress.views.side;
+      backImg.src = dress.views.back;
 
-      // Sleeves logic
-      if (dress.sleeveType === 'long') {
-        lSleeveMesh.scale.set(1, 1.8, 1);
-        lSleeveMesh.position.y = 1.45;
-        rSleeveMesh.scale.set(1, 1.8, 1);
-        rSleeveMesh.position.y = 1.45;
-        lSleeveMesh.material.color.setHex(dress.sleeveColor);
-        rSleeveMesh.material.color.setHex(dress.sleeveColor);
+      // Update view rendering at current rotation angle
+      renderTurntableFrame();
+    }
 
-        // Forearms covered by sleeve
-        lForearmMesh.material.color.setHex(dress.sleeveColor);
-        rForearmMesh.material.color.setHex(dress.sleeveColor);
-      } else {
-        lSleeveMesh.scale.set(1, 1, 1);
-        lSleeveMesh.position.y = 1.6;
-        rSleeveMesh.scale.set(1, 1, 1);
-        rSleeveMesh.position.y = 1.6;
-        lSleeveMesh.material.color.setHex(dress.sleeveColor);
-        rSleeveMesh.material.color.setHex(dress.sleeveColor);
+    // 360-Degree Turntable Frame Render Function
+    function renderTurntableFrame() {
+      // Normalize angle to 0 - 360 degrees
+      const normalizedAngle = ((targetAngleDeg % 360) + 360) % 360;
+      currentAngleDeg += (targetAngleDeg - currentAngleDeg) * 0.12;
+      const displayAngle = Math.round(((currentAngleDeg % 360) + 360) % 360);
 
-        // Forearms bare skin
-        lForearmMesh.material.color.setHex(0xdfab92);
-        rForearmMesh.material.color.setHex(0xdfab92);
+      // Rotate Floor Pedestal Disc in 3D Perspective
+      if (pedestalEl) {
+        pedestalEl.style.transform = `rotateX(72deg) rotateZ(${-currentAngleDeg}deg)`;
       }
 
-      // Hood visibility
-      hoodMesh.visible = !!dress.hasHood;
-      if (dress.hasHood) hoodMesh.material.color.setHex(dress.hoodColor);
+      // 3D Parallax & Horizontal Scale effect on model as it turns
+      // In 3D: Front is at 0°, Side is at 90° and 270°, Back is at 180°
+      let viewZone = 'FRONT';
+      let frontOpacity = 0;
+      let sideOpacity = 0;
+      let backOpacity = 0;
+      let flipX = 1;
+      let scaleX = 1;
 
-      // Back Graphic
-      backGraphicMesh.visible = !!dress.backGraphic;
+      // Calculate smooth perspective crossfade between real camera angles
+      if (normalizedAngle >= 315 || normalizedAngle < 45) {
+        // Front View
+        viewZone = 'FRONT';
+        frontOpacity = 1;
+        const offset = normalizedAngle >= 315 ? normalizedAngle - 360 : normalizedAngle;
+        scaleX = Math.cos(offset * Math.PI / 180);
+      } else if (normalizedAngle >= 45 && normalizedAngle < 135) {
+        // Left Profile
+        viewZone = 'SIDE (PROFILE)';
+        sideOpacity = 1;
+        flipX = 1;
+        scaleX = Math.sin(normalizedAngle * Math.PI / 180);
+      } else if (normalizedAngle >= 135 && normalizedAngle < 225) {
+        // Back View
+        viewZone = 'BACK';
+        backOpacity = 1;
+        const offset = normalizedAngle - 180;
+        scaleX = Math.cos(offset * Math.PI / 180);
+      } else {
+        // Right Profile
+        viewZone = 'SIDE (PROFILE)';
+        sideOpacity = 1;
+        flipX = -1; // Mirror side view for opposite profile
+        scaleX = Math.abs(Math.sin(normalizedAngle * Math.PI / 180));
+      }
 
-      // Gentle celebratory bounce
-      characterGroup.position.y = -0.96;
-      setTimeout(() => { characterGroup.position.y = -1.0; }, 180);
+      // Apply opacities
+      frontImg.style.opacity = frontOpacity;
+      sideImg.style.opacity = sideOpacity;
+      backImg.style.opacity = backOpacity;
+
+      // Subtle 3D perspective squish/rotation to give physical volume
+      const clampScaleX = Math.max(0.68, Math.abs(scaleX));
+      const transformStr = `scaleX(${flipX * clampScaleX}) scaleY(1)`;
+      frontImg.style.transform = transformStr;
+      sideImg.style.transform = transformStr;
+      backImg.style.transform = transformStr;
+
+      // Dynamic Contact Shadow Reacts to 360° Light & Angle
+      if (modelShadowEl) {
+        const shadowOffset = Math.sin(currentAngleDeg * Math.PI / 180) * 14;
+        const shadowScale = 0.95 + Math.cos(currentAngleDeg * Math.PI / 180) * 0.1;
+        modelShadowEl.style.transform = `translateX(${shadowOffset}px) scaleX(${shadowScale})`;
+      }
+
+      // Update Angle Label Badge
+      if (angleLabel) {
+        angleLabel.textContent = `${viewZone} (${displayAngle}°)`;
+      }
     }
 
-    // 360° Mouse & Touch Drag Controls
-    function setup3DRotationEvents(container) {
-      // Mouse Drag
-      container.addEventListener('mousedown', (e) => {
+    // Animation Loop
+    function tickAnimation() {
+      if (autoRotate && !isDragging) {
+        targetAngleDeg += 0.45; // Smooth slow turntable spin
+      }
+      renderTurntableFrame();
+      requestAnimationFrame(tickAnimation);
+    }
+
+    // 360 Degree Drag Interaction (Mouse & Touch)
+    (function initTurntableControls() {
+      if (!stageEl) return;
+
+      // Pointer / Mouse Down
+      stageEl.addEventListener('pointerdown', (e) => {
         isDragging = true;
         autoRotate = false;
-        document.getElementById('auto-spin-btn').textContent = '360° Spin: OFF';
-        document.getElementById('auto-spin-btn').className = 'px-3 py-1 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-800 dark:text-white font-bold transition';
-        prevMouseX = e.clientX;
+        autoSpinBtn.textContent = '360° Spin: OFF';
+        autoSpinBtn.className = 'px-3 py-1 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-800 dark:text-white font-bold transition';
+        startPointerX = e.clientX;
+        angleAtDragStart = targetAngleDeg;
+        stageEl.setPointerCapture(e.pointerId);
       });
 
-      window.addEventListener('mouseup', () => { isDragging = false; });
-
-      window.addEventListener('mousemove', (e) => {
+      // Pointer Move (Drag)
+      stageEl.addEventListener('pointermove', (e) => {
         if (!isDragging) return;
-        const deltaX = e.clientX - prevMouseX;
-        prevMouseX = e.clientX;
-        targetRotationY += deltaX * 0.012;
+        const deltaX = e.clientX - startPointerX;
+        // Sensitivity: 0.7 degrees per pixel
+        targetAngleDeg = angleAtDragStart + deltaX * 0.75;
       });
 
-      // Touch Drag for Mobile
-      container.addEventListener('touchstart', (e) => {
-        if (e.touches.length === 1) {
-          isDragging = true;
-          autoRotate = false;
-          prevMouseX = e.touches[0].clientX;
-        }
-      }, { passive: true });
+      // Pointer Up
+      stageEl.addEventListener('pointerup', (e) => {
+        isDragging = false;
+        try { stageEl.releasePointerCapture(e.pointerId); } catch(err) {}
+      });
 
-      window.addEventListener('touchend', () => { isDragging = false; });
+      stageEl.addEventListener('pointercancel', () => {
+        isDragging = false;
+      });
+    })();
 
-      window.addEventListener('touchmove', (e) => {
-        if (!isDragging || e.touches.length !== 1) return;
-        const deltaX = e.touches[0].clientX - prevMouseX;
-        prevMouseX = e.touches[0].clientX;
-        targetRotationY += deltaX * 0.014;
-      }, { passive: true });
+    // Preset Angle Functions
+    function setAngle(deg) {
+      autoRotate = false;
+      autoSpinBtn.textContent = '360° Spin: OFF';
+      autoSpinBtn.className = 'px-3 py-1 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-800 dark:text-white font-bold transition';
+      targetAngleDeg = deg;
     }
 
-    // 360 Degree Presets & Controls
-    function setAngle(angleRad) {
+    function rotateStep(deltaDeg) {
       autoRotate = false;
-      document.getElementById('auto-spin-btn').textContent = '360° Spin: OFF';
-      document.getElementById('auto-spin-btn').className = 'px-3 py-1 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-800 dark:text-white font-bold transition';
-      targetRotationY = angleRad;
-    }
-
-    function rotateStep(deltaRad) {
-      autoRotate = false;
-      document.getElementById('auto-spin-btn').textContent = '360° Spin: OFF';
-      targetRotationY += deltaRad;
+      autoSpinBtn.textContent = '360° Spin: OFF';
+      autoSpinBtn.className = 'px-3 py-1 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-800 dark:text-white font-bold transition';
+      targetAngleDeg += deltaDeg;
     }
 
     function toggleAutoSpin() {
       autoRotate = !autoRotate;
-      const btn = document.getElementById('auto-spin-btn');
       if (autoRotate) {
-        btn.textContent = '360° Spin: ON';
-        btn.className = 'px-3 py-1 rounded-full bg-amber-400 text-black font-black hover:bg-amber-300 transition';
+        autoSpinBtn.textContent = '360° Spin: ON';
+        autoSpinBtn.className = 'px-3 py-1 rounded-full bg-amber-400 text-black font-black hover:bg-amber-300 transition';
       } else {
-        btn.textContent = '360° Spin: OFF';
-        btn.className = 'px-3 py-1 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-800 dark:text-white font-bold transition';
+        autoSpinBtn.textContent = '360° Spin: OFF';
+        autoSpinBtn.className = 'px-3 py-1 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-800 dark:text-white font-bold transition';
       }
     }
 
-    // Bottom Dress Strip Scroll & Drag Controls (No scrollbar visible)
+    // Bottom Dress Strip Scroll & Mouse Drag
     function scrollDressStrip(delta) {
       const el = document.getElementById('dress-selector-strip');
       if (el) el.scrollBy({ left: delta, behavior: 'smooth' });
     }
 
-    // Enable Smooth Drag-to-Scroll on Dress Strip for Mouse
     (function initDressStripDrag() {
       window.addEventListener('DOMContentLoaded', () => {
         const strip = document.getElementById('dress-selector-strip');
@@ -1058,88 +912,47 @@
       });
     })();
 
-    // Animation Render Loop
-    function animate3D() {
-      requestAnimationFrame(animate3D);
-
-      if (characterGroup) {
-        if (autoRotate) {
-          targetRotationY += 0.007; // Smooth 360° turntable spin
-        }
-
-        // Smooth damping interpolation (lerp)
-        characterGroup.rotation.y += (targetRotationY - characterGroup.rotation.y) * 0.1;
-
-        // Normalize angle to [0, 360) degrees for display
-        let deg = (Math.round((characterGroup.rotation.y * 180 / Math.PI)) % 360 + 360) % 360;
-        let viewName = 'FRONT';
-        if (deg >= 45 && deg < 135) viewName = 'SIDE (LEFT)';
-        else if (deg >= 135 && deg < 225) viewName = 'BACK';
-        else if (deg >= 225 && deg < 315) viewName = 'SIDE (RIGHT)';
-
-        document.getElementById('rotation-angle-label').textContent = `${viewName} (${deg}°)`;
-      }
-
-      renderer.render(scene, camera);
-    }
-
-    // Resize Handler
-    window.addEventListener('resize', () => {
-      const container = document.getElementById('three-canvas-container');
-      if (!container || !renderer || !camera) return;
-      const width = container.clientWidth;
-      const height = container.clientHeight;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
-    });
-
-    // Cart Drawer Logic
+    // Slide-out Bag Drawer
     function toggleBag(open) {
       const drawer = document.getElementById('bag-drawer');
       const overlay = document.getElementById('bag-drawer-overlay');
       if (open) {
         drawer.classList.remove('translate-x-full');
-        drawer.classList.add('translate-x-0');
         overlay.classList.remove('opacity-0', 'pointer-events-none');
-        overlay.classList.add('opacity-100', 'pointer-events-auto');
       } else {
-        drawer.classList.remove('translate-x-0');
         drawer.classList.add('translate-x-full');
-        overlay.classList.remove('opacity-100', 'pointer-events-auto');
         overlay.classList.add('opacity-0', 'pointer-events-none');
       }
     }
 
     function addActiveDressToBag() {
-      const item = dressCatalog[currentDressIndex];
-      document.getElementById('bag-item-title').textContent = item.name;
-      document.getElementById('bag-item-price').textContent = '₹' + item.price.toLocaleString('en-IN');
-      document.getElementById('bag-item-img').src = item.thumb;
-      document.getElementById('bag-subtotal').textContent = '₹' + item.price.toLocaleString('en-IN');
+      const dress = realModelCatalog[currentDressIdx];
+      document.getElementById('bag-item-title').textContent = dress.name;
+      document.getElementById('bag-item-price').textContent = `₹${dress.price.toLocaleString('en-IN')}`;
+      document.getElementById('bag-item-img').src = dress.thumb;
+      document.getElementById('bag-subtotal').textContent = `₹${dress.price.toLocaleString('en-IN')}`;
       toggleBag(true);
     }
 
-    // Theme Switcher (Warm Travertine vs Dark Obsidian)
+    // Dark / Warm Theme Switcher
     function toggleTheme() {
       const current = document.documentElement.getAttribute('data-theme') || 'warm';
-      const next = current === 'warm' ? 'dark' : 'warm';
-      document.documentElement.setAttribute('data-theme', next);
-      
-      document.getElementById('themeEmoji').textContent = next === 'dark' ? '🌙' : '☀️';
-      document.getElementById('themeText').textContent = next === 'dark' ? 'DARK' : 'WARM';
-      localStorage.setItem('jh_theme_mode', next);
+      const target = current === 'dark' ? 'warm' : 'dark';
+      document.documentElement.setAttribute('data-theme', target);
+      document.getElementById('themeEmoji').textContent = target === 'dark' ? '🌙' : '☀️';
+      document.getElementById('themeText').textContent = target === 'dark' ? 'DARK' : 'WARM';
+      localStorage.setItem('jhonty_theme', target);
     }
 
-    // Initialize Showroom on Load
+    // Initialization
     window.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('jh_theme_mode') || 'warm';
+      const savedTheme = localStorage.getItem('jhonty_theme') || 'warm';
       document.documentElement.setAttribute('data-theme', savedTheme);
       document.getElementById('themeEmoji').textContent = savedTheme === 'dark' ? '🌙' : '☀️';
       document.getElementById('themeText').textContent = savedTheme === 'dark' ? 'DARK' : 'WARM';
 
-      init3DShowroom();
       selectDress(0);
+      requestAnimationFrame(tickAnimation);
     });
   </script>
 </body>
