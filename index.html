@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JHONTY HUB (JH) — Streetwear &amp; Luxe Men's Atelier • Hyderabad</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="dark"] {
+      --bg-deep: #06070a;
+      --bg-surface: #0c0d14;
+      --bg-card: rgba(16, 18, 27, 0.85);
+      --bg-glass: rgba(12, 13, 20, 0.85);
+      --border-glass: rgba(255, 255, 255, 0.08);
+      --border-gold: rgba(212, 175, 55, 0.35);
+
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      
+      --gold-primary: #d4af37;
+      --gold-bright: #fde68a;
+      --gold-gradient: linear-gradient(135deg, #fef08a 0%, #d4af37 50%, #996515 100%);
+      --platinum-gradient: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #64748b 100%);
+
+      --ambient-color: rgba(212, 175, 55, 0.08);
+      --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+    }
+
+    [data-theme="light"] {
+      --bg-deep: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: rgba(255, 255, 255, 0.95);
+      --bg-glass: rgba(255, 255, 255, 0.92);
+      --border-glass: rgba(15, 23, 42, 0.09);
+      --border-gold: rgba(180, 130, 20, 0.45);
+
+      --text-primary: #090d16;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      
+      --gold-primary: #b8860b;
+      --gold-bright: #d4af37;
+      --gold-gradient: linear-gradient(135deg, #d4af37 0%, #b8860b 50%, #7c5806 100%);
+      --platinum-gradient: linear-gradient(135deg, #0f172a 0%, #334155 50%, #64748b 100%);
+
+      --ambient-color: rgba(184, 134, 11, 0.06);
+      --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text-primary);
+      overflow-x: hidden;
+      transition: background-color 0.35s ease, color 0.35s ease;
+      background-image: 
+        radial-gradient(circle at 10% 5%, var(--ambient-color) 0%, transparent 40%),
+        radial-gradient(circle at 90% 50%, rgba(56, 189, 248, 0.03) 0%, transparent 45%);
+      background-attachment: fixed;
+    }
+
+    .font-cinzel {
+      font-family: 'Cinzel', serif;
+    }
+
+    .gold-gradient-text {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Ambient Cursor Spotlight */
+    #ambient-light {
+      position: fixed;
+      width: 550px;
+      height: 550px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--ambient-color) 0%, transparent 70%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s;
+      z-index: 1;
+    }
+
+    /* 3D Card Tilt */
+    .card-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .card-3d:hover {
+      box-shadow: 0 25px 50px rgba(0,0,0,0.18), 0 0 25px rgba(212, 175, 55, 0.12);
+      border-color: var(--gold-primary);
+    }
+
+    /* Shimmer Effect on CTA */
+    .btn-gold-shimmer {
+      background: linear-gradient(135deg, #fef08a 0%, #d4af37 50%, #996515 100%);
+      color: #000000;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.35);
+      transition: all 0.3s ease;
+    }
+    .btn-gold-shimmer::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+      transform: rotate(30deg) translateY(-100%);
+      transition: transform 0.75s ease;
+    }
+    .btn-gold-shimmer:hover::after {
+      transform: rotate(30deg) translateY(100%);
+    }
+    .btn-gold-shimmer:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5);
+    }
+
+    /* Category Bubbles Scroll */
+    .bubble-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .bubble-scroll {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Theme Toggle Switch Pill */
+    .theme-toggle-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      border: 1px solid var(--border-glass);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: all 0.25s ease;
+    }
+    .theme-toggle-pill:hover {
+      border-color: var(--gold-primary);
+      transform: scale(1.04);
+    }
+
+    /* Custom Transitions for UI Cards */
+    .theme-surface {
+      background-color: var(--bg-surface);
+      border-color: var(--border-glass);
+      color: var(--text-primary);
+    }
+    .theme-card {
+      background-color: var(--bg-card);
+      border-color: var(--border-glass);
+      color: var(--text-primary);
+      box-shadow: var(--card-shadow);
+    }
+  </style>
+</head>
+<body class="selection:bg-amber-400 selection:text-black">
+
+  <!-- Ambient Light Follower -->
+  <div id="ambient-light"></div>
+
+  <!-- Top VIP Utility Bar -->
+  <div class="border-b text-[11px] py-2 px-6 tracking-wider uppercase transition-colors" style="background-color: var(--bg-surface); border-color: var(--border-glass); color: var(--text-secondary);">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+      <div class="flex items-center space-x-3">
+        <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-black tracking-widest bg-amber-400 text-black uppercase">
+          JHONTY HUB
+        </span>
+        <span class="font-bold">✧ SAME-DAY HYDERABAD DISPATCH &bull; FREE NATIONWIDE SHIPPING ABOVE ₹1,999</span>
+      </div>
+      <div class="flex items-center space-x-5 text-[11px] font-semibold">
+        <a href="#stores" class="hover:text-amber-400 transition">📍 Kukatpally Flagship</a>
+        <span class="opacity-25">|</span>
+        <a href="#stores" class="hover:text-amber-400 transition">📍 Madhapur Studio</a>
+        <span class="opacity-25">|</span>
+        <a href="#stores" class="hover:text-amber-400 transition">📍 LB Nagar Branch</a>
+        <span class="opacity-25">|</span>
+        <a href="tel:+919160663888" class="text-amber-400 font-bold hover:underline">WhatsApp: +91 91606 63888</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Luxury Header -->
+  <header class="backdrop-blur-2xl border-b sticky top-0 z-40 shadow-2xl transition-colors" style="background-color: var(--bg-glass); border-color: var(--border-glass);">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
+      
+      <!-- Brand Logo Lockup -->
+      <a href="javascript:void(0)" class="flex items-center gap-3.5 flex-shrink-0 group">
+        <div class="relative transition-transform duration-300 group-hover:scale-105 filter drop-shadow-[0_0_18px_rgba(212,175,55,0.45)]">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" class="w-11 h-14" fill="none">
+            <defs>
+              <linearGradient id="prevGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFF5C0" />
+                <stop offset="20%" stop-color="#F5D061" />
+                <stop offset="45%" stop-color="#E5B83B" />
+                <stop offset="70%" stop-color="#C59B27" />
+                <stop offset="90%" stop-color="#8E6510" />
+                <stop offset="100%" stop-color="#5C3E00" />
+              </linearGradient>
+              <linearGradient id="prevPlat" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF" />
+                <stop offset="25%" stop-color="#F8FAFC" />
+                <stop offset="50%" stop-color="#E2E8F0" />
+                <stop offset="75%" stop-color="#94A3B8" />
+                <stop offset="100%" stop-color="#475569" />
+              </linearGradient>
+            </defs>
+            <polygon points="100,18 184,66 184,174 100,222 16,174 16,66" stroke="url(#prevGold)" stroke-width="13" stroke-linejoin="round" stroke-linecap="round" fill="#07080E" />
+            <polygon points="100,30 172,72 172,168 100,210 28,168 28,72" stroke="rgba(245, 208, 97, 0.28)" stroke-width="1.5" fill="none" />
+            <path d="M 64,88 L 94,62 L 94,176 L 38,176 L 38,130 L 52,130 L 52,160 L 78,160 L 78,96 L 64,106 Z" fill="url(#prevGold)" />
+            <path d="M 104,62 L 120,62 L 120,114 L 148,114 L 148,84 L 164,94 L 164,146 L 148,156 L 148,128 L 120,128 L 120,176 L 104,176 Z" fill="url(#prevPlat)" />
+          </svg>
+        </div>
+        <div>
+          <div class="font-cinzel text-xl font-black tracking-[0.18em] leading-none">
+            <span class="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 bg-clip-text text-transparent">JHONTY HUB</span>
+          </div>
+          <div class="text-[9px] uppercase tracking-[0.32em] font-bold mt-1" style="color: var(--gold-primary);">
+            STREETWEAR &amp; LUXE ATELIER &bull; HYD
+          </div>
+        </div>
+      </a>
+
+      <!-- Central Search Box -->
+      <div class="flex-grow max-w-xl relative hidden md:block">
+        <div class="flex items-center rounded-full px-5 py-2.5 border transition shadow-inner" style="background-color: var(--bg-surface); border-color: var(--border-glass);">
+          <svg class="w-4 h-4 text-slate-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="2"></circle><line x1="21" y1="21" x2="16.65" y2="16.65" stroke-width="2"></line></svg>
+          <input type="text" placeholder="Search 320 GSM tees, Korean satin shirts, parachute cargos, sneakers..." class="bg-transparent border-none outline-none w-full text-xs" style="color: var(--text-primary);">
+        </div>
+      </div>
+
+      <!-- Action Items & Theme Toggle Switch -->
+      <div class="flex items-center space-x-5 flex-shrink-0">
+        
+        <!-- THEME TOGGLE BUTTON -->
+        <button id="themeToggleBtn" onclick="toggleTheme()" class="theme-toggle-pill" title="Switch Theme (Dark / Light)">
+          <span id="themeIcon">🌙</span>
+          <span id="themeLabel">Dark</span>
+        </button>
+
+        <a href="#stores" class="flex flex-col items-center text-[10px] font-bold tracking-widest uppercase hover:text-amber-400 transition" style="color: var(--text-secondary);">
+          <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+          <span>Stores</span>
+        </a>
+
+        <a href="javascript:void(0)" onclick="toggleWishlistModal()" class="flex flex-col items-center text-[10px] font-bold tracking-widest uppercase hover:text-amber-400 transition relative" style="color: var(--text-secondary);">
+          <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+          <span>Wishlist</span>
+          <span id="wishlist-badge" class="absolute -top-1.5 -right-2 bg-gradient-to-r from-amber-300 to-amber-500 text-black text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center">2</span>
+        </a>
+
+        <a href="javascript:void(0)" onclick="toggleVault()" class="flex flex-col items-center text-[10px] font-bold tracking-widest uppercase hover:text-amber-400 transition relative" style="color: var(--text-secondary);">
+          <svg class="w-5 h-5 mb-0.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+          <span>Bag</span>
+          <span id="vault-badge" class="absolute -top-1.5 -right-2 bg-gradient-to-r from-amber-300 to-amber-500 text-black text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center">1</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Mega Department Menu Strip -->
+    <div class="border-t hidden lg:block transition-colors" style="background-color: var(--bg-surface); border-color: var(--border-glass);">
+      <div class="max-w-7xl mx-auto px-6 flex items-center space-x-8 text-[12px] font-bold tracking-wider uppercase py-2.5 overflow-x-auto" style="color: var(--text-secondary);">
+        <a href="#tees" class="hover:text-amber-400 transition flex items-center gap-1.5 whitespace-nowrap">
+          <span>Oversized Tees</span>
+          <span class="text-[9px] px-1.5 py-0.2 bg-amber-400 text-black font-black rounded">320 GSM</span>
+        </a>
+        <a href="#shirts" class="hover:text-amber-400 transition whitespace-nowrap">Korean Shirts</a>
+        <a href="#denim" class="hover:text-amber-400 transition whitespace-nowrap">Baggy Denim</a>
+        <a href="#cargos" class="hover:text-amber-400 transition whitespace-nowrap">Parachute Cargos</a>
+        <a href="#sneakers" class="hover:text-amber-400 transition whitespace-nowrap">Chunky Kicks</a>
+        <a href="#jackets" class="hover:text-amber-400 transition whitespace-nowrap">Varsity Jackets</a>
+        <a href="#perfumes" class="hover:text-amber-400 transition whitespace-nowrap">Oud &amp; Scents</a>
+        <a href="#stores" class="text-amber-400 font-extrabold hover:underline whitespace-nowrap">Hyderabad Flagships</a>
+        <a href="#dropsale" class="text-rose-400 font-extrabold ml-auto flex items-center gap-1 whitespace-nowrap">
+          <span>🔥 Drop Sale &bull; Flat 50% Off</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Interactive Category Story Bubbles -->
+  <section class="max-w-7xl mx-auto px-6 py-6 border-b transition-colors" style="border-color: var(--border-glass);">
+    <div class="flex items-center space-x-6 overflow-x-auto bubble-scroll py-2">
+      
+      <a href="#tees" class="flex flex-col items-center flex-shrink-0 group">
+        <div class="w-18 h-18 sm:w-20 sm:h-20 rounded-full p-0.5 bg-gradient-to-tr from-amber-400 via-amber-200 to-amber-600 transition group-hover:scale-110 shadow-lg">
+          <div class="w-full h-full rounded-full overflow-hidden border-2 border-black">
+            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=250&q=80" alt="Oversized Tees" class="w-full h-full object-cover">
+          </div>
+        </div>
+        <span class="text-[11px] font-bold mt-2 uppercase tracking-wider group-hover:text-amber-400 transition" style="color: var(--text-primary);">Oversized Tees</span>
+      </a>
+
+      <a href="#shirts" class="flex flex-col items-center flex-shrink-0 group">
+        <div class="w-18 h-18 sm:w-20 sm:h-20 rounded-full p-0.5 bg-gradient-to-tr from-amber-400 via-amber-200 to-amber-600 transition group-hover:scale-110 shadow-lg">
+          <div class="w-full h-full rounded-full overflow-hidden border-2 border-black">
+            <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=250&q=80" alt="Korean Shirts" class="w-full h-full object-cover">
+          </div>
+        </div>
+        <span class="text-[11px] font-bold mt-2 uppercase tracking-wider group-hover:text-amber-400 transition" style="color: var(--text-primary);">Korean Shirts</span>
+      </a>
+
+      <a href="#denim" class="flex flex-col items-center flex-shrink-0 group">
+        <div class="w-18 h-18 sm:w-20 sm:h-20 rounded-full p-0.5 bg-gradient-to-tr from-amber-400 via-amber-200 to-amber-600 transition group-hover:scale-110 shadow-lg">
+          <div class="w-full h-full rounded-full overflow-hidden border-2 border-black">
+            <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=250&q=80" alt="Baggy Denim" class="w-full h-full object-cover">
+          </div>
+        </div>
+        <span class="text-[11px] font-bold mt-2 uppercase tracking-wider group-hover:text-amber-400 transition" style="color: var(--text-primary);">Baggy Denim</span>
+      </a>
+
+      <a href="#cargos" class="flex flex-col items-center flex-shrink-0 group">
+        <div class="w-18 h-18 sm:w-20 sm:h-20 rounded-full p-0.5 bg-gradient-to-tr from-amber-400 via-amber-200 to-amber-600 transition group-hover:scale-110 shadow-lg">
+          <div class="w-full h-full rounded-full overflow-hidden border-2 border-black">
+            <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=250&q=80" alt="Parachute Cargos" class="w-full h-full object-cover">
+          </div>
+        </div>
+        <span class="text-[11px] font-bold mt-2 uppercase tracking-wider group-hover:text-amber-400 transition" style="color: var(--text-primary);">Parachute Cargos</span>
+      </a>
+
+      <a href="#sneakers" class="flex flex-col items-center flex-shrink-0 group">
+        <div class="w-18 h-18 sm:w-20 sm:h-20 rounded-full p-0.5 bg-gradient-to-tr from-amber-400 via-amber-200 to-amber-600 transition group-hover:scale-110 shadow-lg">
+          <div class="w-full h-full rounded-full overflow-hidden border-2 border-black">
+            <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=250&q=80" alt="Chunky Kicks" class="w-full h-full object-cover">
+          </div>
+        </div>
+        <span class="text-[11px] font-bold mt-2 uppercase tracking-wider group-hover:text-amber-400 transition" style="color: var(--text-primary);">Chunky Kicks</span>
+      </a>
+
+      <a href="#jackets" class="flex flex-col items-center flex-shrink-0 group">
+        <div class="w-18 h-18 sm:w-20 sm:h-20 rounded-full p-0.5 bg-gradient-to-tr from-amber-400 via-amber-200 to-amber-600 transition group-hover:scale-110 shadow-lg">
+          <div class="w-full h-full rounded-full overflow-hidden border-2 border-black">
+            <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=250&q=80" alt="Varsity Jackets" class="w-full h-full object-cover">
+          </div>
+        </div>
+        <span class="text-[11px] font-bold mt-2 uppercase tracking-wider group-hover:text-amber-400 transition" style="color: var(--text-primary);">Varsity Jackets</span>
+      </a>
+
+      <a href="#perfumes" class="flex flex-col items-center flex-shrink-0 group">
+        <div class="w-18 h-18 sm:w-20 sm:h-20 rounded-full p-0.5 bg-gradient-to-tr from-amber-400 via-amber-200 to-amber-600 transition group-hover:scale-110 shadow-lg">
+          <div class="w-full h-full rounded-full overflow-hidden border-2 border-black">
+            <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=250&q=80" alt="Jhonty Scents" class="w-full h-full object-cover">
+          </div>
+        </div>
+        <span class="text-[11px] font-bold mt-2 uppercase tracking-wider group-hover:text-amber-400 transition" style="color: var(--text-primary);">Jhonty Scents</span>
+      </a>
+
+      <a href="#accessories" class="flex flex-col items-center flex-shrink-0 group">
+        <div class="w-18 h-18 sm:w-20 sm:h-20 rounded-full p-0.5 bg-gradient-to-tr from-amber-400 via-amber-200 to-amber-600 transition group-hover:scale-110 shadow-lg">
+          <div class="w-full h-full rounded-full overflow-hidden border-2 border-black">
+            <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=250&q=80" alt="Chains & Shades" class="w-full h-full object-cover">
+          </div>
+        </div>
+        <span class="text-[11px] font-bold mt-2 uppercase tracking-wider group-hover:text-amber-400 transition" style="color: var(--text-primary);">Chains &amp; Shades</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Dynamic Hero Editorial Campaign Banner -->
+  <section class="max-w-7xl mx-auto px-6 pt-8 pb-10">
+    <div class="relative rounded-3xl overflow-hidden border min-h-[500px] flex items-center shadow-2xl transition-colors" style="border-color: var(--border-glass);">
+      <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1600&q=85" alt="Jhonty Hub Hero Streetwear" class="absolute inset-0 w-full h-full object-cover">
+      
+      <!-- Gradient Overlay for Contrast -->
+      <div class="absolute inset-0 bg-gradient-to-r from-black/95 via-black/75 to-transparent flex items-center p-8 md:p-16">
+        <div class="max-w-xl z-10 text-white">
+          <span class="inline-block px-3.5 py-1 rounded-full text-[10px] font-black tracking-[0.2em] uppercase bg-gradient-to-r from-amber-300 to-amber-500 text-black mb-4">
+            HYDERABAD'S EXCLUSIVE STREET DROP &bull; FW 2026
+          </span>
+          <h1 class="font-cinzel text-3xl md:text-5xl font-black leading-tight tracking-wide mb-4">
+            320 GSM HEAVYWEIGHT TEES &amp; KOREAN SATIN DROPS
+          </h1>
+          <p class="text-slate-300 text-xs md:text-sm leading-relaxed mb-8">
+            Engineered with drop-shoulder boxy cuts, luxury pre-shrunk combed cotton, and tailored parachute cargos. In-store at Kukatpally, Madhapur &amp; LB Nagar or order with instant express dispatch.
+          </p>
+          <div class="flex flex-wrap items-center gap-4">
+            <a href="#featured" class="btn-gold-shimmer px-8 py-4 rounded-full font-cinzel font-black text-xs uppercase tracking-widest">
+              SHOP NEW DROP &bull; FROM ₹999
+            </a>
+            <a href="#stores" class="px-7 py-4 rounded-full font-cinzel font-bold text-xs uppercase tracking-widest bg-white/10 hover:bg-white/20 border border-white/20 text-white transition backdrop-blur-md">
+              VISIT HYDERABAD STORES
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Curated Promo Grid -->
+  <section class="max-w-7xl mx-auto px-6 py-8">
+    <div class="flex justify-between items-baseline mb-6">
+      <div>
+        <span class="text-[10px] font-extrabold uppercase tracking-[0.25em]" style="color: var(--gold-primary);">The Jhonty Edit</span>
+        <h2 class="font-cinzel text-2xl font-bold tracking-wide mt-1" style="color: var(--text-primary);">Featured Hype Drops</h2>
+      </div>
+      <a href="#featured" class="text-xs font-bold uppercase tracking-wider hover:underline" style="color: var(--gold-primary);">Explore All Drops &rarr;</a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Promo 1 -->
+      <a href="#featured" class="card-3d relative rounded-2xl overflow-hidden group h-80 border block shadow-lg" style="border-color: var(--border-glass);">
+        <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=600&q=80" alt="Graphic Tees" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 flex flex-col justify-end text-white">
+          <span class="inline-block px-2.5 py-1 bg-amber-400 text-black text-[9px] font-black rounded-md w-max mb-2">STARTING ₹999</span>
+          <h3 class="font-cinzel text-lg font-bold">320 GSM Graphic Drop-Shoulders</h3>
+          <p class="text-[11px] text-slate-300 mt-1">High-density back prints &amp; vintage acid wash.</p>
+        </div>
+      </a>
+
+      <!-- Promo 2 -->
+      <a href="#featured" class="card-3d relative rounded-2xl overflow-hidden group h-80 border block shadow-lg" style="border-color: var(--border-glass);">
+        <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=80" alt="Korean Shirts" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 flex flex-col justify-end text-white">
+          <span class="inline-block px-2.5 py-1 bg-amber-400 text-black text-[9px] font-black rounded-md w-max mb-2">FLAT 40% OFF</span>
+          <h3 class="font-cinzel text-lg font-bold">Korean Liquid Satin &amp; Cuban Shirts</h3>
+          <p class="text-[11px] text-slate-300 mt-1">Textured waffle knits and luxury party collars.</p>
+        </div>
+      </a>
+
+      <!-- Promo 3 -->
+      <a href="#featured" class="card-3d relative rounded-2xl overflow-hidden group h-80 border block shadow-lg" style="border-color: var(--border-glass);">
+        <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=600&q=80" alt="Baggy Denim" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 flex flex-col justify-end text-white">
+          <span class="inline-block px-2.5 py-1 bg-amber-400 text-black text-[9px] font-black rounded-md w-max mb-2">BUY 2 GET ₹500 OFF</span>
+          <h3 class="font-cinzel text-lg font-bold">Japanese Skater Wide-Leg Denim</h3>
+          <p class="text-[11px] text-slate-300 mt-1">Heavyweight vintage wash &amp; relaxed hems.</p>
+        </div>
+      </a>
+
+      <!-- Promo 4 -->
+      <a href="#featured" class="card-3d relative rounded-2xl overflow-hidden group h-80 border block shadow-lg" style="border-color: var(--border-glass);">
+        <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=600&q=80" alt="Chunky Kicks" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 flex flex-col justify-end text-white">
+          <span class="inline-block px-2.5 py-1 bg-amber-400 text-black text-[9px] font-black rounded-md w-max mb-2">FROM ₹2,499</span>
+          <h3 class="font-cinzel text-lg font-bold">Chunky Platform Street Runners</h3>
+          <p class="text-[11px] text-slate-300 mt-1">High-traction street sole &amp; dual-cushion.</p>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Featured Best Sellers Grid -->
+  <section id="featured" class="max-w-7xl mx-auto px-6 py-12">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-8">
+      <div>
+        <span class="text-[10px] font-extrabold uppercase tracking-[0.25em]" style="color: var(--gold-primary);">High Demand In Hyderabad</span>
+        <h2 class="font-cinzel text-2xl md:text-3xl font-bold tracking-wide mt-1" style="color: var(--text-primary);">Top Selling Streetwear Drops</h2>
+      </div>
+      <div class="flex items-center space-x-2 text-xs font-bold">
+        <button class="px-4 py-2 rounded-full bg-amber-400 text-black">All</button>
+        <button class="px-4 py-2 rounded-full border hover:border-amber-400 transition" style="border-color: var(--border-glass); color: var(--text-secondary);">Oversized Tees</button>
+        <button class="px-4 py-2 rounded-full border hover:border-amber-400 transition" style="border-color: var(--border-glass); color: var(--text-secondary);">Korean Shirts</button>
+        <button class="px-4 py-2 rounded-full border hover:border-amber-400 transition" style="border-color: var(--border-glass); color: var(--text-secondary);">Baggy Denim</button>
+      </div>
+    </div>
+
+    <!-- Product Card Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Product 1 -->
+      <div class="card-3d theme-card rounded-2xl overflow-hidden border flex flex-col relative group">
+        <div class="relative h-80 overflow-hidden bg-black/40">
+          <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80" alt="JH Tokyo Cyber Heavyweight Tee" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <span class="absolute top-3 left-3 bg-rose-600 text-white text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded">
+            48% OFF
+          </span>
+          <button onclick="toggleWishlist(this)" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:text-rose-500 transition">
+            ♥
+          </button>
+        </div>
+        <div class="p-5 flex-grow flex flex-col justify-between">
+          <div>
+            <div class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--gold-primary);">JHONTY HUB EXCLUSIVE</div>
+            <h4 class="font-cinzel text-sm font-bold line-clamp-2" style="color: var(--text-primary);">Tokyo Cyber 320 GSM Heavyweight Drop-Shoulder Tee</h4>
+            <div class="flex items-center space-x-2 mt-2">
+              <span class="text-base font-black" style="color: var(--text-primary);">₹1,299</span>
+              <span class="text-xs text-slate-400 line-through">₹2,499</span>
+              <span class="text-[10px] text-emerald-500 font-bold">(Save ₹1,200)</span>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t" style="border-color: var(--border-glass);">
+            <div class="flex items-center justify-between gap-1 mb-3">
+              <span class="text-[10px] text-slate-400 font-semibold">Size:</span>
+              <div class="flex gap-1.5 text-[10px] font-bold">
+                <span class="px-2 py-0.5 border rounded cursor-pointer hover:border-amber-400">S</span>
+                <span class="px-2 py-0.5 bg-amber-400 text-black rounded font-black cursor-pointer">M</span>
+                <span class="px-2 py-0.5 border rounded cursor-pointer hover:border-amber-400">L</span>
+                <span class="px-2 py-0.5 border rounded cursor-pointer hover:border-amber-400">XL</span>
+              </div>
+            </div>
+            <button onclick="addToVault('Tokyo Cyber 320 GSM Tee', 1299)" class="w-full btn-gold-shimmer py-2.5 rounded-xl font-cinzel font-black text-xs uppercase tracking-wider transition">
+              ADD TO BAG
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="card-3d theme-card rounded-2xl overflow-hidden border flex flex-col relative group">
+        <div class="relative h-80 overflow-hidden bg-black/40">
+          <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=600&q=80" alt="Korean Liquid Satin Shirt" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <span class="absolute top-3 left-3 bg-amber-400 text-black text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded">
+            45% OFF
+          </span>
+          <button onclick="toggleWishlist(this)" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:text-rose-500 transition">
+            ♥
+          </button>
+        </div>
+        <div class="p-5 flex-grow flex flex-col justify-between">
+          <div>
+            <div class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--gold-primary);">JHONTY IMPORTED</div>
+            <h4 class="font-cinzel text-sm font-bold line-clamp-2" style="color: var(--text-primary);">Korean Liquid Champagne Satin Cuban-Collar Shirt</h4>
+            <div class="flex items-center space-x-2 mt-2">
+              <span class="text-base font-black" style="color: var(--text-primary);">₹1,899</span>
+              <span class="text-xs text-slate-400 line-through">₹3,499</span>
+              <span class="text-[10px] text-emerald-500 font-bold">(Save ₹1,600)</span>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t" style="border-color: var(--border-glass);">
+            <div class="flex items-center justify-between gap-1 mb-3">
+              <span class="text-[10px] text-slate-400 font-semibold">Size:</span>
+              <div class="flex gap-1.5 text-[10px] font-bold">
+                <span class="px-2 py-0.5 border rounded cursor-pointer hover:border-amber-400">S</span>
+                <span class="px-2 py-0.5 bg-amber-400 text-black rounded font-black cursor-pointer">M</span>
+                <span class="px-2 py-0.5 border rounded cursor-pointer hover:border-amber-400">L</span>
+                <span class="px-2 py-0.5 border rounded cursor-pointer hover:border-amber-400">XL</span>
+              </div>
+            </div>
+            <button onclick="addToVault('Korean Satin Cuban Shirt', 1899)" class="w-full btn-gold-shimmer py-2.5 rounded-xl font-cinzel font-black text-xs uppercase tracking-wider transition">
+              ADD TO BAG
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="card-3d theme-card rounded-2xl overflow-hidden border flex flex-col relative group">
+        <div class="relative h-80 overflow-hidden bg-black/40">
+          <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=600&q=80" alt="Japanese Skater Baggy Denim" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <span class="absolute top-3 left-3 bg-rose-600 text-white text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded">
+            42% OFF
+          </span>
+          <button onclick="toggleWishlist(this)" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:text-rose-500 transition">
+            ♥
+          </button>
+        </div>
+        <div class="p-5 flex-grow flex flex-col justify-between">
+          <div>
+            <div class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--gold-primary);">JHONTY DENIM</div>
+            <h4 class="font-cinzel text-sm font-bold line-clamp-2" style="color: var(--text-primary);">Vintage Acid-Washed Skater Wide-Leg Baggy Denim</h4>
+            <div class="flex items-center space-x-2 mt-2">
+              <span class="text-base font-black" style="color: var(--text-primary);">₹2,199</span>
+              <span class="text-xs text-slate-400 line-through">₹3,799</span>
+              <span class="text-[10px] text-emerald-500 font-bold">(Save ₹1,600)</span>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t" style="border-color: var(--border-glass);">
+            <div class="flex items-center justify-between gap-1 mb-3">
+              <span class="text-[10px] text-slate-400 font-semibold">Waist:</span>
+              <div class="flex gap-1.5 text-[10px] font-bold">
+                <span class="px-2 py-0.5 border rounded cursor-pointer hover:border-amber-400">30</span>
+                <span class="px-2 py-0.5 bg-amber-400 text-black rounded font-black cursor-pointer">32</span>
+                <span class="px-2 py-0.5 border rounded cursor-pointer hover:border-amber-400">34</span>
+                <span class="px-2 py-0.5 border rounded cursor-pointer hover:border-amber-400">36</span>
+              </div>
+            </div>
+            <button onclick="addToVault('Vintage Skater Baggy Denim', 2199)" class="w-full btn-gold-shimmer py-2.5 rounded-xl font-cinzel font-black text-xs uppercase tracking-wider transition">
+              ADD TO BAG
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="card-3d theme-card rounded-2xl overflow-hidden border flex flex-col relative group">
+        <div class="relative h-80 overflow-hidden bg-black/40">
+          <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=600&q=80" alt="Chunky Shadow-Runner Kicks" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <span class="absolute top-3 left-3 bg-amber-400 text-black text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded">
+            44% OFF
+          </span>
+          <button onclick="toggleWishlist(this)" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:text-rose-500 transition">
+            ♥
+          </button>
+        </div>
+        <div class="p-5 flex-grow flex flex-col justify-between">
+          <div>
+            <div class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--gold-primary);">JHONTY FOOTWEAR</div>
+            <h4 class="font-cinzel text-sm font-bold line-clamp-2" style="color: var(--text-primary);">Shadow-Runner Chunky Platform High-Traction Kicks</h4>
+            <div class="flex items-center space-x-2 mt-2">
+              <span class="text-base font-black" style="color: var(--text-primary);">₹2,799</span>
+              <span class="text-xs text-slate-400 line-through">₹4,999</span>
+              <span class="text-[10px] text-emerald-500 font-bold">(Save ₹2,200)</span>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t" style="border-color: var(--border-glass);">
+            <div class="flex items-center justify-between gap-1 mb-3">
+              <span class="text-[10px] text-slate-400 font-semibold">UK Size:</span>
+              <div class="flex gap-1.5 text-[10px] font-bold">
+                <span class="px-2 py-0.5 border rounded cursor-pointer hover:border-amber-400">7</span>
+                <span class="px-2 py-0.5 bg-amber-400 text-black rounded font-black cursor-pointer">8</span>
+                <span class="px-2 py-0.5 border rounded cursor-pointer hover:border-amber-400">9</span>
+                <span class="px-2 py-0.5 border rounded cursor-pointer hover:border-amber-400">10</span>
+              </div>
+            </div>
+            <button onclick="addToVault('Shadow-Runner Chunky Kicks', 2799)" class="w-full btn-gold-shimmer py-2.5 rounded-xl font-cinzel font-black text-xs uppercase tracking-wider transition">
+              ADD TO BAG
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Hyderabad Flagship Stores Section -->
+  <section id="stores" class="max-w-7xl mx-auto px-6 py-12">
+    <div class="rounded-3xl p-8 md:p-12 border transition-colors relative overflow-hidden" style="background-color: var(--bg-surface); border-color: var(--border-gold); box-shadow: var(--card-shadow);">
+      <div class="max-w-2xl mb-8">
+        <span class="text-[10px] font-extrabold uppercase tracking-[0.25em]" style="color: var(--gold-primary);">Try In Person</span>
+        <h2 class="font-cinzel text-2xl md:text-3xl font-black mt-1" style="color: var(--text-primary);">Visit Our Hyderabad Flagships</h2>
+        <p class="text-xs md:text-sm mt-2 leading-relaxed" style="color: var(--text-secondary);">
+          Experience the heavyweight fabric feel, try all sizes, and explore exclusive in-store only hype drops at our 3 physical stores across Hyderabad.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Store 1: Kukatpally -->
+        <div class="p-6 rounded-2xl border transition-all hover:border-amber-400" style="background-color: var(--bg-deep); border-color: var(--border-glass);">
+          <div class="text-[10px] font-black uppercase tracking-widest text-amber-400 mb-2">FLAGSHIP 01</div>
+          <h4 class="font-cinzel text-lg font-bold mb-2" style="color: var(--text-primary);">Kukatpally Flagship</h4>
+          <p class="text-xs leading-relaxed mb-4" style="color: var(--text-secondary);">
+            Venkata Ramana Colony, Near Metro Pillar, Kukatpally, Hyderabad, Telangana 500072.
+          </p>
+          <div class="text-xs font-bold text-amber-400 mb-1">📞 +91 91606 63888</div>
+          <div class="text-[11px] text-slate-400">Open 10:30 AM &ndash; 10:00 PM Daily</div>
+        </div>
+
+        <!-- Store 2: Madhapur -->
+        <div class="p-6 rounded-2xl border transition-all hover:border-amber-400" style="background-color: var(--bg-deep); border-color: var(--border-glass);">
+          <div class="text-[10px] font-black uppercase tracking-widest text-amber-400 mb-2">STUDIO 02</div>
+          <h4 class="font-cinzel text-lg font-bold mb-2" style="color: var(--text-primary);">Madhapur Atelier</h4>
+          <p class="text-xs leading-relaxed mb-4" style="color: var(--text-secondary);">
+            Hitech City Main Road, Opp. Inorbit Mall Driveway, Madhapur, Hyderabad, Telangana 500081.
+          </p>
+          <div class="text-xs font-bold text-amber-400 mb-1">📞 +91 91606 61888</div>
+          <div class="text-[11px] text-slate-400">Open 11:00 AM &ndash; 10:30 PM Daily</div>
+        </div>
+
+        <!-- Store 3: LB Nagar -->
+        <div class="p-6 rounded-2xl border transition-all hover:border-amber-400" style="background-color: var(--bg-deep); border-color: var(--border-glass);">
+          <div class="text-[10px] font-black uppercase tracking-widest text-amber-400 mb-2">BRANCH 03</div>
+          <h4 class="font-cinzel text-lg font-bold mb-2" style="color: var(--text-primary);">LB Nagar Store</h4>
+          <p class="text-xs leading-relaxed mb-4" style="color: var(--text-secondary);">
+            B.N. Reddy Nagar, Sagar Ring Road Junction, LB Nagar, Hyderabad, Telangana 500079.
+          </p>
+          <div class="text-xs font-bold text-amber-400 mb-1">📞 +91 91606 63888</div>
+          <div class="text-[11px] text-slate-400">Open 10:30 AM &ndash; 10:00 PM Daily</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Pillars Strip -->
+  <section class="border-y py-10 transition-colors" style="background-color: var(--bg-surface); border-color: var(--border-glass);">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      
+      <div class="flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl flex-shrink-0" style="background-color: rgba(212,175,55,0.1); border: 1px solid var(--border-gold); color: var(--gold-primary);">
+          ⚡
+        </div>
+        <div>
+          <h4 class="font-cinzel text-xs font-bold tracking-wider" style="color: var(--text-primary);">SAME-DAY HYDERABAD</h4>
+          <p class="text-[11px] mt-0.5" style="color: var(--text-secondary);">Instant courier across Hyd &amp; 2-4 day pan-India</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl flex-shrink-0" style="background-color: rgba(212,175,55,0.1); border: 1px solid var(--border-gold); color: var(--gold-primary);">
+          🏬
+        </div>
+        <div>
+          <h4 class="font-cinzel text-xs font-bold tracking-wider" style="color: var(--text-primary);">3 HYDERABAD STORES</h4>
+          <p class="text-[11px] mt-0.5" style="color: var(--text-secondary);">Kukatpally, Madhapur &amp; LB Nagar</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl flex-shrink-0" style="background-color: rgba(212,175,55,0.1); border: 1px solid var(--border-gold); color: var(--gold-primary);">
+          🔄
+        </div>
+        <div>
+          <h4 class="font-cinzel text-xs font-bold tracking-wider" style="color: var(--text-primary);">7-DAY EASY EXCHANGE</h4>
+          <p class="text-[11px] mt-0.5" style="color: var(--text-secondary);">Hassle-free size replacement guaranteed</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl flex-shrink-0" style="background-color: rgba(212,175,55,0.1); border: 1px solid var(--border-gold); color: var(--gold-primary);">
+          🛡️
+        </div>
+        <div>
+          <h4 class="font-cinzel text-xs font-bold tracking-wider" style="color: var(--text-primary);">100% QUALITY COTTON</h4>
+          <p class="text-[11px] mt-0.5" style="color: var(--text-secondary);">Combed bio-wash 280-320 GSM fabric</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Mega Footer -->
+  <footer class="text-xs pt-16 pb-12 border-t transition-colors" style="background-color: var(--bg-surface); border-color: var(--border-glass); color: var(--text-secondary);">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <!-- Footer Brand Crest Lockup -->
+      <div class="flex flex-col items-center justify-center text-center mb-14 pb-10 border-b" style="border-color: var(--border-glass);">
+        <div class="w-12 h-14 mb-3 filter drop-shadow-[0_0_20px_rgba(212,175,55,0.45)]">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" class="w-full h-full" fill="none">
+            <polygon points="100,18 184,66 184,174 100,222 16,174 16,66" stroke="url(#prevGold)" stroke-width="13" stroke-linejoin="round" stroke-linecap="round" fill="#07080E" />
+            <polygon points="100,30 172,72 172,168 100,210 28,168 28,72" stroke="rgba(245, 208, 97, 0.28)" stroke-width="1.5" fill="none" />
+            <path d="M 64,88 L 94,62 L 94,176 L 38,176 L 38,130 L 52,130 L 52,160 L 78,160 L 78,96 L 64,106 Z" fill="url(#prevGold)" />
+            <path d="M 104,62 L 120,62 L 120,114 L 148,114 L 148,84 L 164,94 L 164,146 L 148,156 L 148,128 L 120,128 L 120,176 L 104,176 Z" fill="url(#prevPlat)" />
+          </svg>
+        </div>
+        <div class="font-cinzel text-2xl font-black tracking-[0.2em]">
+          <span class="bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600 bg-clip-text text-transparent">JHONTY HUB</span>
+        </div>
+        <div class="text-[10px] uppercase tracking-[0.35em] font-bold mt-1 mb-3" style="color: var(--gold-primary);">
+          TRENDSETTING MEN'S STREETWEAR &bull; HYDERABAD &bull; EST. 2024
+        </div>
+        <p class="max-w-md text-xs leading-relaxed" style="color: var(--text-secondary);">
+          Hyderabad's prime destination for heavyweight oversized tees, Korean satin shirts, baggy Japanese denim, chunky street sneakers, and limited hype drops.
+        </p>
+      </div>
+
+      <!-- Newsletter Banner -->
+      <div class="rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 mb-16 border shadow-2xl transition-colors" style="background-color: var(--bg-deep); border-color: var(--border-glass);">
+        <div>
+          <div class="font-cinzel text-xs font-bold uppercase tracking-[0.25em] mb-1" style="color: var(--gold-primary);">Jhonty VIP Drop List</div>
+          <h3 class="font-cinzel text-xl font-bold" style="color: var(--text-primary);">Get Alerted 1 Hour Before New Drops</h3>
+          <p class="text-xs mt-1" style="color: var(--text-secondary);">Receive instant WhatsApp alerts for limited inventory drops and secret sales.</p>
+        </div>
+        <form onsubmit="event.preventDefault(); alert('You are now subscribed to the Jhonty Hub VIP Drop Club!');" class="flex w-full md:w-auto gap-3">
+          <input type="tel" placeholder="Enter your WhatsApp number" required class="px-5 py-3 rounded-full border text-xs outline-none w-full md:w-72" style="background-color: var(--bg-surface); border-color: var(--border-glass); color: var(--text-primary);">
+          <button type="submit" class="btn-gold-shimmer px-6 py-3 rounded-full font-cinzel font-black text-xs uppercase tracking-wider transition whitespace-nowrap">
+            JOIN VIP CLUB
+          </button>
+        </form>
+      </div>
+
+      <!-- Sitemaps -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-10 pb-14 border-b" style="border-color: var(--border-glass);">
+        <div>
+          <h5 class="font-cinzel font-bold uppercase tracking-widest mb-4 text-xs" style="color: var(--text-primary);">Streetwear Apparel</h5>
+          <ul class="space-y-2.5" style="color: var(--text-secondary);">
+            <li><a href="#tees" class="hover:text-amber-400">320 GSM Boxy Tees</a></li>
+            <li><a href="#tees" class="hover:text-amber-400">Acid-Wash Graphic Drops</a></li>
+            <li><a href="#shirts" class="hover:text-amber-400">Korean Satin Shirts</a></li>
+            <li><a href="#denim" class="hover:text-amber-400">Skater Baggy Denim</a></li>
+            <li><a href="#cargos" class="hover:text-amber-400">Parachute Cargos</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 class="font-cinzel font-bold uppercase tracking-widest mb-4 text-xs" style="color: var(--text-primary);">Footwear &amp; Kicks</h5>
+          <ul class="space-y-2.5" style="color: var(--text-secondary);">
+            <li><a href="#sneakers" class="hover:text-amber-400">Platform Street Runners</a></li>
+            <li><a href="#sneakers" class="hover:text-amber-400">High-Top Leather Sneakers</a></li>
+            <li><a href="#sneakers" class="hover:text-amber-400">Suede Slip-On Mules</a></li>
+            <li><a href="#jackets" class="hover:text-amber-400">Varsity Bomber Jackets</a></li>
+            <li><a href="#perfumes" class="hover:text-amber-400">Jhonty Oud Noir Scents</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 class="font-cinzel font-bold uppercase tracking-widest mb-4 text-xs" style="color: var(--text-primary);">Support &amp; Delivery</h5>
+          <ul class="space-y-2.5" style="color: var(--text-secondary);">
+            <li><a href="javascript:void(0)" class="hover:text-amber-400">Track Courier Shipment</a></li>
+            <li><a href="javascript:void(0)" class="hover:text-amber-400">7-Day Easy Exchange Policy</a></li>
+            <li><a href="javascript:void(0)" class="hover:text-amber-400">Same-Day Hyderabad Delivery</a></li>
+            <li><a href="javascript:void(0)" class="hover:text-amber-400">Oversized Fit Guide</a></li>
+            <li><a href="tel:+919160663888" class="hover:text-amber-400">WhatsApp Concierge Help</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5 class="font-cinzel font-bold uppercase tracking-widest mb-4 text-xs" style="color: var(--text-primary);">Hyderabad Stores</h5>
+          <ul class="space-y-2.5" style="color: var(--text-secondary);">
+            <li><a href="#stores" class="hover:text-amber-400">Kukatpally Flagship</a></li>
+            <li><a href="#stores" class="hover:text-amber-400">Madhapur Studio</a></li>
+            <li><a href="#stores" class="hover:text-amber-400">LB Nagar Branch</a></li>
+            <li><a href="javascript:void(0)" class="hover:text-amber-400">About Jhonty Hub</a></li>
+            <li><a href="javascript:void(0)" class="hover:text-amber-400">Authentic Guarantee</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] gap-4" style="color: var(--text-muted);">
+        <div>
+          &copy; 2026 JHONTY HUB (JH) APPAREL &bull; Hyderabad, India &bull; Ready for Shopify OS 2.0
+        </div>
+        <div class="flex items-center space-x-4">
+          <span>🔒 100% Verified Secure UPI &amp; Cards</span>
+          <span>&bull;</span>
+          <span>PhonePe &bull; Google Pay &bull; Paytm &bull; Visa &bull; COD Available</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-out Velvet Vault Drawer (Cart Drawer) -->
+  <div id="vault-drawer-overlay" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 opacity-0 pointer-events-none transition-opacity duration-500" onclick="toggleVault()"></div>
+
+  <div id="vault-drawer" class="fixed top-0 right-0 bottom-0 w-full max-w-md border-l z-50 transform translate-x-full transition-transform duration-500 flex flex-col" style="background-color: var(--bg-surface); border-color: var(--border-glass); color: var(--text-primary);">
+    <div class="p-6 border-b flex items-center justify-between" style="border-color: var(--border-glass);">
+      <div class="flex items-center space-x-3">
+        <span class="text-amber-400 text-lg">✦</span>
+        <h3 class="font-cinzel font-bold tracking-wider text-sm">YOUR SHOPPING BAG</h3>
+      </div>
+      <button onclick="toggleVault()" class="text-slate-400 hover:text-white text-xl">&times;</button>
+    </div>
+
+    <!-- Items Container -->
+    <div id="vault-items-container" class="flex-grow overflow-y-auto p-6 space-y-4">
+      <div class="flex gap-4 p-3.5 rounded-xl border" style="background-color: var(--bg-deep); border-color: var(--border-glass);">
+        <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=150&q=80" alt="Item" class="w-16 h-20 object-cover rounded-lg">
+        <div class="flex-grow">
+          <div class="font-cinzel font-bold text-xs" style="color: var(--text-primary);">Tokyo Cyber 320 GSM Tee</div>
+          <div class="text-[10px] text-amber-400 font-bold uppercase mt-0.5">Size: M &bull; Black</div>
+          <div class="text-xs font-black mt-2" style="color: var(--text-primary);">₹1,299 &times; 1</div>
+        </div>
+        <button onclick="this.closest('.flex').remove(); updateVaultTotal();" class="text-slate-500 hover:text-rose-500 text-sm self-start">&times;</button>
+      </div>
+    </div>
+
+    <!-- Free Delivery Progress Bar -->
+    <div class="px-6 py-3 border-t" style="background-color: var(--bg-deep); border-color: var(--border-glass);">
+      <div class="flex justify-between text-[11px] font-bold mb-1">
+        <span class="text-amber-400">⚡ FREE EXPRESS SHIPPING UNLOCKED</span>
+        <span>₹1,299 / ₹1,999</span>
+      </div>
+      <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+        <div class="bg-gradient-to-r from-amber-400 to-amber-600 h-1.5 rounded-full" style="width: 65%;"></div>
+      </div>
+    </div>
+
+    <!-- Drawer Footer Checkout -->
+    <div class="p-6 border-t space-y-4" style="background-color: var(--bg-surface); border-color: var(--border-glass);">
+      <div class="flex justify-between items-center text-sm font-bold">
+        <span style="color: var(--text-secondary);">Estimated Total:</span>
+        <span id="vault-total-price" class="font-cinzel text-xl font-black text-amber-400">₹1,299</span>
+      </div>
+      <button onclick="alert('Proceeding to 100% Secure Checkout via PhonePe / GPay / Card...');" class="w-full btn-gold-shimmer py-3.5 rounded-full font-cinzel font-black text-xs uppercase tracking-widest">
+        CHECKOUT &bull; FAST DISPATCH
+      </button>
+      <div class="text-center text-[10px] text-slate-400 flex items-center justify-center space-x-2">
+        <span>🔒 256-Bit Encrypted</span>
+        <span>&bull;</span>
+        <span>Cash On Delivery Available</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Theme Toggle Functionality
+    function initTheme() {
+      const savedTheme = localStorage.getItem('jh_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      updateThemeUI(savedTheme);
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('jh_theme', next);
+      updateThemeUI(next);
+    }
+
+    function updateThemeUI(theme) {
+      const icon = document.getElementById('themeIcon');
+      const label = document.getElementById('themeLabel');
+      if (theme === 'light') {
+        if (icon) icon.textContent = '☀️';
+        if (label) label.textContent = 'Light';
+      } else {
+        if (icon) icon.textContent = '🌙';
+        if (label) label.textContent = 'Dark';
+      }
+    }
+
+    // Initialize Theme immediately
+    initTheme();
+
+    // Ambient Light Follower Logic
+    const ambientLight = document.getElementById('ambient-light');
+    window.addEventListener('mousemove', (e) => {
+      if (ambientLight) {
+        ambientLight.style.left = e.clientX + 'px';
+        ambientLight.style.top = e.clientY + 'px';
+      }
+    });
+
+    // 3D Card Tilt Interaction
+    document.querySelectorAll('.card-3d').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -6;
+        const rotateY = ((x - centerX) / centerX) * 6;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+      });
+    });
+
+    // Vault (Cart) Drawer Logic
+    function toggleVault() {
+      const drawer = document.getElementById('vault-drawer');
+      const overlay = document.getElementById('vault-drawer-overlay');
+      const isOpen = drawer.classList.contains('translate-x-0');
+
+      if (isOpen) {
+        drawer.classList.remove('translate-x-0');
+        drawer.classList.add('translate-x-full');
+        overlay.classList.remove('opacity-100', 'pointer-events-auto');
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+      } else {
+        drawer.classList.remove('translate-x-full');
+        drawer.classList.add('translate-x-0');
+        overlay.classList.remove('opacity-0', 'pointer-events-none');
+        overlay.classList.add('opacity-100', 'pointer-events-auto');
+      }
+    }
+
+    function addToVault(title, price) {
+      const container = document.getElementById('vault-items-container');
+      const newItem = document.createElement('div');
+      newItem.className = 'flex gap-4 p-3.5 rounded-xl border animate-pulse';
+      newItem.style.backgroundColor = 'var(--bg-deep)';
+      newItem.style.borderColor = 'var(--border-glass)';
+      newItem.innerHTML = `
+        <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=150&q=80" alt="${title}" class="w-16 h-20 object-cover rounded-lg">
+        <div class="flex-grow">
+          <div class="font-cinzel font-bold text-xs" style="color: var(--text-primary);">${title}</div>
+          <div class="text-[10px] text-amber-400 font-bold uppercase mt-0.5">Size: M &bull; Selected</div>
+          <div class="text-xs font-black mt-2" style="color: var(--text-primary);">₹${price.toLocaleString('en-IN')} &times; 1</div>
+        </div>
+        <button onclick="this.closest('.flex').remove(); updateVaultTotal();" class="text-slate-500 hover:text-rose-500 text-sm self-start">&times;</button>
+      `;
+      container.appendChild(newItem);
+      
+      const badge = document.getElementById('vault-badge');
+      if (badge) {
+        badge.textContent = parseInt(badge.textContent || '0') + 1;
+      }
+      toggleVault();
+      updateVaultTotal();
+      setTimeout(() => newItem.classList.remove('animate-pulse'), 500);
+    }
+
+    function updateVaultTotal() {
+      // Calculate dynamic total
+      const prices = [1299];
+      const totalEl = document.getElementById('vault-total-price');
+      if (totalEl) totalEl.textContent = '₹' + prices.reduce((a, b) => a + b, 0).toLocaleString('en-IN');
+    }
+
+    // Wishlist Toggle
+    function toggleWishlist(btn) {
+      const badge = document.getElementById('wishlist-badge');
+      if (btn.classList.contains('text-rose-500')) {
+        btn.classList.remove('text-rose-500');
+        if (badge) badge.textContent = Math.max(0, parseInt(badge.textContent) - 1);
+      } else {
+        btn.classList.add('text-rose-500');
+        if (badge) badge.textContent = parseInt(badge.textContent || '0') + 1;
+      }
+    }
+
+    function toggleWishlistModal() {
+      alert('Jhonty Hub Saved Items: 2 exclusive styles reserved for your session.');
+    }
+  </script>
+</body>
+</html>
