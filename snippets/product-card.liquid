@@ -1,0 +1,58 @@
+{% comment %}
+  Retail eCommerce Multi-Category Product Card (Lifestyle Stores Layout)
+{% endcomment %}
+<div class="retail-card" data-product-id="{{ product.id }}">
+  <div class="retail-card__media">
+    <a href="{{ product.url }}">
+      {%- if product.featured_media -%}
+        <img
+          src="{{ product.featured_media | image_url: width: 600 }}"
+          alt="{{ product.featured_media.alt | escape }}"
+          loading="lazy"
+          width="600"
+          height="800"
+        >
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </a>
+
+    <!-- Wishlist Heart Button -->
+    <button type="button" class="wishlist-heart-btn" onclick="ApexTheme.toggleWishlist(this)" aria-label="Add to wishlist">
+      <svg style="width: 18px; height: 18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+    </button>
+
+    <!-- Discount Ribbon -->
+    <span class="discount-ribbon">40% OFF</span>
+  </div>
+
+  <div class="retail-card__info">
+    <span class="card-brand-label">{{ product.vendor | default: 'GINGER BY LIFESTYLE' }}</span>
+    <h3 class="card-product-title">
+      <a href="{{ product.url }}">{{ product.title }}</a>
+    </h3>
+
+    <div class="card-price-row">
+      <span class="current-price">{{ product.price | money }}</span>
+      <span class="mrp-price">₹1,999</span>
+      <span class="percentage-off">Save 40%</span>
+    </div>
+
+    <!-- Size Swatches -->
+    <div class="size-selector-strip">
+      <div class="size-pill" onclick="this.parentElement.querySelectorAll('.size-pill').forEach(p=>p.classList.remove('selected')); this.classList.add('selected');">S</div>
+      <div class="size-pill selected" onclick="this.parentElement.querySelectorAll('.size-pill').forEach(p=>p.classList.remove('selected')); this.classList.add('selected');">M</div>
+      <div class="size-pill" onclick="this.parentElement.querySelectorAll('.size-pill').forEach(p=>p.classList.remove('selected')); this.classList.add('selected');">L</div>
+      <div class="size-pill" onclick="this.parentElement.querySelectorAll('.size-pill').forEach(p=>p.classList.remove('selected')); this.classList.add('selected');">XL</div>
+    </div>
+
+    <button
+      type="button"
+      class="btn-add-to-bag"
+      data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+      onclick="ApexTheme.addToBag('{{ product.selected_or_first_available_variant.id }}', this)"
+    >
+      Add To Bag
+    </button>
+  </div>
+</div>

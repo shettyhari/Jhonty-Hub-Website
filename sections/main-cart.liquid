@@ -1,0 +1,62 @@
+<div class="section-spacing">
+  <div class="container">
+    <div class="section-header">
+      <h1>Your Shopping Cart</h1>
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <form action="{{ routes.cart_url }}" method="post">
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 40px; align-items: start;">
+          <div>
+            {%- for item in cart.items -%}
+              <div class="cart-item" style="padding: 20px 0;">
+                <div class="cart-item__media" style="width: 100px; height: 100px;">
+                  {%- if item.image -%}
+                    <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.title | escape }}" style="width:100%; height:100%; object-fit:cover;">
+                  {%- endif -%}
+                </div>
+                <div class="cart-item__details">
+                  <h3 style="font-size: 1.1rem; margin-bottom: 4px;">{{ item.product.title }}</h3>
+                  {%- unless item.product.has_only_default_variant -%}
+                    <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 8px;">{{ item.variant.title }}</p>
+                  {%- endunless -%}
+                  <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 12px;">{{ item.final_price | money }}</div>
+                  
+                  <div style="display: flex; align-items: center; gap: 14px;">
+                    <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" style="width: 70px; padding: 6px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); text-align: center;">
+                    <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0" style="color: var(--color-danger); font-size: 0.85rem;">Remove</a>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+
+          <div style="background-color: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 24px;">
+            <h3 style="margin-bottom: 16px;">Order Summary</h3>
+            <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700; margin-bottom: 12px;">
+              <span>Subtotal</span>
+              <span>{{ cart.total_price | money }}</span>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 20px;">Shipping & taxes calculated at checkout.</p>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <button type="submit" name="checkout" class="btn btn--accent btn--full" style="padding: 14px;">Proceed to Checkout</button>
+              <button type="submit" name="update" class="btn btn--secondary btn--full">Update Quantities</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    {%- else -%}
+      <div style="text-align: center; padding: 60px 0;">
+        <p style="font-size: 1.1rem; color: var(--color-text-muted); margin-bottom: 24px;">Your cart is currently empty.</p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">Browse Catalog</a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cart Page",
+  "settings": []
+}
+{% endschema %}

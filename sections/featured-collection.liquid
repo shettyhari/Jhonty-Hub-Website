@@ -1,0 +1,136 @@
+<div class="container" style="margin-top: 40px; margin-bottom: 50px;">
+  <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
+    <div>
+      <span style="font-size: 0.72rem; font-weight: 800; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold-primary);">High Demand</span>
+      <h2 style="font-family: var(--font-serif); font-size: 1.8rem; font-weight: 900; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 4px;">Top Selling Streetwear</h2>
+    </div>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <button style="padding: 7px 16px; border-radius: 9999px; font-size: 0.78rem; font-weight: 800; background: var(--gold-gradient); color: #000; border: none; cursor: pointer;">All Drops</button>
+      <button style="padding: 7px 16px; border-radius: 9999px; font-size: 0.78rem; font-weight: 700; background: rgba(255,255,255,0.06); color: var(--text-primary); border: 1px solid var(--border-glass); cursor: pointer;">Oversized Tees</button>
+      <button style="padding: 7px 16px; border-radius: 9999px; font-size: 0.78rem; font-weight: 700; background: rgba(255,255,255,0.06); color: var(--text-primary); border: 1px solid var(--border-glass); cursor: pointer;">Korean Shirts</button>
+      <button style="padding: 7px 16px; border-radius: 9999px; font-size: 0.78rem; font-weight: 700; background: rgba(255,255,255,0.06); color: var(--text-primary); border: 1px solid var(--border-glass); cursor: pointer;">Baggy Denim</button>
+      <button style="padding: 7px 16px; border-radius: 9999px; font-size: 0.78rem; font-weight: 700; background: rgba(255,255,255,0.06); color: var(--text-primary); border: 1px solid var(--border-glass); cursor: pointer;">Sneakers</button>
+    </div>
+  </div>
+
+  <div class="retail-product-grid">
+    {%- assign collection = collections[section.settings.collection] -%}
+    {%- for product in collection.products limit: 4 -%}
+      {% render 'product-card', product: product %}
+    {%- else -%}
+      <!-- Product 1: Tokyo Cyber 320GSM Heavyweight Tee -->
+      <div class="retail-card card-3d-tilt">
+        <div class="retail-card__media">
+          <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80" alt="JH Tokyo Cyber Heavyweight Tee" style="width: 100%; height: 320px; object-fit: cover;">
+          <span class="discount-ribbon">48% OFF</span>
+        </div>
+        <div class="retail-card__info">
+          <span class="card-brand-label" style="color: var(--gold-primary);">JHONTY HUB EXCLUSIVE</span>
+          <h3 class="card-product-title">Tokyo Cyber 320 GSM Heavyweight Drop-Shoulder Tee</h3>
+          <div class="card-price-row">
+            <span class="current-price" style="color: var(--text-primary); font-weight: 900;">₹1,299</span>
+            <span class="mrp-price">₹2,499</span>
+            <span class="percentage-off">48% OFF</span>
+          </div>
+          <div class="size-selector-strip">
+            <div class="size-pill">S</div>
+            <div class="size-pill selected">M</div>
+            <div class="size-pill">L</div>
+            <div class="size-pill">XL</div>
+          </div>
+          <button class="btn-add-to-bag btn-gold-shimmer" onclick="ApexTheme.openVault()">Add To Bag</button>
+        </div>
+      </div>
+
+      <!-- Product 2: Korean Liquid Satin Cuban Shirt -->
+      <div class="retail-card card-3d-tilt">
+        <div class="retail-card__media">
+          <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=600&q=80" alt="Korean Liquid Satin Shirt" style="width: 100%; height: 320px; object-fit: cover;">
+          <span class="discount-ribbon">45% OFF</span>
+        </div>
+        <div class="retail-card__info">
+          <span class="card-brand-label" style="color: var(--gold-primary);">JHONTY IMPORTED</span>
+          <h3 class="card-product-title">Korean Liquid Champagne Satin Cuban-Collar Shirt</h3>
+          <div class="card-price-row">
+            <span class="current-price" style="color: var(--text-primary); font-weight: 900;">₹1,899</span>
+            <span class="mrp-price">₹3,499</span>
+            <span class="percentage-off">45% OFF</span>
+          </div>
+          <div class="size-selector-strip">
+            <div class="size-pill">S</div>
+            <div class="size-pill selected">M</div>
+            <div class="size-pill">L</div>
+            <div class="size-pill">XL</div>
+          </div>
+          <button class="btn-add-to-bag btn-gold-shimmer" onclick="ApexTheme.openVault()">Add To Bag</button>
+        </div>
+      </div>
+
+      <!-- Product 3: Japanese Skater Wide-Leg Denim -->
+      <div class="retail-card card-3d-tilt">
+        <div class="retail-card__media">
+          <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=600&q=80" alt="Japanese Skater Baggy Denim" style="width: 100%; height: 320px; object-fit: cover;">
+          <span class="discount-ribbon">42% OFF</span>
+        </div>
+        <div class="retail-card__info">
+          <span class="card-brand-label" style="color: var(--gold-primary);">JHONTY DENIM</span>
+          <h3 class="card-product-title">Vintage Acid-Washed Skater Wide-Leg Baggy Denim</h3>
+          <div class="card-price-row">
+            <span class="current-price" style="color: var(--text-primary); font-weight: 900;">₹2,199</span>
+            <span class="mrp-price">₹3,799</span>
+            <span class="percentage-off">42% OFF</span>
+          </div>
+          <div class="size-selector-strip">
+            <div class="size-pill">30</div>
+            <div class="size-pill selected">32</div>
+            <div class="size-pill">34</div>
+            <div class="size-pill">36</div>
+          </div>
+          <button class="btn-add-to-bag btn-gold-shimmer" onclick="ApexTheme.openVault()">Add To Bag</button>
+        </div>
+      </div>
+
+      <!-- Product 4: JH Chunky Shadow-Runner Kicks -->
+      <div class="retail-card card-3d-tilt">
+        <div class="retail-card__media">
+          <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=600&q=80" alt="Chunky Shadow-Runner Kicks" style="width: 100%; height: 320px; object-fit: cover;">
+          <span class="discount-ribbon">44% OFF</span>
+        </div>
+        <div class="retail-card__info">
+          <span class="card-brand-label" style="color: var(--gold-primary);">JHONTY FOOTWEAR</span>
+          <h3 class="card-product-title">Shadow-Runner Chunky Platform High-Traction Kicks</h3>
+          <div class="card-price-row">
+            <span class="current-price" style="color: var(--text-primary); font-weight: 900;">₹2,799</span>
+            <span class="mrp-price">₹4,999</span>
+            <span class="percentage-off">44% OFF</span>
+          </div>
+          <div class="size-selector-strip">
+            <div class="size-pill">UK 7</div>
+            <div class="size-pill selected">UK 8</div>
+            <div class="size-pill">UK 9</div>
+            <div class="size-pill">UK 10</div>
+          </div>
+          <button class="btn-add-to-bag btn-gold-shimmer" onclick="ApexTheme.openVault()">Add To Bag</button>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Jhonty Top Selling",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Jhonty Top Selling"
+    }
+  ]
+}
+{% endschema %}

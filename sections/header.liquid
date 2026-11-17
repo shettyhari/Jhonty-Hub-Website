@@ -1,0 +1,197 @@
+<!-- Top VIP Utility Bar -->
+<div class="top-vip-bar">
+  <div class="container">
+    <div class="top-vip-bar__inner">
+      <div style="display: flex; gap: 18px; align-items: center; flex-wrap: wrap;">
+        <span style="color: var(--gold-primary); font-weight: 700;">✧ Same-Day Express Hyderabad Dispatch</span>
+        <span style="opacity: 0.25;">|</span>
+        <span>Free Nationwide Delivery Above ₹1,999</span>
+        <span style="opacity: 0.25;">|</span>
+        <a href="tel:+919160663888" style="color: inherit; text-decoration: none;">WhatsApp Concierge: +91 91606 63888</a>
+      </div>
+      <ul class="vip-utility-links">
+        <li><a href="/pages/stores">Kukatpally Flagship</a></li>
+        <li><a href="/pages/stores">Madhapur Studio</a></li>
+        <li><a href="/pages/stores">LB Nagar Branch</a></li>
+        <li><a href="/pages/track-order">Track Order</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Main Haute Retail Header -->
+<header class="haute-header">
+  <div class="container">
+    <div class="haute-header__middle">
+      
+      <!-- Brand Logo Lockup -->
+      <a href="{{ routes.root_url }}" class="haute-logo" style="display: flex; align-items: center; gap: 14px; text-decoration: none;">
+        {%- if section.settings.logo != blank -%}
+          <img src="{{ section.settings.logo | image_url: width: 220 }}" alt="{{ shop.name }}" width="{{ section.settings.logo_width }}" style="display: block;">
+        {%- else -%}
+          <!-- Native JH Hexagonal Luxury Crest -->
+          <div style="display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 0 16px rgba(212,175,55,0.4)); flex-shrink: 0;">
+            {% render 'icon-logo' %}
+          </div>
+          <div style="display: flex; flex-direction: column;">
+            <span style="font-family: var(--font-serif); font-size: 1.45rem; font-weight: 900; letter-spacing: 0.16em; line-height: 1;">
+              <span style="background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">JHONTY HUB</span>
+            </span>
+            <span style="font-size: 0.6rem; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold-primary); margin-top: 4px;">
+              STREETWEAR &amp; LUXE ATELIER &bull; HYD
+            </span>
+          </div>
+        {%- endif -%}
+      </a>
+
+      <!-- Central Luxury Search Box -->
+      <div class="haute-search">
+        <form action="{{ routes.search_url }}" method="get">
+          <div class="haute-search-box">
+            <svg style="width: 17px; height: 17px; color: #94a3b8; margin-right: 12px; flex-shrink: 0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke-width="2"></circle><line x1="21" y1="21" x2="16.65" y2="16.65" stroke-width="2"></line></svg>
+            <input type="search" name="q" placeholder="Search oversized tees, Korean shirts, parachute cargos, sneakers...">
+          </div>
+        </form>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="haute-actions">
+        <!-- Dark / Light Theme Switcher Button -->
+        <button type="button" class="haute-action-btn" onclick="ApexTheme.toggleTheme()" title="Toggle Dark/Light Mode" style="background: transparent; border: none; cursor: pointer;">
+          <svg id="themeMoonIcon" style="width: 20px; height: 20px; margin-bottom: 3px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+          <svg id="themeSunIcon" style="width: 20px; height: 20px; margin-bottom: 3px; display: none; color: #f59e0b;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+          <span id="themeLabel">Theme</span>
+        </button>
+
+        <a href="/pages/stores" class="haute-action-btn">
+          <svg style="width: 20px; height: 20px; margin-bottom: 3px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+          <span>Stores</span>
+        </a>
+
+        <a href="/pages/wishlist" class="haute-action-btn">
+          <svg style="width: 20px; height: 20px; margin-bottom: 3px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+          <span>Wishlist</span>
+          <span class="gold-badge" id="HeaderWishlistCount">0</span>
+        </a>
+
+        <div class="haute-action-btn" onclick="ApexTheme.openVault()">
+          <svg style="width: 20px; height: 20px; margin-bottom: 3px; color: var(--gold-primary);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+          <span>Bag</span>
+          <span class="gold-badge" id="HeaderBagCount">{{ cart.item_count }}</span>
+        </div>
+
+        <a href="{{ routes.account_url }}" class="haute-action-btn">
+          <svg style="width: 20px; height: 20px; margin-bottom: 3px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+          <span>Account</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Mega Menu Category Strip -->
+    <nav class="haute-nav-ribbon">
+      <!-- Oversized Streetwear Tees -->
+      <div class="haute-nav-item">
+        <span>Oversized Tees</span>
+        <div class="haute-mega-menu">
+          <div>
+            <div class="mega-col-title">Heavyweight Drops</div>
+            <ul class="mega-links">
+              <li><a href="/collections/heavyweight-tees">320 GSM French Terry Drop-Shoulder</a></li>
+              <li><a href="/collections/acid-wash">Vintage Acid-Wash Graphic Tees</a></li>
+              <li><a href="/collections/cyber-anime">Tokyo Cyber &amp; Anime Street Drops</a></li>
+              <li><a href="/collections/minimal-monogram">Minimal Monogram Luxury Tees</a></li>
+              <li><a href="/collections/back-print">High-Density 3D Back Prints</a></li>
+            </ul>
+          </div>
+          <div>
+            <div class="mega-col-title">Fits &amp; Cuts</div>
+            <ul class="mega-links">
+              <li><a href="/collections/boxy-fit">Boxy Fit Street Silhouette</a></li>
+              <li><a href="/collections/relaxed-crew">Relaxed Crewneck Essentials</a></li>
+              <li><a href="/collections/distressed-tees">Distressed Raw-Hem Tees</a></li>
+              <li><a href="/collections/waffle-tees">Textured Waffle Knits</a></li>
+              <li><a href="/collections/solid-multipacks">Luxury Solid Heavy 3-Packs</a></li>
+            </ul>
+          </div>
+          <div>
+            <div class="mega-col-title">Hype Collaborations</div>
+            <ul class="mega-links">
+              <li><a href="/collections/jh-exclusive" style="font-weight: 700;">JH STUDIO ATELIER EXCLUSIVES</a></li>
+              <li><a href="/collections/hyderabad-underground">Hyderabad Underground Capsule</a></li>
+              <li><a href="/collections/racing-club">Monaco Grand Prix Racing Tees</a></li>
+              <li><a href="/collections/limited-drop">Numbered Edition Drops (Only 100 Made)</a></li>
+            </ul>
+          </div>
+          <div style="background: linear-gradient(180deg, rgba(212,175,55,0.12) 0%, rgba(0,0,0,0.1) 100%); padding: 22px; border-radius: 16px; border: 1px solid var(--border-gold); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <span style="font-size: 0.65rem; font-weight: 800; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold-primary);">New Drop Alert</span>
+              <h4 style="font-family: var(--font-serif); font-size: 1.05rem; font-weight: 700; margin: 4px 0 8px;">Heavyweight 320 GSM Boxy Tees</h4>
+              <p style="font-size: 0.75rem; color: #94a3b8; line-height: 1.6;">Pre-shrunk, bio-washed combed cotton designed for effortless street drape.</p>
+            </div>
+            <a href="/collections/heavyweight-tees" class="btn-shimmer" style="display: block; text-align: center; padding: 10px; border-radius: 6px; font-family: var(--font-serif); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; text-decoration: none; margin-top: 14px;">
+              SHOP TEES FROM ₹1,199
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Imported Luxe Shirts -->
+      <div class="haute-nav-item">
+        <span>Imported Shirts</span>
+      </div>
+
+      <!-- Baggy Denim & Cargos -->
+      <div class="haute-nav-item">
+        <span>Baggy Denim &amp; Cargos</span>
+      </div>
+
+      <!-- Footwear & Kicks -->
+      <div class="haute-nav-item">
+        <span>Footwear &amp; Kicks</span>
+      </div>
+
+      <!-- Jackets & Outerwear -->
+      <div class="haute-nav-item">
+        <span>Jackets &amp; Outerwear</span>
+      </div>
+
+      <!-- Perfumes & Accessories -->
+      <div class="haute-nav-item">
+        <span>Perfumes &amp; Accessories</span>
+      </div>
+
+      <!-- Hyderabad Stores -->
+      <div class="haute-nav-item">
+        <a href="/pages/stores" style="text-decoration: none; color: inherit;"><span>Hyderabad Flagships</span></a>
+      </div>
+
+      <!-- Hype Sale -->
+      <div class="haute-nav-item is-sale">
+        <span>Drop Sale &bull; Flat 50% Off</span>
+      </div>
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Jhonty Hub Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Custom Logo Image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 250,
+      "step": 10,
+      "default": 130,
+      "unit": "px",
+      "label": "Logo width"
+    }
+  ]
+}
+{% endschema %}

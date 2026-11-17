@@ -1,0 +1,68 @@
+<div id="VaultDrawerOverlay" class="vault-drawer-overlay" onclick="ApexTheme.closeVault()"></div>
+
+<div id="VaultDrawer" class="vault-drawer">
+  <div style="padding: 24px; border-bottom: 1px solid var(--border-glass); display: flex; align-items: center; justify-content: space-between;">
+    <div>
+      <h3 style="font-family: var(--font-serif); font-size: 1.15rem; font-weight: 700; color: #ffffff; letter-spacing: 0.08em; text-transform: uppercase;">
+        Your Private Vault
+      </h3>
+      <p style="font-size: 0.72rem; color: #d4af37; text-transform: uppercase; letter-spacing: 0.15em; margin-top: 2px;">
+        White-Glove Courier Ready
+      </p>
+    </div>
+    <button type="button" onclick="ApexTheme.closeVault()" style="background: none; border: none; font-size: 1.25rem; cursor: pointer; color: #94a3b8;">✕</button>
+  </div>
+
+  <!-- Armored / Free Courier Bar -->
+  <div style="background: rgba(212, 175, 55, 0.08); border-bottom: 1px solid rgba(212, 175, 55, 0.2); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between;">
+    <span style="font-size: 0.75rem; font-weight: 700; color: #fde68a; letter-spacing: 0.05em;">
+      ✧ COMPLIMENTARY INSURED COURIER QUALIFIED
+    </span>
+    <span style="font-size: 0.68rem; font-weight: 800; background: #d4af37; color: #050507; padding: 2px 6px; border-radius: 4px;">
+      100%
+    </span>
+  </div>
+
+  <div id="VaultDrawerItems" style="padding: 24px; overflow-y: auto; flex-grow: 1;">
+    {%- if cart.item_count == 0 -%}
+      <div style="text-align: center; padding: 60px 20px; color: #64748b;">
+        <div style="font-size: 2.5rem; margin-bottom: 12px; opacity: 0.6;">✧</div>
+        <h4 style="font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 700; color: #fff; letter-spacing: 0.1em; text-transform: uppercase;">Your Vault is Empty</h4>
+        <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 6px;">Reserve an exclusive fashion or lifestyle piece from our current capsule.</p>
+      </div>
+    {%- else -%}
+      {%- for item in cart.items -%}
+        <div style="display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.06); align-items: center;">
+          <div style="width: 70px; height: 90px; border-radius: 8px; overflow: hidden; background: #000; border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0;">
+            {%- if item.image -%}
+              <img src="{{ item.image | image_url: width: 140 }}" alt="{{ item.title | escape }}" style="width: 100%; height: 100%; object-fit: cover;">
+            {%- endif -%}
+          </div>
+          <div style="flex-grow: 1;">
+            <div style="font-family: 'Cinzel', serif; font-size: 0.88rem; font-weight: 700; color: #fff;">{{ item.product.title }}</div>
+            <div style="font-size: 0.72rem; color: #d4af37; text-transform: uppercase; letter-spacing: 0.12em; margin-top: 2px;">Size: {{ item.variant.title | default: 'M' }}</div>
+            <div style="margin-top: 6px; font-weight: 800; color: #fff; font-size: 0.95rem;">
+              {{ item.final_price | money }} &times; {{ item.quantity }}
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+
+  <div style="padding: 24px; border-top: 1px solid var(--border-glass); background: #050508;">
+    <div style="display: flex; justify-content: space-between; font-family: var(--font-serif); font-size: 1.1rem; font-weight: 800; color: #ffffff; margin-bottom: 8px;">
+      <span>Allocation Subtotal</span>
+      <span id="VaultDrawerSubtotal">{{ cart.total_price | money }}</span>
+    </div>
+    <p style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 18px; letter-spacing: 0.05em;">
+      Complimentary insurance & white-glove signature courier included.
+    </p>
+    
+    <form action="{{ routes.cart_url }}" method="post">
+      <button type="submit" name="checkout" class="btn-shimmer" style="width: 100%; padding: 14px; border: none; border-radius: var(--radius-sm); font-family: var(--font-serif); font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; cursor: pointer;">
+        PROCEED TO SECURE CHECKOUT
+      </button>
+    </form>
+  </div>
+</div>

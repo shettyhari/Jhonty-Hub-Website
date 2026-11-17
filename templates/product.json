@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "trust_badges": {
+      "type": "trust-badges",
+      "settings": {}
+    },
+    "recommendations": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "You May Also Like",
+        "subtitle": "Customers who purchased this item also viewed these complementary goods.",
+        "products_to_show": 4
+      }
+    }
+  },
+  "order": [
+    "main",
+    "trust_badges",
+    "recommendations"
+  ]
+}

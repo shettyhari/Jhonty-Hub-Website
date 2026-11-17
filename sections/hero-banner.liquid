@@ -1,0 +1,130 @@
+<section class="luxury-hero">
+  <div class="hero-glow-orb"></div>
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-badge-pill">
+          <span style="color: #d4af37;">✧</span>
+          <span>{{ section.settings.badge_text }}</span>
+        </div>
+        
+        <h1 class="hero-title">
+          {{ section.settings.headline_part1 }}<br>
+          <span class="luxury-gold-text">{{ section.settings.headline_part2 }}</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          {{ section.settings.subtitle }}
+        </p>
+
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <a href="{{ section.settings.btn_url }}" class="btn-gold">
+            <span>{{ section.settings.btn_label }}</span>
+            <span>&rarr;</span>
+          </a>
+          <a href="{{ section.settings.secondary_url }}" class="btn-glass">
+            {{ section.settings.secondary_label }}
+          </a>
+        </div>
+
+        <div class="hero-stats-row">
+          <div class="hero-stat-item">
+            <div class="stat-value">6063-T6</div>
+            <div class="stat-label">Aerospace Alloy</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="stat-value">0.02 mm</div>
+            <div class="stat-label">CNC Tolerance</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="stat-value">VIP</div>
+            <div class="stat-label">White-Glove Courier</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="position: relative;">
+        <div class="glass-panel" style="padding: 18px; border-radius: 28px; background: rgba(18, 20, 32, 0.7); box-shadow: 0 30px 80px rgba(0,0,0,0.8);">
+          <div style="position: relative; border-radius: 20px; overflow: hidden; aspect-ratio: 1/1; background: #000;">
+            <img 
+              src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=1200&q=85" 
+              alt="Flagship Bespoke Hardware"
+              style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.95);"
+            >
+            <div style="position: absolute; bottom: 16px; left: 16px; right: 16px; background: rgba(5, 5, 7, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-size: 0.68rem; color: #d4af37; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700;">Capsule 01 &bull; Serialized</div>
+                <div style="font-family: var(--font-serif); font-size: 0.95rem; font-weight: 700; color: #fff;">Apex Black Edition</div>
+              </div>
+              <span class="stock-indicator-pill" style="position: static;">
+                <span class="pulse-dot"></span>
+                <span>Ready for Dispatch</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Luxury Hero Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Limited Masterpiece Release 2026"
+    },
+    {
+      "type": "text",
+      "id": "headline_part1",
+      "label": "Headline Line 1",
+      "default": "Mastery in Form."
+    },
+    {
+      "type": "text",
+      "id": "headline_part2",
+      "label": "Headline Line 2 (Gold Gradient)",
+      "default": "Absolute in Function."
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sub-headline description",
+      "default": "Machined from solid billets of aerospace aluminum and finished with hand-brushed chamfers. Each numbered artifact is individually calibrated for uncompromising excellence."
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Primary Button Text",
+      "default": "Discover the Capsule"
+    },
+    {
+      "type": "url",
+      "id": "btn_url",
+      "label": "Primary Button URL",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary Button Text",
+      "default": "Watch Manufacture"
+    },
+    {
+      "type": "url",
+      "id": "secondary_url",
+      "label": "Secondary Button URL",
+      "default": "/pages/about"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Luxury Hero Banner"
+    }
+  ]
+}
+{% endschema %}

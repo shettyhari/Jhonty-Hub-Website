@@ -1,0 +1,26 @@
+{
+  "general": {
+    "search": "Search products...",
+    "cart": "Cart",
+    "close": "Close",
+    "continue_shopping": "Continue Shopping",
+    "empty_cart": "Your cart is currently empty.",
+    "subtotal": "Subtotal",
+    "checkout": "Proceed to Checkout",
+    "loading": "Loading...",
+    "free_shipping": "Free Shipping Available!"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Cart",
+      "sold_out": "Sold Out",
+      "unavailable": "Unavailable",
+      "in_stock": "In Stock & Ready to Ship",
+      "low_stock": "Only a few units remaining!",
+      "quantity": "Quantity",
+      "sku": "SKU",
+      "free_shipping_notice": "Eligible for Free Standard Delivery",
+      "easy_returns": "30-Day Hassle Free Returns"
+    }
+  }
+}

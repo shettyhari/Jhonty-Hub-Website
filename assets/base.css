@@ -1,0 +1,914 @@
+/* ==========================================================================
+   LIFESTYLE HAUTE MAISON — ULTRA-PREMIUM MEGA-RETAIL THEME
+   Merges the multi-category architecture of Lifestyle Stores with
+   the high-fashion luxury aesthetics of Harrods, Net-a-Porter & Farfetch.
+   Obsidian Noir, Champagne Gold, Glassmorphism, 3D Card Tilt & Ambient Glow.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root, [data-theme="dark"] {
+  --bg-deep: #06070a;
+  --bg-surface: #0c0d14;
+  --bg-card: rgba(16, 18, 27, 0.85);
+  --bg-glass: rgba(12, 13, 20, 0.85);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --border-gold: rgba(212, 175, 55, 0.35);
+
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  
+  --gold-primary: #d4af37;
+  --gold-bright: #fde68a;
+  --gold-gradient: linear-gradient(135deg, #fef08a 0%, #d4af37 50%, #996515 100%);
+  --platinum-gradient: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #64748b 100%);
+  
+  --font-serif: 'Cinzel', serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  
+  --shadow-lux: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(212, 175, 55, 0.08);
+  --container-max: 1420px;
+  --theme-transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+[data-theme="light"] {
+  --bg-deep: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --bg-glass: rgba(255, 255, 255, 0.92);
+  --border-glass: rgba(15, 23, 42, 0.09);
+  --border-gold: rgba(180, 130, 20, 0.45);
+
+  --text-primary: #090d16;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  
+  --gold-primary: #b8860b;
+  --gold-bright: #d4af37;
+  --gold-gradient: linear-gradient(135deg, #d4af37 0%, #b8860b 50%, #7c5806 100%);
+  --platinum-gradient: linear-gradient(135deg, #0f172a 0%, #334155 50%, #64748b 100%);
+  
+  --shadow-lux: 0 20px 45px rgba(0, 0, 0, 0.06), 0 0 25px rgba(184, 134, 11, 0.12);
+}
+
+[data-theme="light"] body {
+  background-image: 
+    radial-gradient(circle at 10% 5%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 90% 50%, rgba(56, 189, 248, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 50% 95%, rgba(212, 175, 55, 0.06) 0%, transparent 50%);
+}
+
+[data-theme="light"] .haute-header {
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom-color: rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="light"] .top-vip-bar {
+  background: #f1f5f9;
+  border-bottom-color: rgba(15, 23, 42, 0.08);
+  color: #475569;
+}
+
+[data-theme="light"] .haute-search-box {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.15);
+}
+
+[data-theme="light"] .haute-search-box input {
+  color: #0f172a;
+}
+
+[data-theme="light"] .haute-search-box input::placeholder {
+  color: #64748b;
+}
+
+[data-theme="light"] .haute-action-btn {
+  color: #334155;
+}
+
+[data-theme="light"] .haute-action-btn:hover {
+  color: var(--gold-primary);
+}
+
+[data-theme="light"] .haute-nav-ribbon {
+  border-top-color: rgba(15, 23, 42, 0.06);
+}
+
+[data-theme="light"] .haute-nav-item > span {
+  color: #334155;
+}
+
+[data-theme="light"] .haute-mega-menu {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.1);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="light"] .mega-col-title {
+  color: var(--gold-primary);
+}
+
+[data-theme="light"] .mega-links a {
+  color: #475569;
+}
+
+[data-theme="light"] .product-card-lux {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .product-card-lux:hover {
+  border-color: var(--gold-primary);
+  box-shadow: 0 20px 40px rgba(184, 134, 11, 0.16);
+}
+
+[data-theme="light"] .product-title {
+  color: #0f172a;
+}
+
+[data-theme="light"] .trust-pillar-card {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .trust-pillar-card h4 {
+  color: #0f172a;
+}
+
+[data-theme="light"] .mega-footer {
+  background: #ffffff !important;
+  border-top-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+[data-theme="light"] .mega-footer h3,
+[data-theme="light"] .mega-footer h4,
+[data-theme="light"] .mega-footer h5 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .mega-footer p,
+[data-theme="light"] .mega-footer a,
+[data-theme="light"] .footer-bottom-row {
+  color: #475569 !important;
+}
+
+[data-theme="light"] .vault-drawer {
+  background: #ffffff;
+  border-left-color: rgba(15, 23, 42, 0.1);
+  color: #0f172a;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 10% 5%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 90% 50%, rgba(56, 189, 248, 0.03) 0%, transparent 45%),
+    radial-gradient(circle at 50% 95%, rgba(212, 175, 55, 0.04) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.gold-text {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.font-cinzel {
+  font-family: var(--font-serif);
+}
+
+/* Shimmer Animation */
+@keyframes goldShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.btn-shimmer {
+  background: linear-gradient(90deg, #d4af37 0%, #fef08a 50%, #d4af37 100%);
+  background-size: 200% 100%;
+  animation: goldShimmer 4s infinite linear;
+  color: #050507;
+}
+
+/* 1. Top VIP Utility Strip */
+.top-vip-bar {
+  background: #020204;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.72rem;
+  padding: 8px 0;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+}
+
+.top-vip-bar__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.vip-utility-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  color: var(--text-secondary);
+}
+
+.vip-utility-links a:hover {
+  color: var(--gold-bright);
+}
+
+/* 2. Glassmorphism Main Header */
+.haute-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(6, 7, 10, 0.85);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-bottom: 1px solid var(--border-glass);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+}
+
+.haute-header__middle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  gap: 36px;
+}
+
+.haute-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.haute-logo-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--gold-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-weight: 900;
+  font-size: 1.2rem;
+  color: #050507;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
+}
+
+.haute-logo-text {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  color: #ffffff;
+}
+
+.haute-logo-text span {
+  color: var(--gold-primary);
+}
+
+/* Luxury Search Bar */
+.haute-search {
+  flex-grow: 1;
+  max-width: 620px;
+  position: relative;
+}
+
+.haute-search-box {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+}
+
+.haute-search-box:focus-within {
+  border-color: var(--gold-primary);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
+}
+
+.haute-search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.85rem;
+  width: 100%;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+.haute-search-box input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Action Icons */
+.haute-actions {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.haute-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  position: relative;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.haute-action-btn:hover {
+  color: var(--gold-bright);
+}
+
+.gold-badge {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  background: var(--gold-gradient);
+  color: #050507;
+  font-size: 0.65rem;
+  font-weight: 900;
+  height: 16px;
+  min-width: 16px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+/* 3. Mega-Menu Navigation Ribbon */
+.haute-nav-ribbon {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  gap: 40px;
+  position: relative;
+}
+
+.haute-nav-item {
+  padding: 14px 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.haute-nav-item:hover {
+  color: #ffffff;
+}
+
+.haute-nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gold-gradient);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.haute-nav-item:hover::after {
+  transform: scaleX(1);
+}
+
+.haute-nav-item.is-sale {
+  color: var(--gold-bright);
+}
+
+/* Luxury Mega Dropdown */
+.haute-mega-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(10, 11, 18, 0.96);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-top: 1px solid var(--border-glass);
+  border-bottom: 1px solid var(--border-glass);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+  display: none;
+  padding: 36px 44px;
+  z-index: 90;
+}
+
+.haute-nav-item:hover .haute-mega-menu {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr) 1.5fr;
+  gap: 32px;
+}
+
+.mega-col-title {
+  font-family: var(--font-serif);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  margin-bottom: 14px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.mega-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.mega-links a:hover {
+  color: #ffffff;
+  padding-left: 4px;
+  color: var(--gold-bright);
+}
+
+/* 4. Luxury Category Quick-Bubbles */
+.luxury-bubbles-strip {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border-glass);
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.bubble-track {
+  display: flex;
+  gap: 28px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 6px 0;
+}
+
+.bubble-track::-webkit-scrollbar {
+  display: none;
+}
+
+.bubble-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex-shrink: 0;
+  width: 96px;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bubble-cell:hover {
+  transform: translateY(-5px);
+}
+
+.bubble-ring {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 3px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+}
+
+.bubble-cell:hover .bubble-ring {
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+}
+
+.bubble-ring img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  filter: brightness(0.95);
+  transition: transform 0.4s ease;
+}
+
+.bubble-cell:hover .bubble-ring img {
+  transform: scale(1.08);
+}
+
+.bubble-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  margin-top: 10px;
+  transition: color 0.2s ease;
+}
+
+.bubble-cell:hover .bubble-title {
+  color: var(--gold-bright);
+}
+
+/* 5. 3D Tilt Product Cards */
+.card-3d-tilt {
+  transform-style: preserve-3d;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.card-3d-tilt:hover {
+  border-color: rgba(212, 175, 55, 0.45);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(212, 175, 55, 0.12);
+}
+
+.haute-product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 26px;
+  margin-bottom: 50px;
+}
+
+.haute-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.haute-card__media {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  background: #000;
+  overflow: hidden;
+}
+
+.haute-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.haute-card:hover .haute-card__media img {
+  transform: scale(1.06);
+}
+
+.haute-wishlist-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  background: rgba(10, 11, 18, 0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.25s ease;
+}
+
+.haute-wishlist-btn:hover {
+  color: #ef4444;
+  border-color: #ef4444;
+  transform: scale(1.1);
+}
+
+.haute-discount-pill {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: var(--gold-bright);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+}
+
+.haute-card__info {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.haute-brand-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+  margin-bottom: 4px;
+}
+
+.haute-product-title {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 2.7em;
+}
+
+.haute-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.price-main {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.price-mrp {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.price-save {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #34d399;
+}
+
+/* Size Swatches */
+.haute-size-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.haute-size-pill {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.haute-size-pill:hover {
+  border-color: #fff;
+  color: #fff;
+}
+
+.haute-size-pill.selected {
+  border-color: var(--gold-primary);
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--gold-bright);
+}
+
+.btn-haute-bag {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-haute-bag:hover {
+  background: var(--gold-gradient);
+  border-color: transparent;
+  color: #050507;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
+}
+
+/* 6. Curated Department Promo Tiles */
+.haute-promo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 50px;
+}
+
+.haute-tile {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  cursor: pointer;
+  background: #000;
+  border: 1px solid var(--border-glass);
+}
+
+.haute-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: brightness(0.9);
+}
+
+.haute-tile:hover img {
+  transform: scale(1.06);
+  filter: brightness(1);
+}
+
+.haute-tile__caption {
+  position: absolute;
+  inset-x: 0;
+  bottom: 0;
+  background: linear-gradient(0deg, rgba(6, 7, 10, 0.95) 0%, rgba(6, 7, 10, 0.4) 60%, transparent 100%);
+  padding: 24px 18px 18px;
+  text-align: center;
+}
+
+.haute-tile__tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+}
+
+.haute-tile__title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-top: 4px;
+}
+
+/* 7. Concierge Guarantee Strip */
+.haute-trust-strip {
+  background: #040407;
+  border-top: 1px solid var(--border-glass);
+  border-bottom: 1px solid var(--border-glass);
+  padding: 40px 0;
+  margin: 60px 0;
+}
+
+.haute-trust-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.haute-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.haute-trust-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-bright);
+  font-size: 1.35rem;
+  flex-shrink: 0;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+}
+
+.haute-trust-text h4 {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+}
+
+.haute-trust-text p {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin-top: 3px;
+}
+
+/* 8. Slide-out Velvet Vault (Cart Drawer) */
+.vault-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+}
+
+.vault-drawer-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.vault-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 460px;
+  background: #080910;
+  border-left: 1px solid var(--border-glass);
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: -20px 0 60px rgba(0,0,0,0.95);
+}
+
+.vault-drawer.is-open {
+  transform: translateX(0);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .haute-product-grid, .haute-promo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .haute-trust-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
