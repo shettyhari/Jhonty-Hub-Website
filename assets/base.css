@@ -5,7 +5,7 @@
    Obsidian Noir, Champagne Gold, Glassmorphism, 3D Card Tilt & Ambient Glow.
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 :root, [data-theme="dark"] {
   --bg-deep: #06070a;
@@ -24,7 +24,8 @@
   --gold-gradient: linear-gradient(135deg, #fef08a 0%, #d4af37 50%, #996515 100%);
   --platinum-gradient: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #64748b 100%);
   
-  --font-serif: 'Cinzel', serif;
+  --font-serif: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
   
   --radius-sm: 6px;
