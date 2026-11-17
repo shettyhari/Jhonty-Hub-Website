@@ -3,57 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JHONTY HUB — Style That Speaks For You | Luxury Menswear & Streetwear</title>
+  <title>JHONTY HUB — Online Shopping for Elevated Menswear, Shirts, Tees, Denim &amp; Trousers</title>
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Fonts: Montserrat (Brand) & Plus Jakarta Sans (Body) -->
+  <!-- Google Fonts: Montserrat (Headings) & Plus Jakarta Sans (Clean Retail Body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     /* ==========================================================================
-       JHONTY HUB DYNAMIC DUAL-THEMING SYSTEM (DARK OBSIDIAN & WARM TRAVERTINE)
+       LIFESTYLE STORES CLONE WITH JHONTY HUB LUXURY THEMING
+       Fully reactive Dark Obsidian (#0C0E12) & Warm Travertine (#F5EFE6)
        ========================================================================== */
     :root, [data-theme="warm"] {
       --bg-page: #F6F1EB;
-      --bg-hero: #EFE8DF;
-      --bg-header: #FFFFFF;
       --bg-surface: #FFFFFF;
+      --bg-header: #FFFFFF;
+      --bg-topbar: #F3ECE1;
+      --bg-hero: #EFE8DF;
       --bg-card: #FFFFFF;
-      --bg-subtle: #ECE4D8;
+      --bg-subtle: #EAE2D5;
       --border-color: rgba(0, 0, 0, 0.08);
-      --border-hover: #E86A33;
+      --border-light: rgba(0, 0, 0, 0.05);
       
       --text-main: #14171F;
       --text-secondary: #4B5563;
       --text-muted: #6B7280;
-      --text-invert: #FFFFFF;
       
       --accent-orange: #E86A33;
       --accent-orange-hover: #D55720;
       --accent-gold: #B8860B;
       
-      --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-      --badge-bg: rgba(0, 0, 0, 0.06);
+      --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      --badge-bg: rgba(0, 0, 0, 0.05);
     }
 
     [data-theme="dark"] {
       --bg-page: #0C0E12;
-      --bg-hero: #111318;
-      --bg-header: #0F1116;
       --bg-surface: #141720;
+      --bg-header: #0F1116;
+      --bg-topbar: #08090C;
+      --bg-hero: #111318;
       --bg-card: #181B24;
       --bg-subtle: #1C202B;
       --border-color: rgba(255, 255, 255, 0.09);
-      --border-hover: #E86A33;
+      --border-light: rgba(255, 255, 255, 0.05);
       
       --text-main: #FFFFFF;
       --text-secondary: #94A3B8;
       --text-muted: #64748B;
-      --text-invert: #0C0E12;
       
       --accent-orange: #E86A33;
       --accent-orange-hover: #FF7B45;
@@ -72,14 +73,14 @@
       background-color: var(--bg-page);
       color: var(--text-main);
       font-family: 'Plus Jakarta Sans', sans-serif;
-      transition: background-color 0.35s ease, color 0.35s ease;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     .font-brand {
       font-family: 'Montserrat', sans-serif;
     }
 
-    /* Universal Scrollbar Suppression */
+    /* Universal Scrollbar Elimination */
     *, *::before, *::after {
       -ms-overflow-style: none !important;
       scrollbar-width: none !important;
@@ -95,7 +96,7 @@
       background: transparent !important;
     }
 
-    /* Signature Logo Underline (Matching the Mug & Banner in Photo) */
+    /* Signature Logo Underline (Matching the Mug & Laptop Mockup) */
     .brand-logo-text {
       position: relative;
       display: inline-block;
@@ -111,41 +112,73 @@
       border-radius: 9999px;
     }
 
-    /* Active Nav Tab Indicator */
-    .nav-link {
+    /* Lifestyle Stores Secondary Navigation Ribbon */
+    .lifestyle-nav-item {
       position: relative;
-      transition: color 0.2s ease;
-    }
-    .nav-link.is-active {
-      color: var(--accent-orange) !important;
+      font-size: 13px;
       font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 10px 0;
+      color: var(--text-secondary);
+      transition: color 0.2s ease;
+      cursor: pointer;
     }
-    .nav-link.is-active::after {
+    .lifestyle-nav-item:hover, .lifestyle-nav-item.is-active {
+      color: var(--accent-orange) !important;
+    }
+    .lifestyle-nav-item.is-active::after {
       content: '';
       position: absolute;
       left: 0;
       right: 0;
-      bottom: -4px;
-      height: 2px;
+      bottom: 0px;
+      height: 2.5px;
       background-color: var(--accent-orange);
       border-radius: 2px;
     }
 
-    /* Category Card Dark Gradient */
+    /* Lifestyle Quick Category Circular Bubbles */
+    .lifestyle-bubble {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .lifestyle-bubble:hover {
+      transform: translateY(-3px);
+    }
+    .bubble-img-wrap {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid var(--border-color);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: border-color 0.2s ease;
+    }
+    .lifestyle-bubble:hover .bubble-img-wrap {
+      border-color: var(--accent-orange);
+    }
+
+    /* Card Gradient Overlay */
     .cat-gradient {
       background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.85) 100%);
     }
 
-    /* Dynamic Page Switching */
+    /* Dynamic Page Visibility */
     .page-view {
       display: none;
-      animation: fadeInPage 0.3s ease-in-out;
+      animation: fadeInPage 0.25s ease-in-out;
     }
     .page-view.is-visible {
       display: block;
     }
     @keyframes fadeInPage {
-      from { opacity: 0; transform: translateY(6px); }
+      from { opacity: 0; transform: translateY(4px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -164,22 +197,36 @@
 <body class="selection:bg-[#E86A33] selection:text-white min-h-screen flex flex-col justify-between">
 
   <!-- ==========================================================================
-       TOP ANNOUNCEMENT BAR (HYDERABAD EXPRESS DISPATCH)
+       1. TOP UTILITY ANNOUNCEMENT BAR (LIFESTYLE STORES STYLE)
        ========================================================================== -->
-  <div class="bg-[#0A0B0E] text-white text-[11px] font-bold tracking-[0.14em] uppercase py-2 px-4 text-center border-b border-white/10 flex items-center justify-center gap-3">
-    <span>FREE EXPRESS DELIVERY WORLDWIDE &bull; ORDERS OVER ₹1,999 &bull; SAME-DAY HYDERABAD DISPATCH</span>
-    <span class="hidden md:inline text-[#E86A33] font-black">&bull; USE CODE: JHONTY10 FOR 10% OFF</span>
+  <div class="border-b text-[11px] font-semibold py-2 px-4 sm:px-8 transition-colors" style="background-color: var(--bg-topbar); border-color: var(--border-color); color: var(--text-secondary);">
+    <div class="max-w-[1400px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+      <div class="flex items-center gap-3">
+        <span class="text-[#E86A33] font-bold">⚡ HYDERABAD EXPRESS</span>
+        <span>Free Shipping on Orders Above ₹1,999 &bull; Click &amp; Collect at Hyderabad Stores</span>
+      </div>
+      <div class="flex items-center gap-5 text-[11px]">
+        <a href="#stores" onclick="navigateTo('stores')" class="hover:text-[#E86A33] transition flex items-center gap-1">
+          <span>📍 Store Locator</span>
+        </a>
+        <a href="https://wa.me/919160663888" target="_blank" class="hover:text-[#E86A33] transition flex items-center gap-1">
+          <span>💬 VIP Concierge: +91 91606 63888</span>
+        </a>
+        <a href="#about" onclick="navigateTo('about')" class="hover:text-[#E86A33] transition">
+          <span>Brand Story</span>
+        </a>
+      </div>
+    </div>
   </div>
 
   <!-- ==========================================================================
-       HEADER & NAVIGATION (WITH OFFICIAL JH VECTOR LOGO + ORANGE ACCENTS)
+       2. PRIMARY BRAND HEADER (LOGO, SEARCH BAR & ACTIONS)
        ========================================================================== -->
   <header class="sticky top-0 z-40 transition-colors border-b backdrop-blur-xl" style="background-color: var(--bg-header); border-color: var(--border-color);">
-    <div class="max-w-[1400px] mx-auto px-4 sm:px-8 h-18 flex items-center justify-between gap-4 py-3">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-8 py-3.5 flex items-center justify-between gap-4 sm:gap-8">
       
-      <!-- Brand Logo: Hexagonal JH Emblem + JHONTY HUB Text with Orange Underline -->
+      <!-- Brand Logo: 24K Gold Hexagonal JH Emblem + JHONTY HUB with Orange Line -->
       <a href="#home" onclick="navigateTo('home')" class="flex items-center gap-3 group flex-shrink-0">
-        <!-- 24K Gold Hexagonal Interlocking JH Crest -->
         <div class="w-9 h-11 flex-shrink-0 filter drop-shadow-[0_0_10px_rgba(212,175,55,0.4)] transition-transform group-hover:scale-105">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" class="w-full h-full" fill="none">
             <defs>
@@ -203,45 +250,59 @@
             <path d="M 104,62 L 120,62 L 120,114 L 148,114 L 148,84 L 164,94 L 164,146 L 148,156 L 148,128 L 120,128 L 120,176 L 104,176 Z" fill="url(#jhPlat)" />
           </svg>
         </div>
-        <!-- JHONTY HUB Text with Signature Underline -->
         <div class="brand-logo-text font-brand text-xl sm:text-2xl font-black tracking-[0.16em] uppercase" style="color: var(--text-main);">
           JHONTY HUB
         </div>
       </a>
 
-      <!-- Center Navigation Tabs (All Required Store Pages & Categories) -->
-      <nav class="hidden lg:flex items-center space-x-7 text-[13px] font-semibold tracking-wide" style="color: var(--text-secondary);">
-        <a href="#home" onclick="navigateTo('home')" class="nav-link is-active" id="nav-home">Home</a>
-        <a href="#shop" onclick="navigateTo('shop', 'all')" class="nav-link" id="nav-shop">Shop All</a>
-        <a href="#shirts" onclick="navigateTo('shop', 'shirts')" class="nav-link" id="nav-shirts">Shirts</a>
-        <a href="#tshirts" onclick="navigateTo('shop', 'tshirts')" class="nav-link" id="nav-tshirts">T-Shirts</a>
-        <a href="#jeans" onclick="navigateTo('shop', 'jeans')" class="nav-link" id="nav-jeans">Jeans</a>
-        <a href="#trousers" onclick="navigateTo('shop', 'trousers')" class="nav-link" id="nav-trousers">Trousers</a>
-        <a href="#stores" onclick="navigateTo('stores')" class="nav-link" id="nav-stores">Stores (HYD)</a>
-        <a href="#about" onclick="navigateTo('about')" class="nav-link" id="nav-about">About Us</a>
-      </nav>
+      <!-- Lifestyle Stores Center Search Bar -->
+      <div class="hidden md:flex flex-grow max-w-xl relative">
+        <input type="text" 
+               id="global-search-input"
+               onkeydown="if(event.key==='Enter') executeSearch()"
+               placeholder="What are you looking for? (e.g. Linen Shirts, 320 GSM Tees, Baggy Jeans, Trousers...)" 
+               class="w-full py-2.5 pl-11 pr-4 rounded-full text-xs font-medium border outline-none transition focus:border-[#E86A33]"
+               style="background-color: var(--bg-page); border-color: var(--border-color); color: var(--text-main);">
+        <button onclick="executeSearch()" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#E86A33]">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </button>
+      </div>
 
-      <!-- Right Utility Actions (Search, Profile, Bag, Theme Toggle) -->
-      <div class="flex items-center space-x-4 sm:space-x-5" style="color: var(--text-main);">
+      <!-- Right Utility Actions (Stores, Wishlist, Bag, Theme Toggle) -->
+      <div class="flex items-center space-x-3 sm:space-x-5" style="color: var(--text-main);">
         
-        <!-- Search Button -->
-        <button onclick="openSearchModal()" class="p-1 hover:text-[#E86A33] transition" title="Search Collections">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-        </button>
+        <!-- Store Locator Icon -->
+        <a href="#stores" onclick="navigateTo('stores')" class="hidden sm:flex flex-col items-center text-[10px] font-bold hover:text-[#E86A33] transition" title="Hyderabad Stores">
+          <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+          <span>Stores</span>
+        </a>
 
-        <!-- Account Modal Trigger -->
-        <button onclick="openAccountModal()" class="p-1 hover:text-[#E86A33] transition" title="VIP Account">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-        </button>
+        <!-- Wishlist Icon -->
+        <a href="javascript:alert('Wishlist: 2 exclusive Jhonty drops saved.')" class="flex flex-col items-center text-[10px] font-bold hover:text-[#E86A33] transition" title="Wishlist">
+          <div class="relative">
+            <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+            <span class="absolute -top-1 -right-2 w-3.5 h-3.5 rounded-full bg-slate-700 text-white text-[9px] font-black flex items-center justify-center">2</span>
+          </div>
+          <span class="hidden sm:inline">Wishlist</span>
+        </a>
 
         <!-- Shopping Bag Trigger with Counter -->
-        <button onclick="toggleBag(true)" class="relative p-1 hover:text-[#E86A33] transition" title="Your Bag">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-          <span id="header-bag-count" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#E86A33] text-white text-[10px] font-black flex items-center justify-center">2</span>
+        <button onclick="toggleBag(true)" class="flex flex-col items-center text-[10px] font-bold hover:text-[#E86A33] transition relative" title="Your Bag">
+          <div class="relative">
+            <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+            <span id="header-bag-count" class="absolute -top-1 -right-2 w-4 h-4 rounded-full bg-[#E86A33] text-white text-[10px] font-black flex items-center justify-center">2</span>
+          </div>
+          <span class="hidden sm:inline">Bag</span>
         </button>
 
-        <!-- Bulletproof Dark / Light Theme Toggle -->
-        <button onclick="toggleTheme()" class="px-3 py-1.5 rounded-full border transition flex items-center gap-1.5 text-xs font-bold" 
+        <!-- Sign In Button -->
+        <button onclick="openAccountModal()" class="hidden sm:flex flex-col items-center text-[10px] font-bold hover:text-[#E86A33] transition" title="Sign In">
+          <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+          <span>Sign In</span>
+        </button>
+
+        <!-- 100% BULLETPROOF THEME TOGGLE BUTTON -->
+        <button onclick="toggleTheme()" class="px-3 py-1.5 rounded-full border transition flex items-center gap-1.5 text-xs font-bold shadow-sm" 
                 style="border-color: var(--border-color); background-color: var(--bg-surface); color: var(--text-main);" 
                 title="Toggle Dark / Light Theme">
           <span id="themeEmoji">🌙</span>
@@ -249,7 +310,7 @@
         </button>
 
         <!-- Mobile Menu Toggle Button -->
-        <button onclick="toggleMobileMenu()" class="lg:hidden p-1 text-slate-400 hover:text-white">
+        <button onclick="toggleMobileMenu()" class="lg:hidden p-1 text-slate-400 hover:text-[#E86A33]">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
         </button>
 
@@ -257,25 +318,115 @@
 
     </div>
 
-    <!-- Mobile Navigation Drawer -->
+    <!-- Secondary Department Mega-Menu Bar (Lifestyle Stores Style) -->
+    <div class="hidden lg:block border-t transition-colors" style="background-color: var(--bg-surface); border-color: var(--border-color);">
+      <div class="max-w-[1400px] mx-auto px-8 flex items-center justify-between gap-6">
+        <div class="flex items-center space-x-8">
+          <span onclick="navigateTo('shop', 'all')" class="lifestyle-nav-item is-active" id="subnav-all">ALL COLLECTIONS</span>
+          <span onclick="navigateTo('shop', 'shirts')" class="lifestyle-nav-item" id="subnav-shirts">SHIRTS</span>
+          <span onclick="navigateTo('shop', 'tshirts')" class="lifestyle-nav-item" id="subnav-tshirts">T-SHIRTS (320 GSM)</span>
+          <span onclick="navigateTo('shop', 'jeans')" class="lifestyle-nav-item" id="subnav-jeans">JEANS &amp; DENIM</span>
+          <span onclick="navigateTo('shop', 'trousers')" class="lifestyle-nav-item" id="subnav-trousers">TROUSERS &amp; CARGOS</span>
+          <span onclick="navigateTo('shop', 'jackets')" class="lifestyle-nav-item" id="subnav-jackets">JACKETS &amp; HOODIES</span>
+          <span onclick="openTurntableModal()" class="lifestyle-nav-item text-[#E86A33] flex items-center gap-1">
+            <span>🔄 360° TRY-ON</span>
+          </span>
+        </div>
+        <div class="text-[11px] font-bold text-[#E86A33] tracking-wider uppercase">
+          ✦ SAME-DAY DISPATCH IN HYDERABAD
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Navigation -->
     <div id="mobile-nav-drawer" class="lg:hidden hidden px-6 py-4 border-t space-y-2.5 text-sm font-semibold" style="border-color: var(--border-color); background-color: var(--bg-surface);">
       <a href="#home" onclick="navigateTo('home'); toggleMobileMenu();" class="block py-1 hover:text-[#E86A33]">Home</a>
-      <a href="#shop" onclick="navigateTo('shop', 'all'); toggleMobileMenu();" class="block py-1 hover:text-[#E86A33]">Shop All Collections</a>
+      <a href="#shop" onclick="navigateTo('shop', 'all'); toggleMobileMenu();" class="block py-1 hover:text-[#E86A33]">All Collections</a>
       <a href="#shirts" onclick="navigateTo('shop', 'shirts'); toggleMobileMenu();" class="block py-1 hover:text-[#E86A33]">Casual &amp; Oxford Shirts</a>
-      <a href="#tshirts" onclick="navigateTo('shop', 'tshirts'); toggleMobileMenu();" class="block py-1 hover:text-[#E86A33]">320 GSM Heavy T-Shirts</a>
-      <a href="#jeans" onclick="navigateTo('shop', 'jeans'); toggleMobileMenu();" class="block py-1 hover:text-[#E86A33]">Japanese Baggy Denim</a>
-      <a href="#trousers" onclick="navigateTo('shop', 'trousers'); toggleMobileMenu();" class="block py-1 hover:text-[#E86A33]">Tailored Chinos &amp; Trousers</a>
+      <a href="#tshirts" onclick="navigateTo('shop', 'tshirts'); toggleMobileMenu();" class="block py-1 hover:text-[#E86A33]">320 GSM T-Shirts</a>
+      <a href="#jeans" onclick="navigateTo('shop', 'jeans'); toggleMobileMenu();" class="block py-1 hover:text-[#E86A33]">Japanese Baggy Jeans</a>
+      <a href="#trousers" onclick="navigateTo('shop', 'trousers'); toggleMobileMenu();" class="block py-1 hover:text-[#E86A33]">Pleated Chinos &amp; Cargos</a>
       <a href="#stores" onclick="navigateTo('stores'); toggleMobileMenu();" class="block py-1 hover:text-[#E86A33]">Hyderabad Flagships</a>
       <a href="#about" onclick="navigateTo('about'); toggleMobileMenu();" class="block py-1 hover:text-[#E86A33]">About Jhonty Hub</a>
     </div>
   </header>
 
   <!-- ==========================================================================
-       PAGE 1: HOME PAGE (EXACT LAPTOP SCREEN MATCH)
+       PAGE 1: HOME PAGE (LIFESTYLE STORES CLONE WITH EXACT LAPTOP HERO DESIGN)
        ========================================================================== -->
   <main id="page-home" class="page-view is-visible flex-grow">
     
-    <!-- HERO SECTION: "STYLE THAT SPEAKS FOR YOU" -->
+    <!-- LIFESTYLE CIRCULAR DEPARTMENT BUBBLE CAROUSEL -->
+    <section class="py-5 px-4 sm:px-8 border-b transition-colors" style="background-color: var(--bg-surface); border-color: var(--border-color);">
+      <div class="max-w-[1400px] mx-auto flex items-center justify-between gap-4 overflow-x-auto py-1">
+        
+        <div onclick="navigateTo('shop', 'shirts')" class="lifestyle-bubble">
+          <div class="bubble-img-wrap">
+            <img src="https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=200&q=80" alt="Casual Shirts" class="w-full h-full object-cover">
+          </div>
+          <span class="text-[11px] font-bold text-center" style="color: var(--text-main);">Shirts</span>
+        </div>
+
+        <div onclick="navigateTo('shop', 'tshirts')" class="lifestyle-bubble">
+          <div class="bubble-img-wrap">
+            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=200&q=80" alt="320 GSM Tees" class="w-full h-full object-cover">
+          </div>
+          <span class="text-[11px] font-bold text-center" style="color: var(--text-main);">320 GSM Tees</span>
+        </div>
+
+        <div onclick="navigateTo('shop', 'shirts')" class="lifestyle-bubble">
+          <div class="bubble-img-wrap">
+            <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=200&q=80" alt="Linen Overshirts" class="w-full h-full object-cover">
+          </div>
+          <span class="text-[11px] font-bold text-center" style="color: var(--text-main);">Linen Shirts</span>
+        </div>
+
+        <div onclick="navigateTo('shop', 'jeans')" class="lifestyle-bubble">
+          <div class="bubble-img-wrap">
+            <img src="https://images.unsplash.com/photo-1542272604-780c96856592?auto=format&fit=crop&w=200&q=80" alt="Baggy Denim" class="w-full h-full object-cover">
+          </div>
+          <span class="text-[11px] font-bold text-center" style="color: var(--text-main);">Baggy Jeans</span>
+        </div>
+
+        <div onclick="navigateTo('shop', 'trousers')" class="lifestyle-bubble">
+          <div class="bubble-img-wrap">
+            <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=200&q=80" alt="Chinos" class="w-full h-full object-cover">
+          </div>
+          <span class="text-[11px] font-bold text-center" style="color: var(--text-main);">Trousers</span>
+        </div>
+
+        <div onclick="navigateTo('shop', 'trousers')" class="lifestyle-bubble">
+          <div class="bubble-img-wrap">
+            <img src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=200&q=80" alt="Parachute Cargos" class="w-full h-full object-cover">
+          </div>
+          <span class="text-[11px] font-bold text-center" style="color: var(--text-main);">Parachute Cargos</span>
+        </div>
+
+        <div onclick="navigateTo('shop', 'jackets')" class="lifestyle-bubble">
+          <div class="bubble-img-wrap">
+            <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=200&q=80" alt="Bomber Jackets" class="w-full h-full object-cover">
+          </div>
+          <span class="text-[11px] font-bold text-center" style="color: var(--text-main);">Jackets</span>
+        </div>
+
+        <div onclick="navigateTo('shop', 'formal')" class="lifestyle-bubble">
+          <div class="bubble-img-wrap">
+            <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=200&q=80" alt="Formal Wear" class="w-full h-full object-cover">
+          </div>
+          <span class="text-[11px] font-bold text-center" style="color: var(--text-main);">Formal Wear</span>
+        </div>
+
+        <div onclick="navigateTo('stores')" class="lifestyle-bubble">
+          <div class="bubble-img-wrap border-amber-400 bg-amber-400/10 flex items-center justify-center">
+            <span class="text-xl">📍</span>
+          </div>
+          <span class="text-[11px] font-bold text-center text-[#E86A33]">Flagships</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- HERO SECTION: "STYLE THAT SPEAKS FOR YOU" (EXACT LAPTOP SCREEN MATCH) -->
     <section class="relative overflow-hidden border-b transition-colors" style="background-color: var(--bg-hero); border-color: var(--border-color);">
       <div class="max-w-[1400px] mx-auto px-6 sm:px-10 py-12 md:py-16 lg:py-20 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center min-h-[500px]">
         
@@ -321,7 +472,6 @@
                  class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none"></div>
 
-            <!-- Floating Badge on Model -->
             <div class="absolute bottom-5 left-5 right-5 p-3.5 rounded-2xl bg-black/70 backdrop-blur-md border border-white/15 flex items-center justify-between text-white">
               <div>
                 <div class="text-[11px] font-bold uppercase tracking-wider text-[#E86A33]">Signature Showcase</div>
@@ -519,23 +669,29 @@
       </div>
     </section>
 
-    <!-- BRAND STORY CALLOUT BANNER -->
-    <section class="py-12 px-6 sm:px-10 max-w-[1400px] mx-auto w-full">
-      <div class="rounded-3xl p-8 sm:p-12 border relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8" style="background-color: var(--bg-surface); border-color: var(--border-color);">
-        <div class="max-w-2xl space-y-3">
-          <div class="text-[#E86A33] text-xs font-bold uppercase tracking-widest">Architectural Menswear</div>
-          <h2 class="font-brand text-2xl sm:text-3xl font-black" style="color: var(--text-main);">Heavyweight 320 GSM &bull; Tailored in Hyderabad</h2>
-          <p class="text-xs sm:text-sm leading-relaxed" style="color: var(--text-secondary);">
-            Every Jhonty Hub garment is cut from dense, high-gauge combed yarn and finished with precision seam structuring to maintain a crisp drape all day. Experience the touch at our flagship stores or order online.
-          </p>
+    <!-- LIFESTYLE RECOGNITION & BANK OFFERS PROMO RIBBON -->
+    <section class="py-6 px-4 sm:px-8 max-w-[1400px] mx-auto w-full">
+      <div class="rounded-2xl p-6 border flex flex-col md:flex-row items-center justify-between gap-6" style="background-color: var(--bg-surface); border-color: var(--border-color);">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-[#E86A33]/15 text-[#E86A33] flex items-center justify-center font-black text-xl">
+            %
+          </div>
+          <div>
+            <div class="font-brand font-bold text-sm sm:text-base" style="color: var(--text-main);">
+              FLAT 10% OFF ON YOUR FIRST ONLINE ORDER
+            </div>
+            <div class="text-xs mt-0.5" style="color: var(--text-muted);">
+              Use promo code <span class="font-bold text-[#E86A33]">JHONTY10</span> at checkout &bull; Instant UPI &amp; Netbanking discounts applied.
+            </div>
+          </div>
         </div>
-        <div class="flex gap-4">
-          <a href="#about" onclick="navigateTo('about')" class="px-6 py-3.5 rounded-full border text-xs font-bold uppercase tracking-wider transition" style="border-color: var(--border-color); color: var(--text-main);">
-            Our Craft &rarr;
-          </a>
-          <a href="#shop" onclick="navigateTo('shop', 'all')" class="px-6 py-3.5 rounded-full bg-[#E86A33] text-white font-brand text-xs font-bold uppercase tracking-wider hover:bg-[#D55720] transition shadow-md">
-            Shop Catalog
-          </a>
+        <div class="flex items-center gap-3">
+          <button onclick="copyPromoCode()" class="px-5 py-2.5 rounded-full border text-xs font-bold tracking-wider uppercase transition" style="border-color: var(--border-color); color: var(--text-main);">
+            COPY CODE
+          </button>
+          <button onclick="navigateTo('shop', 'all')" class="px-5 py-2.5 rounded-full bg-[#E86A33] text-white text-xs font-bold tracking-wider uppercase hover:bg-[#D55720] transition shadow-md">
+            SHOP NOW
+          </button>
         </div>
       </div>
     </section>
@@ -813,9 +969,7 @@
       <div class="relative p-6 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r select-none cursor-grab active:cursor-grabbing" id="turntable-drag-canvas" style="background-color: var(--bg-hero); border-color: var(--border-color);">
         
         <div class="relative w-full aspect-[3/4] max-h-[380px] flex items-center justify-center">
-          <!-- 3D Pedestal -->
           <div class="absolute bottom-2 turntable-disc"></div>
-          <!-- Model Images (Front, Side, Back) -->
           <img id="turntable-img-front" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=85" alt="Front" class="absolute max-h-[360px] object-contain transition-opacity duration-150">
           <img id="turntable-img-side" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=85" alt="Side" class="absolute max-h-[360px] object-contain opacity-0 transition-opacity duration-150">
           <img id="turntable-img-back" src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=85" alt="Back" class="absolute max-h-[360px] object-contain opacity-0 transition-opacity duration-150">
@@ -992,7 +1146,7 @@
   </div>
 
   <!-- ==========================================================================
-       FOOTER (JHONTY HUB ELEVATED MENSWEAR)
+       FOOTER (LIFESTYLE MEGA-RETAIL FOOTER WITH JHONTY HUB VALUES)
        ========================================================================== -->
   <footer class="border-t py-12 px-6 sm:px-10 mt-12 transition-colors" style="background-color: var(--bg-header); border-color: var(--border-color);">
     <div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
@@ -1067,7 +1221,7 @@
   </footer>
 
   <!-- ==========================================================================
-       JAVASCRIPT: FULL ECOMMERCE SPA ROUTING, CART, TURNTABLE & THEME SYSTEM
+       JAVASCRIPT: ROUTING, CATALOG, CART, 360° TURNTABLE & THEME SWITCHER
        ========================================================================== -->
   <script>
     // 12 Curated Menswear Items in Catalog
@@ -1206,7 +1360,7 @@
       }
     ];
 
-    // Shopping Bag State
+    // Cart State
     let cart = [
       { id: 'olive-shirt', name: 'Olive Utility Slim-Fit Shirt', price: 1899, size: 'L', img: storeCatalog[0].frontImg, qty: 1 },
       { id: 'navy-polo', name: 'Structured Navy Pique Polo', price: 2499, size: 'M', img: storeCatalog[2].frontImg, qty: 1 }
@@ -1219,7 +1373,7 @@
     // SPA Router
     function navigateTo(pageId, filterCat) {
       document.querySelectorAll('.page-view').forEach(p => p.classList.remove('is-visible'));
-      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('is-active'));
+      document.querySelectorAll('.lifestyle-nav-item').forEach(l => l.classList.remove('is-active'));
 
       const target = document.getElementById(`page-${pageId}`);
       if (target) {
@@ -1227,8 +1381,8 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
-      const activeNav = document.getElementById(`nav-${pageId}`);
-      if (activeNav) activeNav.classList.add('is-active');
+      const activeSubNav = document.getElementById(`subnav-${filterCat || pageId}`);
+      if (activeSubNav) activeSubNav.classList.add('is-active');
 
       if (pageId === 'shop') {
         renderShopGrid(filterCat || 'all');
@@ -1238,7 +1392,7 @@
       }
     }
 
-    // Shop Grid Renderer
+    // Shop Catalog Renderer
     function renderShopGrid(categoryFilter) {
       const grid = document.getElementById('shop-products-grid');
       if (!grid) return;
@@ -1427,10 +1581,15 @@
       }
     }
 
+    function copyPromoCode() {
+      navigator.clipboard.writeText('JHONTY10');
+      alert('Promo code JHONTY10 copied to clipboard! Enjoy 10% off at checkout.');
+    }
+
     function handlePlaceOrder(e) {
       e.preventDefault();
       const orderId = 'JH-' + Math.floor(100000 + Math.random() * 900000);
-      alert(`🎉 ORDER CONFIRMED! Order ID: ${orderId}\n\nThank you for choosing Jhonty Hub! You will receive WhatsApp dispatch tracking shortly.\nSame-day Hyderabad delivery active.`);
+      alert(`🎉 ORDER CONFIRMED! Order ID: ${orderId}\n\nThank you for shopping at Jhonty Hub! You will receive WhatsApp dispatch updates shortly.\nSame-day delivery active in Hyderabad.`);
       cart = [];
       renderCartUI();
       navigateTo('home');
@@ -1576,18 +1735,20 @@
       }
     }
 
+    // Search Execution
+    function executeSearch() {
+      const q = document.getElementById('global-search-input').value.trim();
+      if (q) {
+        navigateTo('shop', 'all');
+      }
+    }
+
     // Sizing & Stores Modals
     function openFitModal() {
       document.getElementById('fit-modal').classList.remove('opacity-0', 'pointer-events-none');
     }
     function closeFitModal() {
       document.getElementById('fit-modal').classList.add('opacity-0', 'pointer-events-none');
-    }
-    function openSearchModal() {
-      const q = prompt('Search Jhonty Hub (e.g. linen shirt, denim, polo, 320 gsm):');
-      if (q) {
-        navigateTo('shop', 'all');
-      }
     }
     function openAccountModal() {
       alert('Jhonty Hub VIP Club: Welcome back! Enter your phone or email to view exclusive member drops.');
@@ -1654,7 +1815,7 @@
       }
     });
 
-    // Listen to hashchange events for browser forward/back buttons
+    // Listen to hashchange events
     window.addEventListener('hashchange', () => {
       const hash = window.location.hash.replace('#', '');
       if (hash && ['home', 'shop', 'stores', 'about', 'checkout'].includes(hash)) {
