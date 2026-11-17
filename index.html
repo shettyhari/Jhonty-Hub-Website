@@ -1,32 +1,32 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" data-theme="warm">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JHONTY HUB — 3D Virtual Try-On &amp; Luxe Streetwear Showroom</title>
+  <title>JHONTY HUB — 360° Interactive 3D Virtual Try-On Showroom</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Three.js 3D WebGL Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   
   <style>
     /* ==========================================================================
-       VÄRDE-STYLE DIGITAL SHOWROOM THEME VARIABLES
-       Warm Architectural Sand / Terracotta & Obsidian Noir
+       VÄRDE-STYLE 3D DIGITAL SHOWROOM (WARM ARCHITECTURAL & OBSIDIAN NOIR)
        ========================================================================== */
     :root, [data-theme="warm"] {
       --bg-canvas: #ebe3d9;
       --bg-stage: #dfd4c5;
       --bg-surface: #ffffff;
-      --bg-glass: rgba(255, 255, 255, 0.82);
-      --bg-card: rgba(255, 255, 255, 0.88);
+      --bg-glass: rgba(255, 255, 255, 0.85);
+      --bg-card: rgba(255, 255, 255, 0.9);
       --border-subtle: rgba(0, 0, 0, 0.08);
       --border-accent: rgba(184, 134, 11, 0.45);
       
       --arch-terracotta: #c47c5d;
       --arch-shadow: rgba(84, 42, 24, 0.25);
-      --pedestal-color: #d1c4b2;
       
       --text-main: #14171f;
       --text-secondary: #575f6e;
@@ -48,7 +48,6 @@
       
       --arch-terracotta: #543122;
       --arch-shadow: rgba(0, 0, 0, 0.65);
-      --pedestal-color: #1e222d;
       
       --text-main: #f8fafc;
       --text-secondary: #94a3b8;
@@ -77,18 +76,52 @@
       letter-spacing: 0.05em;
     }
 
-    /* Universal Scrollbar Elimination */
-    ::-webkit-scrollbar {
-      width: 0px !important;
-      height: 0px !important;
-      display: none !important;
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden !important;
+      margin: 0;
+      padding: 0;
     }
-    * {
+
+    /* Universal Scrollbar Elimination for all browsers (Chrome, Edge, Safari, Firefox, Opera) */
+    *, *::before, *::after {
       -ms-overflow-style: none !important;
       scrollbar-width: none !important;
     }
+    *::-webkit-scrollbar,
+    ::-webkit-scrollbar,
+    body::-webkit-scrollbar,
+    html::-webkit-scrollbar,
+    div::-webkit-scrollbar {
+      width: 0px !important;
+      height: 0px !important;
+      display: none !important;
+      background: transparent !important;
+    }
+    *::-webkit-scrollbar-thumb,
+    *::-webkit-scrollbar-track,
+    *::-webkit-scrollbar-corner {
+      display: none !important;
+      background: transparent !important;
+      width: 0px !important;
+      height: 0px !important;
+    }
 
-    /* Architectural Stage Arch Styling */
+    #dress-selector-strip {
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      -ms-overflow-style: none !important;
+      scrollbar-width: none !important;
+      user-select: none;
+    }
+    #dress-selector-strip::-webkit-scrollbar {
+      display: none !important;
+      width: 0px !important;
+      height: 0px !important;
+    }
+
+    /* Neoclassical Architectural Arch */
     .neoclassical-arch {
       background: radial-gradient(circle at 50% 120%, rgba(255,255,255,0.2) 0%, transparent 70%),
                   linear-gradient(180deg, var(--arch-terracotta) 0%, #a86245 100%);
@@ -105,70 +138,47 @@
       pointer-events: none;
     }
 
-    /* 3D Floating Orbit Cards */
-    .orbit-card {
+    /* 3D Canvas Container */
+    #three-canvas-container {
+      width: 100%;
+      height: 560px;
+      cursor: grab;
+      touch-action: none;
+    }
+    #three-canvas-container:active {
+      cursor: grabbing;
+    }
+
+    /* Bottom Dress Carousel Strip */
+    .dress-strip-card {
       background: var(--bg-glass);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border: 1px solid var(--border-subtle);
-      box-shadow: var(--card-shadow);
-      border-radius: 20px;
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      border-radius: 18px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       cursor: pointer;
+      flex-shrink: 0;
     }
-    .orbit-card:hover {
-      transform: translateY(-5px) scale(1.03);
+    .dress-strip-card:hover {
+      transform: translateY(-4px) scale(1.03);
       border-color: var(--gold-primary);
-      box-shadow: 0 25px 50px rgba(0,0,0,0.18), 0 0 20px rgba(212, 175, 55, 0.25);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12), 0 0 15px rgba(212, 175, 55, 0.2);
     }
-    .orbit-card.is-active {
+    .dress-strip-card.is-active {
       border-color: var(--gold-primary);
-      box-shadow: 0 0 0 2px var(--gold-primary), var(--card-shadow);
+      box-shadow: 0 0 0 2px var(--gold-primary), 0 15px 35px rgba(0, 0, 0, 0.15);
       background: var(--bg-surface);
     }
 
-    /* Bottom Floating Garment HUD Pill */
-    .showroom-hud {
-      background: var(--bg-glass);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--border-subtle);
-      border-radius: 9999px;
-      box-shadow: var(--hud-shadow);
+    /* 360 Drag Badge Pulse */
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.8; }
     }
-
-    /* Model Dressing Animation */
-    .model-viewport {
-      transition: opacity 0.25s ease-out, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .model-viewport.fade-out {
-      opacity: 0;
-      transform: scale(0.97) translateY(4px);
-    }
-    .model-viewport.fade-in {
-      opacity: 1;
-      transform: scale(1) translateY(0px);
-    }
-
-    /* Stage Arrow Buttons Styling */
-    .stage-arrow-btn {
-      background: var(--bg-glass);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--border-subtle);
-      box-shadow: 0 12px 35px rgba(0,0,0,0.18);
-      color: var(--text-main);
-      cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .stage-arrow-btn:hover {
-      transform: translateY(-50%) scale(1.15);
-      border-color: var(--gold-primary);
-      color: var(--gold-primary);
-      box-shadow: 0 16px 40px rgba(212, 175, 55, 0.3);
-    }
-    .stage-arrow-btn:active {
-      transform: translateY(-50%) scale(0.92);
+    .drag-hint-badge {
+      animation: pulse-ring 2.5s infinite ease-in-out;
     }
   </style>
 </head>
@@ -185,16 +195,12 @@
       
       <!-- Left Navigation Links -->
       <nav class="hidden md:flex items-center space-x-7 text-xs font-bold uppercase tracking-widest" style="color: var(--text-secondary);">
-        <a href="#showroom" class="hover:text-black dark:hover:text-white transition">Shop All</a>
-        <a href="#new-in" class="hover:text-black dark:hover:text-white transition flex items-center gap-1.5">
-          <span>New In</span>
-          <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-        </a>
+        <a href="#showroom" class="hover:text-black dark:hover:text-white transition">Showroom 3D</a>
         <a href="#stores" class="hover:text-black dark:hover:text-white transition">Stores (HYD)</a>
-        <a href="#editorial" class="hover:text-black dark:hover:text-white transition">Editorial</a>
+        <a href="#stores" class="hover:text-black dark:hover:text-white transition">VIP Concierge</a>
       </nav>
 
-      <!-- Center Logo Lockup (Interlocking JH Vector Emblem + JHONTY HUB) -->
+      <!-- Center Logo Lockup (Hexagonal JH Vector Emblem + JHONTY HUB) -->
       <a href="javascript:void(0)" class="flex items-center gap-3 group">
         <div class="w-9 h-11 flex-shrink-0 filter drop-shadow-[0_0_12px_rgba(212,175,55,0.4)] transition-transform group-hover:scale-105">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" class="w-full h-full" fill="none">
@@ -224,7 +230,7 @@
         </div>
       </a>
 
-      <!-- Right Action Items (Search, Wishlist, Bag, Theme Switch) -->
+      <!-- Right Action Items (Theme Toggle, Bag) -->
       <div class="flex items-center space-x-6 text-xs font-bold uppercase tracking-wider" style="color: var(--text-secondary);">
         
         <!-- Dark / Light Theme Toggle -->
@@ -232,10 +238,6 @@
           <span id="themeEmoji">☀️</span>
           <span id="themeText" class="hidden sm:inline">WARM</span>
         </button>
-
-        <a href="javascript:void(0)" onclick="alert('Wishlist: 2 exclusive Jhonty drops saved.')" class="hover:text-black dark:hover:text-white transition">
-          WISHLIST (2)
-        </a>
 
         <button onclick="toggleBag(true)" class="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#14171f] text-white dark:bg-white dark:text-black hover:opacity-90 transition shadow-md">
           <span>BAG</span>
@@ -247,182 +249,205 @@
   </header>
 
   <!-- ==========================================================================
-       VÄRDE-STYLE 3D DIGITAL SHOWROOM (VIRTUAL TRY-ON STAGE WITH ARROWS)
+       360° INTERACTIVE 3D VIRTUAL MODEL SHOWROOM (TURNTABLE ROTATION IN PLACE)
        ========================================================================== -->
-  <main id="showroom" class="relative flex-grow flex flex-col items-center justify-center px-4 py-6 md:py-10 overflow-hidden">
+  <main id="showroom" class="relative flex-grow flex flex-col items-center justify-center px-4 py-4 md:py-6 overflow-hidden">
     
-    <!-- Top Status & Click Arrow Indicator Pill -->
-    <div class="relative z-20 flex items-center gap-3 px-5 py-2 rounded-full mb-6 border shadow-lg text-xs font-bold uppercase tracking-wider" style="background-color: var(--bg-glass); border-color: var(--border-subtle);">
-      <span class="text-amber-500 font-black">✦ CLICK ARROWS &larr; &rarr; TO CHANGE DRESS</span>
-      <span class="opacity-25">|</span>
-      <span id="stage-dress-index" class="font-ui font-black text-slate-700 dark:text-slate-300">LOOK 01 / 06</span>
+    <!-- Top 360° Instructions & Rotation Angle Controls -->
+    <div class="relative z-20 flex flex-wrap items-center justify-center gap-3 mb-3">
+      
+      <!-- Interactive Drag Hint Badge -->
+      <div class="drag-hint-badge flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider border shadow-md" style="background-color: var(--bg-glass); border-color: var(--border-subtle);">
+        <span class="text-amber-500 font-black">🔄 DRAG TO ROTATE 360° IN PLACE</span>
+        <span class="opacity-25">|</span>
+        <span id="rotation-angle-label" class="font-ui font-black text-slate-700 dark:text-slate-300">FRONT (0°)</span>
+      </div>
+
+      <!-- Quick Angle Preset Buttons -->
+      <div class="flex items-center space-x-1.5 p-1 rounded-full border text-[11px] font-bold uppercase tracking-wider shadow-sm" style="background-color: var(--bg-glass); border-color: var(--border-subtle);">
+        <button onclick="setAngle(0)" class="px-3 py-1 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition">Front</button>
+        <button onclick="setAngle(Math.PI / 2)" class="px-3 py-1 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition">Side</button>
+        <button onclick="setAngle(Math.PI)" class="px-3 py-1 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition">Back</button>
+        <button id="auto-spin-btn" onclick="toggleAutoSpin()" class="px-3 py-1 rounded-full bg-amber-400 text-black font-black hover:bg-amber-300 transition">360° Spin: ON</button>
+      </div>
+
     </div>
 
-    <!-- Central Stage Area (Neoclassical Arch, Floating Cards & Navigation Arrows) -->
-    <div class="relative w-full max-w-6xl mx-auto flex items-center justify-center min-h-[580px] md:min-h-[640px]">
+    <!-- Central Stage Area (Neoclassical Arch & 360° WebGL 3D Model Canvas) -->
+    <div class="relative w-full max-w-5xl mx-auto flex items-center justify-center min-h-[520px] md:min-h-[580px]">
       
       <!-- Architectural Neoclassical Colonnade Arch Backdrop -->
-      <div class="absolute w-[340px] sm:w-[420px] md:w-[480px] h-[520px] md:h-[600px] bottom-0 neoclassical-arch z-0 flex flex-col items-center justify-start pt-10">
-        <!-- Sunburst Emblem on the Arch Keyway -->
-        <div class="w-16 h-16 rounded-full border border-white/30 flex items-center justify-center opacity-40">
-          <div class="w-8 h-8 rounded-full border border-white/40"></div>
+      <div class="absolute w-[320px] sm:w-[400px] md:w-[460px] h-[480px] md:h-[550px] bottom-0 neoclassical-arch z-0 flex flex-col items-center justify-start pt-8 pointer-events-none">
+        <div class="w-14 h-14 rounded-full border border-white/30 flex items-center justify-center opacity-40">
+          <div class="w-7 h-7 rounded-full border border-white/40"></div>
         </div>
-        <!-- Inscribed Brand Name in the Arch Header -->
-        <div class="text-white/20 font-brand text-3xl font-black tracking-[0.3em] uppercase mt-4 select-none">
+        <div class="text-white/20 font-brand text-2xl font-black tracking-[0.3em] uppercase mt-3 select-none">
           JHONTY
         </div>
       </div>
 
-      <!-- Pedestal / Circular Floor Stand under Model -->
-      <div class="absolute bottom-4 w-[280px] sm:w-[360px] md:w-[400px] h-[36px] rounded-[100%] shadow-2xl z-0" style="background: radial-gradient(ellipse at center, rgba(30,20,15,0.45) 0%, rgba(30,20,15,0.15) 50%, transparent 80%);"></div>
+      <!-- Circular 3D Floor Pedestal Stand -->
+      <div class="absolute bottom-2 w-[260px] sm:w-[340px] md:w-[380px] h-[34px] rounded-[100%] shadow-2xl z-0 pointer-events-none" style="background: radial-gradient(ellipse at center, rgba(30,20,15,0.45) 0%, rgba(30,20,15,0.15) 50%, transparent 80%);"></div>
 
-      <!-- Left Orbiting Product Cards (Float in 3D) -->
-      <div class="absolute left-2 md:left-6 lg:left-10 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-5 w-40 sm:w-48 pointer-events-auto hidden sm:flex">
+      <!-- Real-Time 3D WebGL Canvas (User drags here to rotate 360 degrees) -->
+      <div id="three-canvas-container" class="relative z-10 flex items-center justify-center">
+        <!-- Canvas injected by Three.js -->
+      </div>
+
+      <!-- Left / Right Quick Orbit Buttons directly on 3D Stage -->
+      <button onclick="rotateStep(-0.5)" class="absolute left-2 sm:left-6 md:left-14 top-1/2 -translate-y-1/2 z-20 w-11 h-11 md:w-13 md:h-13 rounded-full flex items-center justify-center border shadow-lg transition-transform hover:scale-110 active:scale-90" style="background-color: var(--bg-glass); border-color: var(--border-subtle); color: var(--text-main);" title="Rotate Left (360°)">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+      </button>
+
+      <button onclick="rotateStep(0.5)" class="absolute right-2 sm:right-6 md:right-14 top-1/2 -translate-y-1/2 z-20 w-11 h-11 md:w-13 md:h-13 rounded-full flex items-center justify-center border shadow-lg transition-transform hover:scale-110 active:scale-90" style="background-color: var(--bg-glass); border-color: var(--border-subtle); color: var(--text-main);" title="Rotate Right (360°)">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+      </button>
+
+    </div>
+
+    <!-- ==========================================================================
+         BOTTOM DRESS SELECTOR BAR (USER CLICKS DRESS TO PREVIEW ON 3D PERSON)
+         ========================================================================== -->
+    <div class="relative z-20 w-full max-w-6xl mx-auto mt-2">
+      
+      <div class="flex items-center justify-between mb-2 px-2">
+        <span class="text-[11px] font-black uppercase tracking-wider text-amber-500">
+          SELECT A DRESS BELOW TO PREVIEW ON 3D PERSON &bull; DRAG PERSON TO ROTATE 360°
+        </span>
+        <span id="active-dress-label" class="text-xs font-bold text-slate-500">
+          Wearing: <strong>320 GSM Ringer Tee</strong>
+        </span>
+      </div>
+
+      <!-- Horizontal Scrollable Dress Cards Carousel Strip with Left & Right Arrows -->
+      <div class="relative group/strip my-1">
+        <!-- Left Scroll Arrow -->
+        <button onclick="scrollDressStrip(-260)" class="absolute -left-3 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full flex items-center justify-center border shadow-md transition-transform hover:scale-110 active:scale-95 bg-white/90 dark:bg-black/90 text-black dark:text-white" style="border-color: var(--border-subtle);" title="Scroll Left">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+
+        <div class="flex items-center space-x-3.5 overflow-x-auto py-2 px-1 select-none" id="dress-selector-strip">
         
-        <!-- Left Card 1 -->
-        <div id="card-orbit-0" onclick="dressModel(0)" class="orbit-card p-3 flex items-center gap-3 is-active">
-          <div class="w-12 h-14 rounded-xl bg-white/40 dark:bg-black/30 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=200&q=80" alt="Garment" class="w-full h-full object-contain">
+        <!-- Dress 0: Ringer Tee -->
+        <div onclick="selectDress(0)" class="dress-strip-card is-active p-3 w-40 flex flex-col justify-between" id="dress-card-0">
+          <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
+            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=200&q=80" alt="Ringer Tee" class="w-full h-full object-contain">
           </div>
-          <div class="flex-grow">
-            <div class="font-ui text-[11px] font-bold line-clamp-1" style="color: var(--text-main);">Ringer Tee</div>
+          <div>
+            <div class="font-ui text-xs font-bold line-clamp-1">Ringer Tee (320 GSM)</div>
             <div class="text-xs font-black text-amber-500 mt-0.5">₹1,299</div>
           </div>
         </div>
 
-        <!-- Left Card 2 -->
-        <div id="card-orbit-1" onclick="dressModel(1)" class="orbit-card p-3 flex items-center gap-3">
-          <div class="w-12 h-14 rounded-xl bg-white/40 dark:bg-black/30 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=200&q=80" alt="Garment" class="w-full h-full object-contain">
+        <!-- Dress 1: Oxford Shirt -->
+        <div onclick="selectDress(1)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-1">
+          <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
+            <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=200&q=80" alt="Linen Oxford" class="w-full h-full object-contain">
           </div>
-          <div class="flex-grow">
-            <div class="font-ui text-[11px] font-bold line-clamp-1" style="color: var(--text-main);">Linen Shirt</div>
+          <div>
+            <div class="font-ui text-xs font-bold line-clamp-1">Linen Oxford Shirt</div>
             <div class="text-xs font-black text-amber-500 mt-0.5">₹1,899</div>
           </div>
         </div>
 
-        <!-- Left Card 3 -->
-        <div id="card-orbit-2" onclick="dressModel(2)" class="orbit-card p-3 flex items-center gap-3">
-          <div class="w-12 h-14 rounded-xl bg-white/40 dark:bg-black/30 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=200&q=80" alt="Garment" class="w-full h-full object-contain">
+        <!-- Dress 2: Loop Hoodie -->
+        <div onclick="selectDress(2)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-2">
+          <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
+            <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=200&q=80" alt="Loop Hoodie" class="w-full h-full object-contain">
           </div>
-          <div class="flex-grow">
-            <div class="font-ui text-[11px] font-bold line-clamp-1" style="color: var(--text-main);">Loop Hoodie</div>
+          <div>
+            <div class="font-ui text-xs font-bold line-clamp-1">Loopback Heavy Hoodie</div>
             <div class="text-xs font-black text-amber-500 mt-0.5">₹2,499</div>
           </div>
         </div>
 
-      </div>
-
-      <!-- STAGE NAVIGATION ARROW: PREVIOUS DRESS (LEFT) -->
-      <button id="stage-arrow-left" onclick="changeDress(-1)" class="stage-arrow-btn absolute left-4 sm:left-24 md:left-32 lg:left-64 top-1/2 -translate-y-1/2 z-30 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center group" title="Previous Dress (Left Arrow)" aria-label="Previous Dress">
-        <svg class="w-6 h-6 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
-        </svg>
-      </button>
-
-      <!-- Live 3D Model Display (Center Stage) -->
-      <div class="relative z-10 w-[280px] sm:w-[360px] md:w-[420px] h-[510px] md:h-[580px] flex items-end justify-center pointer-events-none">
-        <div id="model-container" class="model-viewport w-full h-full flex items-end justify-center relative">
-          <!-- 3D Standing Fashion Model Image -->
-          <img id="active-model-image" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=800&q=85" alt="Jhonty Hub 3D Virtual Model" class="h-full w-auto object-contain filter drop-shadow-[0_20px_25px_rgba(0,0,0,0.35)] select-none">
-        </div>
-      </div>
-
-      <!-- STAGE NAVIGATION ARROW: NEXT DRESS (RIGHT) -->
-      <button id="stage-arrow-right" onclick="changeDress(1)" class="stage-arrow-btn absolute right-4 sm:right-24 md:right-32 lg:right-64 top-1/2 -translate-y-1/2 z-30 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center group" title="Next Dress (Right Arrow)" aria-label="Next Dress">
-        <svg class="w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
-        </svg>
-      </button>
-
-      <!-- Right Orbiting Product Cards (Float in 3D) -->
-      <div class="absolute right-2 md:right-6 lg:right-10 top-1/2 -translate-y-1/2 z-20 flex flex-col gap-5 w-40 sm:w-48 pointer-events-auto hidden sm:flex">
-        
-        <!-- Right Card 1 -->
-        <div id="card-orbit-3" onclick="dressModel(3)" class="orbit-card p-3 flex items-center gap-3">
-          <div class="w-12 h-14 rounded-xl bg-white/40 dark:bg-black/30 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=200&q=80" alt="Garment" class="w-full h-full object-contain">
+        <!-- Dress 3: Breton Striped -->
+        <div onclick="selectDress(3)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-3">
+          <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
+            <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=200&q=80" alt="Breton" class="w-full h-full object-contain">
           </div>
-          <div class="flex-grow">
-            <div class="font-ui text-[11px] font-bold line-clamp-1" style="color: var(--text-main);">Breton Striped</div>
+          <div>
+            <div class="font-ui text-xs font-bold line-clamp-1">Breton Striped Long Sleeve</div>
             <div class="text-xs font-black text-amber-500 mt-0.5">₹1,499</div>
           </div>
         </div>
 
-        <!-- Right Card 2 -->
-        <div id="card-orbit-4" onclick="dressModel(4)" class="orbit-card p-3 flex items-center gap-3">
-          <div class="w-12 h-14 rounded-xl bg-white/40 dark:bg-black/30 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=200&q=80" alt="Garment" class="w-full h-full object-contain">
+        <!-- Dress 4: Canvas Chore Jacket -->
+        <div onclick="selectDress(4)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-4">
+          <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
+            <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=200&q=80" alt="Chore Jacket" class="w-full h-full object-contain">
           </div>
-          <div class="flex-grow">
-            <div class="font-ui text-[11px] font-bold line-clamp-1" style="color: var(--text-main);">Chore Jacket</div>
+          <div>
+            <div class="font-ui text-xs font-bold line-clamp-1">Canvas Chore Jacket</div>
             <div class="text-xs font-black text-amber-500 mt-0.5">₹2,699</div>
           </div>
         </div>
 
-        <!-- Right Card 3 -->
-        <div id="card-orbit-5" onclick="dressModel(5)" class="orbit-card p-3 flex items-center gap-3">
-          <div class="w-12 h-14 rounded-xl bg-white/40 dark:bg-black/30 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=200&q=80" alt="Garment" class="w-full h-full object-contain">
+        <!-- Dress 5: Nylon Minimalist Bomber -->
+        <div onclick="selectDress(5)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-5">
+          <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
+            <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=200&q=80" alt="Nylon Bomber" class="w-full h-full object-contain">
           </div>
-          <div class="flex-grow">
-            <div class="font-ui text-[11px] font-bold line-clamp-1" style="color: var(--text-main);">Nylon Bomber</div>
+          <div>
+            <div class="font-ui text-xs font-bold line-clamp-1">Nylon Minimalist Bomber</div>
             <div class="text-xs font-black text-amber-500 mt-0.5">₹2,999</div>
           </div>
         </div>
 
-      </div>
-
-    </div>
-
-    <!-- Bottom Floating Garment HUD Pill Controller (With Arrow Stepper) -->
-    <div class="relative z-20 mt-4 showroom-hud px-5 py-3 flex flex-wrap items-center justify-between gap-4 sm:gap-6 max-w-xl w-full">
-      
-      <!-- Current Garment Thumbnail & Details with Stepper Arrows -->
-      <div class="flex items-center gap-3">
-        
-        <!-- Quick Arrow Stepper -->
-        <div class="flex items-center space-x-1 border rounded-full px-2 py-1" style="border-color: var(--border-subtle); background: var(--bg-surface);">
-          <button onclick="changeDress(-1)" class="w-5 h-5 rounded-full flex items-center justify-center hover:bg-black/10 dark:hover:bg-white/10 text-xs font-bold transition" title="Previous Dress">&larr;</button>
-          <span id="hud-dress-counter" class="text-[10px] font-black px-1 text-amber-500">1 / 6</span>
-          <button onclick="changeDress(1)" class="w-5 h-5 rounded-full flex items-center justify-center hover:bg-black/10 dark:hover:bg-white/10 text-xs font-bold transition" title="Next Dress">&rarr;</button>
+        <!-- Dress 6: Tokyo Cyber Graphic Tee -->
+        <div onclick="selectDress(6)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-6">
+          <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
+            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=200&q=80" alt="Tokyo Cyber" class="w-full h-full object-contain">
+          </div>
+          <div>
+            <div class="font-ui text-xs font-bold line-clamp-1">Tokyo Cyber 320 GSM Tee</div>
+            <div class="text-xs font-black text-amber-500 mt-0.5">₹1,299</div>
+          </div>
         </div>
 
-        <div class="w-10 h-10 rounded-xl bg-white/60 dark:bg-black/40 p-1 flex items-center justify-center overflow-hidden border flex-shrink-0" style="border-color: var(--border-subtle);">
-          <img id="hud-active-thumb" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=150&q=80" alt="Garment" class="w-full h-full object-contain">
+        <!-- Dress 7: Korean Liquid Satin Shirt -->
+        <div onclick="selectDress(7)" class="dress-strip-card p-3 w-40 flex flex-col justify-between" id="dress-card-7">
+          <div class="w-full h-24 rounded-xl bg-black/5 dark:bg-white/5 p-1 flex items-center justify-center overflow-hidden mb-2">
+            <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=200&q=80" alt="Korean Satin" class="w-full h-full object-contain">
+          </div>
+          <div>
+            <div class="font-ui text-xs font-bold line-clamp-1">Korean Liquid Satin Shirt</div>
+            <div class="text-xs font-black text-amber-500 mt-0.5">₹1,899</div>
+          </div>
         </div>
-        <div>
-          <div id="hud-active-title" class="font-ui text-xs font-black line-clamp-1" style="color: var(--text-main);">320 GSM Ringer Tee</div>
-          <div id="hud-active-price" class="text-xs font-black text-amber-500">₹1,299</div>
-        </div>
+
+        <!-- Right Scroll Arrow -->
+        <button onclick="scrollDressStrip(260)" class="absolute -right-3 top-1/2 -translate-y-1/2 z-30 w-8 h-8 rounded-full flex items-center justify-center border shadow-md transition-transform hover:scale-110 active:scale-95 bg-white/90 dark:bg-black/90 text-black dark:text-white" style="border-color: var(--border-subtle);" title="Scroll Right">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+        </button>
       </div>
 
-      <!-- Color Swatch Dots -->
-      <div class="flex items-center space-x-2" id="hud-color-swatches">
-        <button onclick="selectColor(0)" class="w-5 h-5 rounded-full bg-[#f8fafc] border-2 border-amber-500 shadow-sm focus:outline-none"></button>
-        <button onclick="selectColor(1)" class="w-5 h-5 rounded-full bg-[#1e293b] border border-black/20 shadow-sm focus:outline-none"></button>
-        <button onclick="selectColor(2)" class="w-5 h-5 rounded-full bg-[#475569] border border-black/20 shadow-sm focus:outline-none"></button>
-        <button onclick="selectColor(3)" class="w-5 h-5 rounded-full bg-[#c47c5d] border border-black/20 shadow-sm focus:outline-none"></button>
+      <!-- Action HUD: Add Selected Dress to Bag -->
+      <div class="flex items-center justify-between p-3.5 mt-2 rounded-2xl border" style="background-color: var(--bg-glass); border-color: var(--border-subtle);">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-amber-400 text-black font-black flex items-center justify-center text-xs">✓</div>
+          <div>
+            <span class="text-[11px] text-slate-500">Selected Dress:</span>
+            <span id="hud-dress-title" class="text-xs font-black ml-1">320 GSM Ringer Tee</span>
+            <span id="hud-dress-price" class="text-xs font-black text-amber-500 ml-2">₹1,299</span>
+          </div>
+        </div>
+        <button onclick="addActiveDressToBag()" class="px-6 py-2.5 rounded-full bg-[#14171f] text-white dark:bg-white dark:text-black font-ui text-xs font-black uppercase tracking-wider hover:opacity-90 transition shadow-md">
+          + Add to Bag
+        </button>
       </div>
-
-      <!-- Add to Bag CTA Button -->
-      <button onclick="addCurrentItemToBag()" class="px-6 py-2.5 rounded-full bg-[#14171f] text-white dark:bg-white dark:text-black font-ui text-xs font-black uppercase tracking-wider hover:opacity-90 transition flex items-center gap-2 shadow-md">
-        <span>+ Add to Bag</span>
-      </button>
 
     </div>
 
   </main>
 
   <!-- ==========================================================================
-       "YOUR BAG" SLIDE-OUT CART DRAWER (MATCHES VIDEO EXACTLY 00:09)
+       "YOUR BAG" SLIDE-OUT CART DRAWER
        ========================================================================== -->
   <div id="bag-drawer-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300" onclick="toggleBag(false)"></div>
   
   <div id="bag-drawer" class="fixed top-0 right-0 bottom-0 w-full max-w-md border-l z-50 transform translate-x-full transition-transform duration-300 flex flex-col p-6 shadow-2xl" style="background-color: var(--bg-surface); border-color: var(--border-subtle); color: var(--text-main);">
     
-    <!-- Drawer Header -->
     <div class="flex items-center justify-between pb-4 border-b" style="border-color: var(--border-subtle);">
       <h3 class="font-brand text-lg font-bold tracking-wider">YOUR BAG</h3>
       <button onclick="toggleBag(false)" class="text-2xl text-slate-400 hover:text-black dark:hover:text-white transition">&times;</button>
@@ -441,17 +466,15 @@
 
     <!-- Bag Items List -->
     <div id="bag-items-list" class="flex-grow overflow-y-auto space-y-4 pr-1">
-      
-      <!-- Primary Item in Bag -->
       <div class="flex gap-4 p-4 rounded-2xl border" style="background-color: var(--bg-canvas); border-color: var(--border-subtle);">
-        <img id="bag-primary-img" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=200&q=80" alt="Item" class="w-18 h-22 object-cover rounded-xl bg-black/10">
+        <img id="bag-item-img" src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=200&q=80" alt="Item" class="w-18 h-22 object-cover rounded-xl bg-black/10">
         <div class="flex-grow flex flex-col justify-between">
           <div>
             <div class="flex justify-between items-start">
-              <h4 id="bag-primary-title" class="font-ui text-sm font-bold">320 GSM Ringer Tee</h4>
-              <button onclick="removeBagItem(this)" class="text-slate-400 hover:text-rose-500 text-sm">&times;</button>
+              <h4 id="bag-item-title" class="font-ui text-sm font-bold">320 GSM Ringer Tee</h4>
+              <button onclick="this.closest('.flex').remove()" class="text-slate-400 hover:text-rose-500 text-sm">&times;</button>
             </div>
-            <div class="text-[11px] text-slate-500 mt-0.5">Size: L &bull; Color: Ivory/Navy</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">Size: L &bull; Custom Fit</div>
           </div>
           <div class="flex items-center justify-between mt-3">
             <div class="flex items-center border rounded-lg text-xs" style="border-color: var(--border-subtle); background-color: var(--bg-surface);">
@@ -459,27 +482,9 @@
               <span class="px-2 font-bold">1</span>
               <button class="px-2.5 py-1 text-slate-500 hover:text-black">&plus;</button>
             </div>
-            <div id="bag-primary-price" class="font-ui font-black text-sm text-amber-500">₹1,299</div>
+            <div id="bag-item-price" class="font-ui font-black text-sm text-amber-500">₹1,299</div>
           </div>
         </div>
-      </div>
-
-    </div>
-
-    <!-- "Just for You" Cross-Sell Upsell Card (From Video 00:09) -->
-    <div class="pt-4 border-t my-4" style="border-color: var(--border-subtle);">
-      <div class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">JUST FOR YOU</div>
-      <div class="flex items-center justify-between p-3 rounded-xl border" style="background-color: var(--bg-canvas); border-color: var(--border-subtle);">
-        <div class="flex items-center gap-3">
-          <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=120&q=80" alt="Breton" class="w-12 h-14 object-cover rounded-lg">
-          <div>
-            <div class="font-ui text-xs font-bold">Breton Long Sleeve</div>
-            <div class="text-xs font-black text-amber-500">₹1,499</div>
-          </div>
-        </div>
-        <button onclick="addCrossSell()" class="px-3 py-1.5 rounded-full bg-[#14171f] text-white dark:bg-white dark:text-black text-[10px] font-black uppercase tracking-wider hover:opacity-90 transition">
-          + ADD
-        </button>
       </div>
     </div>
 
@@ -502,195 +507,594 @@
   </div>
 
   <!-- Hyderabad Stores & Sitemaps Strip -->
-  <footer id="stores" class="border-t py-12 px-6 transition-colors" style="background-color: var(--bg-surface); border-color: var(--border-subtle);">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-      
-      <!-- Col 1: Brand Info -->
-      <div class="space-y-3">
-        <div class="font-brand text-lg font-black tracking-widest uppercase">JHONTY HUB</div>
-        <p class="text-xs text-slate-500 leading-relaxed">
-          Hyderabad's prime destination for heavyweight oversized tees, Korean structured overshirts, baggy Japanese denim, and chunky street footwear.
-        </p>
-        <div class="text-xs font-bold text-amber-500">WhatsApp: +91 91606 63888</div>
-      </div>
-
-      <!-- Col 2: Hyderabad Flagships -->
+  <footer id="stores" class="border-t py-10 px-6 transition-colors" style="background-color: var(--bg-surface); border-color: var(--border-subtle);">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-xs text-slate-500">
       <div>
-        <h5 class="font-ui text-xs font-bold uppercase tracking-widest mb-3">HYDERABAD STORES</h5>
-        <ul class="space-y-2 text-xs text-slate-500">
-          <li><strong>Kukatpally Flagship:</strong> Venkata Ramana Colony</li>
-          <li><strong>Madhapur Studio:</strong> Hitech City Main Road</li>
-          <li><strong>LB Nagar Branch:</strong> B.N. Reddy Nagar</li>
-        </ul>
+        <div class="font-brand text-sm font-black text-black dark:text-white uppercase mb-2">JHONTY HUB &bull; HYDERABAD</div>
+        <p>Visit our physical stores in Kukatpally (Venkata Ramana Colony), Madhapur (Hitech City Road), and LB Nagar.</p>
+        <p class="mt-2 text-amber-500 font-bold">📞 WhatsApp Concierge: +91 91606 63888</p>
       </div>
-
-      <!-- Col 3: Collections -->
       <div>
-        <h5 class="font-ui text-xs font-bold uppercase tracking-widest mb-3">COLLECTIONS</h5>
-        <ul class="space-y-2 text-xs text-slate-500">
-          <li><a href="#showroom" onclick="dressModel(0)" class="hover:text-black dark:hover:text-white">Heavyweight 320 GSM Tees</a></li>
-          <li><a href="#showroom" onclick="dressModel(1)" class="hover:text-black dark:hover:text-white">Linen Oxford Shirts</a></li>
-          <li><a href="#showroom" onclick="dressModel(4)" class="hover:text-black dark:hover:text-white">Canvas Chore Jackets</a></li>
-          <li><a href="#showroom" onclick="dressModel(5)" class="hover:text-black dark:hover:text-white">Nylon Minimalist Bombers</a></li>
-        </ul>
+        <div class="font-ui text-xs font-bold text-black dark:text-white uppercase mb-2">360° VIRTUAL SHOWROOM</div>
+        <p>Rotate the model 360 degrees to inspect tailored fits, fabric drapes, back prints, and collar contours before purchasing.</p>
       </div>
-
-      <!-- Col 4: Services -->
       <div>
-        <h5 class="font-ui text-xs font-bold uppercase tracking-widest mb-3">CLIENT PRIVILEGES</h5>
-        <ul class="space-y-2 text-xs text-slate-500">
-          <li>⚡ Same-Day Hyderabad Express Dispatch</li>
-          <li>🔄 7-Day In-Store Size Exchange</li>
-          <li>✨ 100% Quality Checked Fabrics</li>
-          <li>🚚 Free Shipping on Orders Over ₹1,999</li>
-        </ul>
-      </div>
-
-    </div>
-
-    <!-- Copyright -->
-    <div class="max-w-7xl mx-auto pt-8 mt-8 border-t flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400 gap-4" style="border-color: var(--border-subtle);">
-      <div>&copy; 2026 JHONTY HUB (JH) APPAREL &bull; Hyderabad, India &bull; Ready for Shopify OS 2.0</div>
-      <div class="flex items-center space-x-3">
-        <span>PhonePe</span>
-        <span>&bull;</span>
-        <span>Google Pay</span>
-        <span>&bull;</span>
-        <span>UPI / Cards / COD</span>
+        <div class="font-ui text-xs font-bold text-black dark:text-white uppercase mb-2">CLIENT GUARANTEE</div>
+        <p>Same-Day Hyderabad Dispatch &bull; 7-Day Easy Size Replacement &bull; 100% Quality Checked 280-320 GSM Cotton</p>
       </div>
     </div>
   </footer>
 
   <!-- ==========================================================================
-       INTERACTIVE WARDROBE DATA & SCRIPT ENGINE
+       THREE.JS REAL-TIME 3D CHARACTER ENGINE WITH 360° TURNTABLE & DRESS MAPPING
        ========================================================================== -->
   <script>
-    // 6 Signature Dresses from the Video
-    const dresses = [
+    // 8 Signature Dresses for 3D Model
+    const dressCatalog = [
       {
         id: 'ringer-tee',
         name: '320 GSM Ringer Tee',
         price: 1299,
-        thumb: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=250&q=80',
-        modelImg: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=800&q=85',
-        swatches: ['#f8fafc', '#1e293b', '#475569', '#c47c5d']
+        category: 'Tees',
+        thumb: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=200&q=80',
+        torsoColor: 0xf5f3ea, // Vintage ivory
+        collarColor: 0x1e293b, // Contrast navy rib
+        sleeveType: 'short',
+        sleeveColor: 0xf5f3ea,
+        sleeveCuffColor: 0x1e293b,
+        hasHood: false,
+        hasJacket: false,
+        backGraphic: false
       },
       {
-        id: 'linen-shirt',
+        id: 'oxford-shirt',
         name: 'Linen Classic Oxford Shirt',
         price: 1899,
-        thumb: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=250&q=80',
-        modelImg: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=85',
-        swatches: ['#93c5fd', '#f8fafc', '#fed7aa', '#1e293b']
+        category: 'Shirts',
+        thumb: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=200&q=80',
+        torsoColor: 0x93c5fd, // Sky blue chambray
+        collarColor: 0x60a5fa,
+        sleeveType: 'long',
+        sleeveColor: 0x93c5fd,
+        hasHood: false,
+        hasJacket: false,
+        backGraphic: false
       },
       {
         id: 'loop-hoodie',
         name: 'Loopback Heavy Streetwear Hoodie',
         price: 2499,
-        thumb: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=250&q=80',
-        modelImg: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=85',
-        swatches: ['#94a3b8', '#0f172a', '#475569', '#c47c5d']
+        category: 'Hoodies',
+        thumb: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=200&q=80',
+        torsoColor: 0x94a3b8, // Heather grey
+        collarColor: 0x64748b,
+        sleeveType: 'long',
+        sleeveColor: 0x94a3b8,
+        hasHood: true,
+        hoodColor: 0x94a3b8,
+        hasJacket: false,
+        backGraphic: false
       },
       {
         id: 'breton-striped',
         name: 'Breton Striped Long Sleeve',
         price: 1499,
-        thumb: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=250&q=80',
-        modelImg: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=800&q=85',
-        swatches: ['#1e293b', '#ffffff', '#b91c1c', '#0f766e']
+        category: 'Tees',
+        thumb: 'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=200&q=80',
+        torsoColor: 0x1e293b, // Striped canvas
+        collarColor: 0x1e293b,
+        sleeveType: 'long',
+        sleeveColor: 0x1e293b,
+        hasHood: false,
+        hasJacket: false,
+        isStriped: true,
+        backGraphic: false
       },
       {
         id: 'chore-jacket',
         name: 'Canvas Workwear Chore Jacket',
         price: 2699,
-        thumb: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=250&q=80',
-        modelImg: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=85',
-        swatches: ['#4d533c', '#78350f', '#0f172a', '#d4af37']
+        category: 'Jackets',
+        thumb: 'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=200&q=80',
+        torsoColor: 0x4d533c, // Earthy olive canvas
+        collarColor: 0x3d432e,
+        sleeveType: 'long',
+        sleeveColor: 0x4d533c,
+        hasHood: false,
+        hasJacket: true,
+        jacketColor: 0x4d533c,
+        backGraphic: false
       },
       {
         id: 'nylon-bomber',
         name: 'Nylon Minimalist Bomber Jacket',
         price: 2999,
-        thumb: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=250&q=80',
-        modelImg: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=85',
-        swatches: ['#1e293b', '#0f172a', '#3f3f46', '#713f12']
+        category: 'Jackets',
+        thumb: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=200&q=80',
+        torsoColor: 0x172554, // Midnight navy satin
+        collarColor: 0x0f172a,
+        sleeveType: 'long',
+        sleeveColor: 0x172554,
+        hasHood: false,
+        hasJacket: true,
+        jacketColor: 0x172554,
+        backGraphic: false
+      },
+      {
+        id: 'tokyo-cyber',
+        name: 'Tokyo Cyber 320 GSM Tee',
+        price: 1299,
+        category: 'Tees',
+        thumb: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=200&q=80',
+        torsoColor: 0x090d16, // Pitch black
+        collarColor: 0x000000,
+        sleeveType: 'short',
+        sleeveColor: 0x090d16,
+        hasHood: false,
+        hasJacket: false,
+        backGraphic: true // Shows cyber graphic on back when turned 180°!
+      },
+      {
+        id: 'korean-satin',
+        name: 'Korean Liquid Satin Shirt',
+        price: 1899,
+        category: 'Shirts',
+        thumb: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=200&q=80',
+        torsoColor: 0xd4af37, // Liquid champagne gold
+        collarColor: 0xb8860b,
+        sleeveType: 'long',
+        sleeveColor: 0xd4af37,
+        hasHood: false,
+        hasJacket: false,
+        backGraphic: false
       }
     ];
 
     let currentDressIndex = 0;
+    let scene, camera, renderer, characterGroup;
+    let isDragging = false;
+    let prevMouseX = 0;
+    let targetRotationY = 0;
+    let autoRotate = true;
 
-    // Change Dress via Arrow Click (Left = -1, Right = +1)
-    function changeDress(direction) {
-      currentDressIndex = (currentDressIndex + direction + dresses.length) % dresses.length;
-      dressModel(currentDressIndex);
+    // Garment Meshes on Character
+    let torsoMesh, collarMesh, lSleeveMesh, rSleeveMesh, lForearmMesh, rForearmMesh;
+    let hoodMesh, jacketPocketsMesh, backGraphicMesh;
+
+    function init3DShowroom() {
+      const container = document.getElementById('three-canvas-container');
+      const width = container.clientWidth || 800;
+      const height = container.clientHeight || 560;
+
+      // 1. Scene
+      scene = new THREE.Scene();
+
+      // 2. Camera
+      camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 100);
+      camera.position.set(0, 1.35, 4.2);
+
+      // 3. Renderer with High-End Lighting & Shadows
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.15;
+      container.appendChild(renderer.domElement);
+
+      // 4. Lighting Rig
+      const ambientLight = new THREE.AmbientLight(0xfff7ed, 0.7);
+      scene.add(ambientLight);
+
+      // Warm directional sunlight (casting soft shadow)
+      const sunLight = new THREE.DirectionalLight(0xffedd5, 1.4);
+      sunLight.position.set(3, 5, 4);
+      sunLight.castShadow = true;
+      sunLight.shadow.mapSize.width = 1024;
+      sunLight.shadow.mapSize.height = 1024;
+      sunLight.shadow.bias = -0.001;
+      scene.add(sunLight);
+
+      // Soft blue/amber rim light from back-left
+      const rimLight = new THREE.DirectionalLight(0xd4af37, 0.6);
+      rimLight.position.set(-3, 3, -3);
+      scene.add(rimLight);
+
+      // 5. Floor Pedestal (Receives 3D shadow)
+      const pedestalGeo = new THREE.CylinderGeometry(1.2, 1.25, 0.08, 48);
+      const pedestalMat = new THREE.MeshStandardMaterial({
+        color: 0xd6c7b2,
+        roughness: 0.6,
+        metalness: 0.1
+      });
+      const pedestal = new THREE.Mesh(pedestalGeo, pedestalMat);
+      pedestal.position.y = -1.04;
+      pedestal.receiveShadow = true;
+      scene.add(pedestal);
+
+      // 6. Build the 3D Person (Character Group)
+      build3DCharacter();
+
+      // 7. Interaction Listeners (Drag to rotate 360°)
+      setup3DRotationEvents(container);
+
+      // 8. Start Animation Loop
+      animate3D();
     }
 
-    // Dress the 3D Model with Smooth Animation
-    function dressModel(index) {
+    // Build Realistic 3D Humanoid Character in Three.js
+    function build3DCharacter() {
+      characterGroup = new THREE.Group();
+      characterGroup.position.y = -1.0;
+      scene.add(characterGroup);
+
+      const skinMat = new THREE.MeshStandardMaterial({
+        color: 0xdfab92,
+        roughness: 0.65,
+        metalness: 0.05
+      });
+
+      const hairMat = new THREE.MeshStandardMaterial({
+        color: 0x241a15,
+        roughness: 0.8
+      });
+
+      const pantsMat = new THREE.MeshStandardMaterial({
+        color: 0x222630, // Charcoal tailored trousers
+        roughness: 0.75
+      });
+
+      const shoeMat = new THREE.MeshStandardMaterial({
+        color: 0x0f172a,
+        roughness: 0.4
+      });
+
+      const soleMat = new THREE.MeshStandardMaterial({
+        color: 0xf8fafc,
+        roughness: 0.2
+      });
+
+      // --- HEAD & NECK ---
+      const neckGeo = new THREE.CylinderGeometry(0.09, 0.1, 0.18, 16);
+      const neck = new THREE.Mesh(neckGeo, skinMat);
+      neck.position.y = 1.95;
+      characterGroup.add(neck);
+
+      const headGeo = new THREE.SphereGeometry(0.16, 24, 24);
+      headGeo.scale(0.9, 1.15, 0.95);
+      const head = new THREE.Mesh(headGeo, skinMat);
+      head.position.y = 2.15;
+      head.castShadow = true;
+      characterGroup.add(head);
+
+      // Styled Hair
+      const hairGeo = new THREE.SphereGeometry(0.17, 20, 20);
+      hairGeo.scale(0.94, 0.85, 0.98);
+      const hair = new THREE.Mesh(hairGeo, hairMat);
+      hair.position.set(0, 2.22, -0.02);
+      characterGroup.add(hair);
+
+      // --- TORSO (GARMENT PREVIEW TARGET) ---
+      const torsoGeo = new THREE.CylinderGeometry(0.3, 0.23, 0.8, 24);
+      torsoGeo.scale(1.15, 1, 0.75);
+      const defaultGarmentMat = new THREE.MeshStandardMaterial({
+        color: 0xf5f3ea,
+        roughness: 0.5,
+        metalness: 0.05
+      });
+      torsoMesh = new THREE.Mesh(torsoGeo, defaultGarmentMat);
+      torsoMesh.position.y = 1.48;
+      torsoMesh.castShadow = true;
+      torsoMesh.receiveShadow = true;
+      characterGroup.add(torsoMesh);
+
+      // Contrast Collar Ring
+      const collarGeo = new THREE.TorusGeometry(0.13, 0.025, 16, 24);
+      collarGeo.rotateX(Math.PI / 2);
+      const collarMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.6 });
+      collarMesh = new THREE.Mesh(collarGeo, collarMat);
+      collarMesh.position.set(0, 1.88, 0);
+      characterGroup.add(collarMesh);
+
+      // 3D Hood (Shown when Hoodie is selected)
+      const hoodGeo = new THREE.SphereGeometry(0.22, 16, 16);
+      hoodGeo.scale(0.9, 0.8, 0.5);
+      const hoodMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.7 });
+      hoodMesh = new THREE.Mesh(hoodGeo, hoodMat);
+      hoodMesh.position.set(0, 1.85, -0.15);
+      hoodMesh.visible = false;
+      characterGroup.add(hoodMesh);
+
+      // Back Graphic Patch (Visible when character turns 180°)
+      const backGeo = new THREE.PlaneGeometry(0.32, 0.42);
+      const backMat = new THREE.MeshBasicMaterial({ color: 0xd946ef, side: THREE.DoubleSide });
+      backGraphicMesh = new THREE.Mesh(backGeo, backMat);
+      backGraphicMesh.position.set(0, 1.5, -0.19);
+      backGraphicMesh.rotation.y = Math.PI;
+      backGraphicMesh.visible = false;
+      characterGroup.add(backGraphicMesh);
+
+      // --- ARMS & SHOULDERS ---
+      // Left Upper Arm (Sleeve)
+      const armGeo = new THREE.CylinderGeometry(0.08, 0.075, 0.45, 16);
+      lSleeveMesh = new THREE.Mesh(armGeo, defaultGarmentMat);
+      lSleeveMesh.position.set(-0.38, 1.6, 0);
+      lSleeveMesh.rotation.z = 0.12;
+      lSleeveMesh.castShadow = true;
+      characterGroup.add(lSleeveMesh);
+
+      // Right Upper Arm (Sleeve)
+      rSleeveMesh = new THREE.Mesh(armGeo, defaultGarmentMat);
+      rSleeveMesh.position.set(0.38, 1.6, 0);
+      rSleeveMesh.rotation.z = -0.12;
+      rSleeveMesh.castShadow = true;
+      characterGroup.add(rSleeveMesh);
+
+      // Left Forearm / Hand
+      const forearmGeo = new THREE.CylinderGeometry(0.065, 0.055, 0.45, 16);
+      lForearmMesh = new THREE.Mesh(forearmGeo, skinMat);
+      lForearmMesh.position.set(-0.43, 1.18, 0);
+      lForearmMesh.castShadow = true;
+      characterGroup.add(lForearmMesh);
+
+      // Right Forearm / Hand
+      rForearmMesh = new THREE.Mesh(forearmGeo, skinMat);
+      rForearmMesh.position.set(0.43, 1.18, 0);
+      rForearmMesh.castShadow = true;
+      characterGroup.add(rForearmMesh);
+
+      // Hands
+      const handGeo = new THREE.SphereGeometry(0.065, 12, 12);
+      handGeo.scale(0.8, 1.1, 0.6);
+      const lHand = new THREE.Mesh(handGeo, skinMat);
+      lHand.position.set(-0.43, 0.92, 0);
+      characterGroup.add(lHand);
+
+      const rHand = new THREE.Mesh(handGeo, skinMat);
+      rHand.position.set(0.43, 0.92, 0);
+      characterGroup.add(rHand);
+
+      // --- LOWER BODY & PANTS ---
+      const hipGeo = new THREE.CylinderGeometry(0.24, 0.23, 0.22, 20);
+      hipGeo.scale(1.1, 1, 0.75);
+      const hip = new THREE.Mesh(hipGeo, pantsMat);
+      hip.position.y = 1.0;
+      hip.castShadow = true;
+      characterGroup.add(hip);
+
+      // Left Leg (Wide-leg tailored trouser)
+      const legGeo = new THREE.CylinderGeometry(0.115, 0.12, 0.88, 16);
+      const lLeg = new THREE.Mesh(legGeo, pantsMat);
+      lLeg.position.set(-0.16, 0.5, 0);
+      lLeg.castShadow = true;
+      characterGroup.add(lLeg);
+
+      // Right Leg
+      const rLeg = new THREE.Mesh(legGeo, pantsMat);
+      rLeg.position.set(0.16, 0.5, 0);
+      rLeg.castShadow = true;
+      characterGroup.add(rLeg);
+
+      // --- SNEAKERS & PLATFORM SOLES ---
+      const shoeGeo = new THREE.BoxGeometry(0.14, 0.1, 0.28);
+      const soleGeo = new THREE.BoxGeometry(0.15, 0.045, 0.3);
+
+      // Left Shoe
+      const lShoe = new THREE.Mesh(shoeGeo, shoeMat);
+      lShoe.position.set(-0.16, 0.08, 0.04);
+      lShoe.castShadow = true;
+      characterGroup.add(lShoe);
+      const lSole = new THREE.Mesh(soleGeo, soleMat);
+      lSole.position.set(-0.16, 0.025, 0.04);
+      characterGroup.add(lSole);
+
+      // Right Shoe
+      const rShoe = new THREE.Mesh(shoeGeo, shoeMat);
+      rShoe.position.set(0.16, 0.08, 0.04);
+      rShoe.castShadow = true;
+      characterGroup.add(rShoe);
+      const rSole = new THREE.Mesh(soleGeo, soleMat);
+      rSole.position.set(0.16, 0.025, 0.04);
+      characterGroup.add(rSole);
+    }
+
+    // Update 3D Character Outfit when a Dress is Selected at Bottom
+    function selectDress(index) {
       currentDressIndex = index;
-      const item = dresses[index];
-      const modelContainer = document.getElementById('model-container');
-      const modelImg = document.getElementById('active-model-image');
+      const dress = dressCatalog[index];
 
-      // Add fade out animation
-      modelContainer.classList.add('fade-out');
+      // Update Active Card in Bottom Strip
+      for (let i = 0; i < dressCatalog.length; i++) {
+        const card = document.getElementById('dress-card-' + i);
+        if (card) {
+          if (i === index) card.classList.add('is-active');
+          else card.classList.remove('is-active');
+        }
+      }
 
-      setTimeout(() => {
-        modelImg.src = item.modelImg;
-        modelContainer.classList.remove('fade-out');
-        modelContainer.classList.add('fade-in');
+      // Update Labels
+      document.getElementById('active-dress-label').innerHTML = `Wearing: <strong>${dress.name}</strong>`;
+      document.getElementById('hud-dress-title').textContent = dress.name;
+      document.getElementById('hud-dress-price').textContent = '₹' + dress.price.toLocaleString('en-IN');
 
-        // Update Bottom HUD Controller
-        document.getElementById('hud-active-thumb').src = item.thumb;
-        document.getElementById('hud-active-title').textContent = item.name;
-        document.getElementById('hud-active-price').textContent = '₹' + item.price.toLocaleString('en-IN');
-        document.getElementById('hud-dress-counter').textContent = (index + 1) + ' / ' + dresses.length;
-        document.getElementById('stage-dress-index').textContent = 'LOOK ' + String(index + 1).padStart(2, '0') + ' / ' + String(dresses.length).padStart(2, '0');
+      // Apply Outfit Materials & Colors to 3D Person
+      torsoMesh.material.color.setHex(dress.torsoColor);
+      collarMesh.material.color.setHex(dress.collarColor);
 
-        // Update Swatches
-        renderSwatches(item.swatches);
+      // Sleeves logic
+      if (dress.sleeveType === 'long') {
+        lSleeveMesh.scale.set(1, 1.8, 1);
+        lSleeveMesh.position.y = 1.45;
+        rSleeveMesh.scale.set(1, 1.8, 1);
+        rSleeveMesh.position.y = 1.45;
+        lSleeveMesh.material.color.setHex(dress.sleeveColor);
+        rSleeveMesh.material.color.setHex(dress.sleeveColor);
 
-        // Highlight Active Orbit Card
-        for (let i = 0; i < dresses.length; i++) {
-          const card = document.getElementById('card-orbit-' + i);
-          if (card) {
-            if (i === index) card.classList.add('is-active');
-            else card.classList.remove('is-active');
-          }
+        // Forearms covered by sleeve
+        lForearmMesh.material.color.setHex(dress.sleeveColor);
+        rForearmMesh.material.color.setHex(dress.sleeveColor);
+      } else {
+        lSleeveMesh.scale.set(1, 1, 1);
+        lSleeveMesh.position.y = 1.6;
+        rSleeveMesh.scale.set(1, 1, 1);
+        rSleeveMesh.position.y = 1.6;
+        lSleeveMesh.material.color.setHex(dress.sleeveColor);
+        rSleeveMesh.material.color.setHex(dress.sleeveColor);
+
+        // Forearms bare skin
+        lForearmMesh.material.color.setHex(0xdfab92);
+        rForearmMesh.material.color.setHex(0xdfab92);
+      }
+
+      // Hood visibility
+      hoodMesh.visible = !!dress.hasHood;
+      if (dress.hasHood) hoodMesh.material.color.setHex(dress.hoodColor);
+
+      // Back Graphic
+      backGraphicMesh.visible = !!dress.backGraphic;
+
+      // Gentle celebratory bounce
+      characterGroup.position.y = -0.96;
+      setTimeout(() => { characterGroup.position.y = -1.0; }, 180);
+    }
+
+    // 360° Mouse & Touch Drag Controls
+    function setup3DRotationEvents(container) {
+      // Mouse Drag
+      container.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        autoRotate = false;
+        document.getElementById('auto-spin-btn').textContent = '360° Spin: OFF';
+        document.getElementById('auto-spin-btn').className = 'px-3 py-1 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-800 dark:text-white font-bold transition';
+        prevMouseX = e.clientX;
+      });
+
+      window.addEventListener('mouseup', () => { isDragging = false; });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const deltaX = e.clientX - prevMouseX;
+        prevMouseX = e.clientX;
+        targetRotationY += deltaX * 0.012;
+      });
+
+      // Touch Drag for Mobile
+      container.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          isDragging = true;
+          autoRotate = false;
+          prevMouseX = e.touches[0].clientX;
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchend', () => { isDragging = false; });
+
+      window.addEventListener('touchmove', (e) => {
+        if (!isDragging || e.touches.length !== 1) return;
+        const deltaX = e.touches[0].clientX - prevMouseX;
+        prevMouseX = e.touches[0].clientX;
+        targetRotationY += deltaX * 0.014;
+      }, { passive: true });
+    }
+
+    // 360 Degree Presets & Controls
+    function setAngle(angleRad) {
+      autoRotate = false;
+      document.getElementById('auto-spin-btn').textContent = '360° Spin: OFF';
+      document.getElementById('auto-spin-btn').className = 'px-3 py-1 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-800 dark:text-white font-bold transition';
+      targetRotationY = angleRad;
+    }
+
+    function rotateStep(deltaRad) {
+      autoRotate = false;
+      document.getElementById('auto-spin-btn').textContent = '360° Spin: OFF';
+      targetRotationY += deltaRad;
+    }
+
+    function toggleAutoSpin() {
+      autoRotate = !autoRotate;
+      const btn = document.getElementById('auto-spin-btn');
+      if (autoRotate) {
+        btn.textContent = '360° Spin: ON';
+        btn.className = 'px-3 py-1 rounded-full bg-amber-400 text-black font-black hover:bg-amber-300 transition';
+      } else {
+        btn.textContent = '360° Spin: OFF';
+        btn.className = 'px-3 py-1 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-800 dark:text-white font-bold transition';
+      }
+    }
+
+    // Bottom Dress Strip Scroll & Drag Controls (No scrollbar visible)
+    function scrollDressStrip(delta) {
+      const el = document.getElementById('dress-selector-strip');
+      if (el) el.scrollBy({ left: delta, behavior: 'smooth' });
+    }
+
+    // Enable Smooth Drag-to-Scroll on Dress Strip for Mouse
+    (function initDressStripDrag() {
+      window.addEventListener('DOMContentLoaded', () => {
+        const strip = document.getElementById('dress-selector-strip');
+        if (!strip) return;
+        let isDown = false;
+        let startX, scrollLeft;
+
+        strip.addEventListener('mousedown', (e) => {
+          isDown = true;
+          strip.classList.add('cursor-grabbing');
+          startX = e.pageX - strip.offsetLeft;
+          scrollLeft = strip.scrollLeft;
+        });
+        window.addEventListener('mouseup', () => {
+          isDown = false;
+          strip.classList.remove('cursor-grabbing');
+        });
+        strip.addEventListener('mousemove', (e) => {
+          if (!isDown) return;
+          e.preventDefault();
+          const x = e.pageX - strip.offsetLeft;
+          const walk = (x - startX) * 1.5;
+          strip.scrollLeft = scrollLeft - walk;
+        });
+      });
+    })();
+
+    // Animation Render Loop
+    function animate3D() {
+      requestAnimationFrame(animate3D);
+
+      if (characterGroup) {
+        if (autoRotate) {
+          targetRotationY += 0.007; // Smooth 360° turntable spin
         }
 
-        setTimeout(() => modelContainer.classList.remove('fade-in'), 300);
-      }, 160);
+        // Smooth damping interpolation (lerp)
+        characterGroup.rotation.y += (targetRotationY - characterGroup.rotation.y) * 0.1;
+
+        // Normalize angle to [0, 360) degrees for display
+        let deg = (Math.round((characterGroup.rotation.y * 180 / Math.PI)) % 360 + 360) % 360;
+        let viewName = 'FRONT';
+        if (deg >= 45 && deg < 135) viewName = 'SIDE (LEFT)';
+        else if (deg >= 135 && deg < 225) viewName = 'BACK';
+        else if (deg >= 225 && deg < 315) viewName = 'SIDE (RIGHT)';
+
+        document.getElementById('rotation-angle-label').textContent = `${viewName} (${deg}°)`;
+      }
+
+      renderer.render(scene, camera);
     }
 
-    function renderSwatches(colors) {
-      const container = document.getElementById('hud-color-swatches');
-      container.innerHTML = '';
-      colors.forEach((color, i) => {
-        const btn = document.createElement('button');
-        btn.className = `w-5 h-5 rounded-full border shadow-sm transition-transform hover:scale-110 ${i === 0 ? 'ring-2 ring-amber-500 scale-110' : ''}`;
-        btn.style.backgroundColor = color;
-        btn.style.borderColor = 'rgba(0,0,0,0.2)';
-        btn.onclick = () => selectColor(i);
-        container.appendChild(btn);
-      });
-    }
-
-    function selectColor(i) {
-      const swatches = document.querySelectorAll('#hud-color-swatches button');
-      swatches.forEach((s, idx) => {
-        if (idx === i) s.classList.add('ring-2', 'ring-amber-500', 'scale-110');
-        else s.classList.remove('ring-2', 'ring-amber-500', 'scale-110');
-      });
-    }
-
-    // Keyboard Arrow Controls
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') changeDress(-1);
-      if (e.key === 'ArrowRight') changeDress(1);
+    // Resize Handler
+    window.addEventListener('resize', () => {
+      const container = document.getElementById('three-canvas-container');
+      if (!container || !renderer || !camera) return;
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
     });
 
-    // Bag Drawer Logic
+    // Cart Drawer Logic
     function toggleBag(open) {
       const drawer = document.getElementById('bag-drawer');
       const overlay = document.getElementById('bag-drawer-overlay');
@@ -707,27 +1111,13 @@
       }
     }
 
-    function addCurrentItemToBag() {
-      const item = dresses[currentDressIndex];
-      document.getElementById('bag-primary-title').textContent = item.name;
-      document.getElementById('bag-primary-price').textContent = '₹' + item.price.toLocaleString('en-IN');
-      document.getElementById('bag-primary-img').src = item.thumb;
+    function addActiveDressToBag() {
+      const item = dressCatalog[currentDressIndex];
+      document.getElementById('bag-item-title').textContent = item.name;
+      document.getElementById('bag-item-price').textContent = '₹' + item.price.toLocaleString('en-IN');
+      document.getElementById('bag-item-img').src = item.thumb;
       document.getElementById('bag-subtotal').textContent = '₹' + item.price.toLocaleString('en-IN');
-      
       toggleBag(true);
-    }
-
-    function addCrossSell() {
-      const subtotalEl = document.getElementById('bag-subtotal');
-      const current = parseInt(subtotalEl.textContent.replace(/[^0-9]/g, '')) || 1299;
-      subtotalEl.textContent = '₹' + (current + 1499).toLocaleString('en-IN');
-      alert('Breton Long Sleeve added to your bag!');
-    }
-
-    function removeBagItem(btn) {
-      btn.closest('.flex').remove();
-      document.getElementById('bag-subtotal').textContent = '₹0';
-      document.getElementById('header-bag-count').textContent = '0';
     }
 
     // Theme Switcher (Warm Travertine vs Dark Obsidian)
@@ -747,8 +1137,9 @@
       document.documentElement.setAttribute('data-theme', savedTheme);
       document.getElementById('themeEmoji').textContent = savedTheme === 'dark' ? '🌙' : '☀️';
       document.getElementById('themeText').textContent = savedTheme === 'dark' ? 'DARK' : 'WARM';
-      
-      dressModel(0);
+
+      init3DShowroom();
+      selectDress(0);
     });
   </script>
 </body>
